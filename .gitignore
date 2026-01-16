@@ -1,0 +1,19 @@
+# --- Termux / Python ---
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.pid
+
+# --- Snapshots / backups / noise ---
+_snap_*/
+backups_snapshots/
+*.bak*
+*.bak
+*.tar.gz
+
+# --- Local state (never commit secrets/balances) ---
+v70_app_data/
+storage/

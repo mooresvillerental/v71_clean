@@ -1,0 +1,1531 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<!-- === EZ_SW_KILL_V1 === -->
+<script>
+(async function(){
+  try {
+    // Run only once per browser profile (prevents infinite reload loops)
+    const key = "EZ_SW_KILL_V1_DONE";
+    if (localStorage.getItem(key) === "1") return;
+    localStorage.setItem(key, "1");
+
+    // Unregister any service workers
+    if ("serviceWorker" in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for (const r of regs) { try { await r.unregister(); } catch(e) {
+try{ window.__ezSetPillSafe("EZ: offline"); }catch(_e){}} }
+    }
+
+    // Clear CacheStorage if available
+    if ("caches" in window) {
+      const names = await caches.keys();
+      for (const n of names) { try { await caches.delete(n); } catch(e) {} }
+    }
+
+    // Hard reload with a fresh cache-buster
+    const u = new URL(location.href);
+    u.searchParams.set("v", "fresh_" + Date.now());
+    location.replace(u.toString());
+  } catch(e) {
+    // If anything fails, do nothing (safe)
+  }
+})();
+</script>
+<!-- === /EZ_SW_KILL_V1 === -->
+
+
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>EZTrade</title>
+<style>
+  
+  
+  
+/* === EZ_HIDE_PILL_TOAST_V1 === */
+#pill,#toast{display:none !important;}
+/* === /EZ_HIDE_PILL_TOAST_V1 === */
+.ezMini{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 12px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.05);
+    border-radius:16px;
+    user-select:none;
+    font-weight:900;
+    font-size:12px;
+    opacity:.92;
+    white-space:nowrap;
+  }
+  .ezMini input[type="checkbox"]{ width:18px; height:18px; }
+  .ezMini input[type="range"]{ width:110px; }
+
+.ezSoundWrap{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 12px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.05);
+    border-radius:16px;
+    user-select:none;
+    font-weight:900;
+    font-size:13px;
+    opacity:.92;
+  }
+  .ezSoundWrap input{ width:18px; height:18px; }
+
+:root{
+    /* Distinct EZTrade palette (not neon, not generic) */
+    --bg0:#050710;
+    --bg1:#0a1020;
+    --card:#0f1830cc;
+    --line:rgba(255,255,255,.10);
+    --text:#e8eef8;
+    --muted:rgba(232,238,248,.70);
+
+    --red:#b44a3a;     /* warned */
+    --yellow:#c7a63a;  /* transition */
+    --green:#2fa56f;   /* permission */
+    --btn:#2fa56f;     /* confirm always green */
+    --btnText:#07120d;
+
+    --shadow: 0 22px 70px rgba(0,0,0,.55);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(900px 520px at 18% 0%, rgba(47,165,111,.18), transparent 60%),
+      radial-gradient(900px 520px at 85% 10%, rgba(199,166,58,.14), transparent 58%),
+      linear-gradient(180deg,var(--bg0),var(--bg1));
+    min-
+    display:flex;
+    justify-content:center;
+    padding:18px 14px 40px;
+  }
+
+  .wrap{width:min(560px,100%);}
+
+  .top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:12px; padding:6px 2px 14px;
+  }
+  .brand{font-size:34px; font-weight:950; letter-spacing:.3px; line-height:1}
+  .tag{margin-top:8px; color:var(--muted); font-size:13px; max-width:30ch}
+  .pill{
+    display:flex; gap:10px; align-items:center;
+    padding:10px 14px; border-radius:999px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.05);
+    box-shadow: 0 10px 24px rgba(0,0,0,.22);
+    font-weight:900; letter-spacing:.12em; font-size:12px;
+    user-select:none;
+  }
+  .dot{width:10px;height:10px;border-radius:50%; background:#6b7280; box-shadow:0 0 0 4px rgba(107,114,128,.14);}
+  .dot.on{background:var(--green); box-shadow:0 0 0 4px rgba(47,165,111,.16);}
+
+  .card{
+    background:linear-gradient(180deg, rgba(15,24,48,.92), rgba(8,12,22,.90));
+    border:1px solid var(--line);
+    border-radius:24px;
+    box-shadow: var(--shadow);
+    overflow:hidden;
+  }
+  .inner{padding:16px;}
+
+  /* ---------- Gauge ---------- */
+  .gBox{
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,.08);
+    background: radial-gradient(700px 360px at 50% 0%, rgba(180,74,58,.10), transparent 60%),
+                linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+    padding:14px 12px 10px;
+    position:relative;
+  }
+
+  .svgWrap{display:flex; justify-content:center; padding-top:6px;}
+  svg{width:min(520px,100%); height:auto; display:block;}
+
+  .track{fill:none; stroke:rgba(255,255,255,.08); stroke-width:26; stroke-linecap:round;}
+  .arc{fill:none; stroke:url(#rg); stroke-width:22; stroke-linecap:round;}
+
+  .needleLine{stroke:rgba(255,255,255,.92); stroke-width:4; stroke-linecap:round; filter: drop-shadow(0 10px 16px rgba(0,0,0,.50));}
+  .hub{fill:rgba(255,255,255,.92);}
+
+  .labels{
+    display:flex; justify-content:space-between; padding:0 10px;
+    margin-top:-2px; font-weight:950; letter-spacing:.16em; text-transform:uppercase;
+    color:rgba(232,238,248,.66); font-size:12px;
+  }
+
+  /* ---------- Recommendation ---------- */
+  .rec{
+    margin-top:14px;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .recText{
+    font-weight:1000;
+    font-size:44px;
+    letter-spacing:.03em;
+    text-align:center;
+    line-height:1;
+  }
+  .recSub{
+    color:var(--muted);
+    font-size:13px;
+    text-align:center;
+    max-width:44ch;
+    line-height:1.3;
+  }
+
+  /* ---------- Controls ---------- */
+  .controls{
+    margin-top:14px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px solid rgba(255,255,255,.08);
+    padding-top:12px;
+  }
+  .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  select, button{
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.05);
+    color:rgba(232,238,248,.92);
+    border-radius:16px;
+    padding:12px 14px;
+    font-weight:900;
+    font-size:14px;
+    outline:none;
+  }
+
+  .confirm{
+    background: var(--btn);
+    color: var(--btnText);
+    border: 0;
+    padding: 14px 18px;
+    font-size:15px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    box-shadow: 0 16px 40px rgba(47,165,111,.20);
+  }
+  .confirm:disabled{
+    opacity:.35;
+    background:rgba(255,255,255,.10);
+    color:rgba(232,238,248,.70);
+    box-shadow:none;
+    cursor:not-allowed;
+  }
+
+  .meta{
+    margin-top:10px;
+    text-align:center;
+    color:rgba(232,238,248,.55);
+    font-size:12px;
+  }
+
+  .toast{
+    display:none;
+    margin-top:10px;
+    padding:10px 12px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(0,0,0,.25);
+    color:rgba(232,238,248,.88);
+    font-size:13px;
+    line-height:1.25;
+  }
+</style>
+</head>
+
+<body>
+
+<div id="ez-pill" style="
+position: fixed;
+top: 12px;
+right: 12px;
+padding: 6px 12px;
+border-radius: 999px;
+font-size: 12px;
+background: #222;
+color: #aaa;
+z-index: 9999;
+">
+EZ: loading…
+</div>
+
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="brand">EZTrade</div>
+      <div class="tag">Permission gauge + a single clear recommendation. No pressure.</div>
+    </div>
+    <div class="pill">
+      <span id="dot" class="dot"></span>
+      <span id="netText">Server offline</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="inner">
+
+      <div class="gBox">
+        <div class="svgWrap">
+          <!-- Flat-side-down half arc. Gauge = strength only. -->
+          <svg viewBox="0 0 560 360" aria-label="Permission gauge">
+            <defs>
+              <!-- Smooth permission gradient: Red → Yellow → Green -->
+              <linearGradient id="rg" x1="80" y1="0" x2="480" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#b44a3a"/>
+                <stop offset="52%" stop-color="#c7a63a"/>
+                <stop offset="100%" stop-color="#2fa56f"/>
+              </linearGradient>
+            </defs>
+
+            <!-- arc center (280,270), radius 200 -->
+            <path class="track" d="M 80 270 A 200 200 0 0 1 480 270"></path>
+            <path class="arc"   d="M 80 270 A 200 200 0 0 1 480 270"></path>
+
+            <!-- Needle pivot at bottom center -->
+            <line id="needle" class="needleLine" x1="280" y1="270" x2="280" y2="140"></line>
+            <circle class="hub" cx="280" cy="270" r="9"></circle>
+          </svg>
+        </div>
+
+        <div class="labels">
+          <div>TRADE</div>
+          <div>TRANSITION</div>
+          <div>TRADE</div>
+        </div>
+
+        <!-- Recommendation BELOW the gauge (locked) -->
+        <div class="rec">
+          <div id="recText" class="recText">NO TRADE</div>
+          <div id="recSub" class="recSub">Conditions are aligned. Action is permitted.</div>
+        </div>
+
+        <div class="controls">
+          <div class="row">
+<select id="roundSel" title="Rounding">
+              <option value="exact">Rounding: Exact</option>
+              <option value="1">$1</option>
+              <option value="10">$10</option>
+              <option value="100">$100</option>
+              <option value="1000">$1,000</option>
+              <option value="10000">$10,000</option>
+            </select>
+            <select id="demoSel" title="Demo mode">
+              <option value="auto">Mode: Auto</option>
+              <option value="notrade">Demo: No trade</option>
+              <option value="buy">Demo: Buy</option>
+              <option value="sell">Demo: Sell</option>
+            </select>
+
+            <label class="ezSoundWrap" title="Sound">
+              <input type="checkbox" id="ezSoundToggle" />
+              <span>🔊</span>
+            </label>
+          
+            <select id="ezAudioMode" title="Audio mode">
+              <option value="off">Audio: Off</option>
+              <option value="beep">Audio: Beep</option>
+              <option value="voice">Audio: Voice</option>
+              <option value="both">Audio: Both</option>
+            </select>
+
+            <select id="ezTonePack" title="Beep tone pack">
+              <option value="soft">Tones: Soft</option>
+              <option value="sharp">Tones: Sharp</option>
+              <option value="deep">Tones: Deep</option>
+            </select>
+
+            <select id="ezVoiceRate" title="Voice rate">
+              <option value="0.85">Voice: Slow</option>
+              <option value="1.0" selected>Voice: Normal</option>
+              <option value="1.15">Voice: Fast</option>
+            </select>
+
+            <label class="ezMini" title="Announce signals">
+              <input type="checkbox" id="ezAnnounceSignals" checked />
+              <span>Announce</span>
+            </label>
+
+            <label class="ezMini" title="Announce confirm">
+              <input type="checkbox" id="ezAnnounceConfirm" checked />
+              <span>Confirm</span>
+            </label>
+
+            <label class="ezMini" title="Beep volume">
+              <input type="range" id="ezBeepVol" min="0" max="100" value="35" />
+              <span>Vol</span>
+            </label>
+</div>
+
+          <button id="confirmBtn" class="confirm">CONFIRM</button>
+        </div>
+
+        <div id="toast" class="toast"></div>
+        <div class="meta" id="meta">—</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- === /EZ_DEDUPE_BALANCES_GUARD_V1 === -->
+
+<!-- EZTRADER_CONFIRM_WIRING_START -->
+<style>
+  #ez_status_pill {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 999999;
+    padding: 8px 10px;
+    border-radius: 999px;
+    font: 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    backdrop-filter: blur(8px);
+    max-width: 70vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+  }
+</style>
+
+<div id="ez_status_pill">EZ: loading…</div>
+
+<script>
+(function () {
+  const pill = document.getElementById("ez_status_pill");
+
+  // === EZ_AUDIO_V3 (beep + voice options) ===
+  let _ezAudioCtx = null;
+  let _ezLastSpokenBias = null;
+  let _ezLastSpokenUsd = null;
+
+  function audioMode(){
+    const sel = document.querySelector("#ezAudioMode");
+    return (sel ? String(sel.value).toLowerCase() : "off");
+  }
+  function tonesPack(){
+    const sel = document.querySelector("#ezTonePack");
+    return (sel ? String(sel.value).toLowerCase() : "soft");
+  }
+  function voiceRate(){
+    const sel = document.querySelector("#ezVoiceRate");
+    const v = sel ? Number(sel.value) : 1.0;
+    return (v > 0.5 && v < 2.0) ? v : 1.0;
+  }
+  function beepVol(){
+    const r = document.querySelector("#ezBeepVol");
+    const v = r ? Number(r.value) : 35;
+    // map 0..100 -> 0..0.12 gain
+    const g = Math.max(0, Math.min(100, v)) / 100 * 0.12;
+    return g;
+  }
+  function announceSignalsOn(){
+    const cb = document.querySelector("#ezAnnounceSignals");
+    return !!(cb && cb.checked);
+  }
+  function announceConfirmOn(){
+    const cb = document.querySelector("#ezAnnounceConfirm");
+    return !!(cb && cb.checked);
+  }
+
+  function ensureAudio(){
+    try{
+      if(!_ezAudioCtx) _ezAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if(_ezAudioCtx && _ezAudioCtx.state === "suspended"){
+        _ezAudioCtx.resume().catch(()=>{});
+      }
+    }catch(e){}
+  }
+
+  // Unlock audio on first user interaction (mobile requirement)
+  document.addEventListener("pointerdown", function(){
+    ensureAudio();
+  }, {once:true, capture:true});
+
+  function toneFreqs(kind){
+    const pack = tonesPack();
+    // return [successFreq, errorFreq]
+    if(pack === "sharp") return [880, 220];
+    if(pack === "deep")  return [520, 160];
+    return [740, 260]; // soft default
+  }
+
+  function beep(kind="success"){
+    const mode = audioMode();
+    if(mode !== "beep" && mode !== "both") return;
+    ensureAudio();
+    const ctx = _ezAudioCtx;
+    if(!ctx) return;
+
+    const [okF, errF] = toneFreqs(kind);
+    const freq = (kind === "error") ? errF : okF;
+    const ms = (kind === "error") ? 140 : 90;
+
+    try{
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = "sine";
+      o.frequency.value = freq;
+      g.gain.value = beepVol();
+      o.connect(g); g.connect(ctx.destination);
+      o.start();
+      setTimeout(()=>{ try{o.stop();}catch(e){} }, ms);
+    }catch(e){}
+  }
+
+  function speak(text){
+    const mode = audioMode();
+    if(mode !== "voice" && mode !== "both") return;
+    try{
+      const u = new SpeechSynthesisUtterance(String(text));
+      u.rate = voiceRate();
+      u.pitch = 1.0;
+      u.volume = 1.0;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function getUserUsd(){
+    // try to read from any select showing $ amounts (not rounding/demo/audio selects)
+    const sels = Array.from(document.querySelectorAll("select"));
+    const badIds = new Set(["roundSel","demoSel","ezAudioMode","ezTonePack","ezVoiceRate"]);
+    for(const s of sels){
+      if(badIds.has(s.id)) continue;
+      const txt = (s.options && s.selectedIndex >= 0) ? (s.options[s.selectedIndex].textContent || "") : (s.value || "");
+      if(txt.includes("$")){
+        const m = txt.replace(/,/g,"").match(/\$?\s*([0-9]+(?:\.[0-9]+)?)/);
+        if(m) return Number(m[1]);
+      }
+    }
+    // fallback: try any selected option containing digits
+    for(const s of sels){
+      if(badIds.has(s.id)) continue;
+      const txt = (s.options && s.selectedIndex >= 0) ? (s.options[s.selectedIndex].textContent || "") : (s.value || "");
+      const m = txt.replace(/,/g,"").match(/([0-9]+(?:\.[0-9]+)?)/);
+      if(m) return Number(m[1]);
+    }
+    return null;
+  }
+
+  function maybeAnnounceSignal(bias, recommendedUsd){
+    // === EZ_SERVER_RECOMMENDED_USD_V1 ===
+    if(!announceSignalsOn()) return;
+    const b = String(bias || "WAIT").toUpperCase();
+    if(b !== "BUY" && b !== "SELL") {
+      _ezLastSpokenBias = b;
+      _ezLastSpokenUsd = null;
+      return;
+    }
+    const usd = (typeof recommendedUsd === "number" && recommendedUsd > 0) ? recommendedUsd : null;
+const changed = (b !== _ezLastSpokenBias) || (usd !== null && usd !== _ezLastSpokenUsd);
+    if(!changed) return;
+
+    _ezLastSpokenBias = b;
+    _ezLastSpokenUsd = usd;
+
+    const amt = (usd !== null && usd > 0) ? `Recommended amount: ${usd} dollars.` : `Recommended amount ready.`;
+    speak(`EZTrader. ${b}. ${amt}`);
+    beep("success");
+  }
+
+  function announceConfirmed
+// === EZ_VOICE_USD_FALLBACK_V1 ===
+const usd =
+  (res?.usd ?? res?.applied?.usd ?? res?.trade?.usd ?? res?.evt?.usd);
+if (usd && window.speakText) {
+  speakText(`Confirmed. ${usd.toFixed(2)} dollars.`);
+  return;
+}
+// === /EZ_VOICE_USD_FALLBACK_V1 ===
+(){
+    if(!announceConfirmOn()) return;
+    speak("Confirmed.");
+    beep("success");
+  }
+
+  function announceError(){
+    speak("EZTrader. Confirm failed.");
+    beep("error");
+  }
+  // === /EZ_AUDIO_V3 ===
+
+  function setPill(msg) {
+    if (pill) pill.textContent = "EZ: " + String(msg);
+    console.log("EZ:", msg);
+  }
+
+  function looksLikeConfirmButton(el) {
+    if (!el) return false;
+    // If tap hits a child (span), climb to nearest button
+    const btn = el.closest ? el.closest("button") : null;
+    const node = btn || el;
+
+    // Explicit ids / data-action
+    const id = (node.id || "").toLowerCase();
+    const da = (node.getAttribute && node.getAttribute("data-action")) || "";
+    if (id.includes("confirm") || String(da).toLowerCase() === "confirm") return true;
+
+    // Text match (handles nested spans)
+    const t = (node.textContent || "").trim().toUpperCase();
+    if (t === "CONFIRM" || t.includes("CONFIRM")) return true;
+
+    return false;
+  }
+
+  async function jget(url) {
+    const r = await fetch(url, { cache: "no-store" });
+    const j = await r.json();
+    if (!j || j.ok !== true) throw new Error("Bad " + url + ": " + JSON.stringify(j));
+    return j;
+  }
+
+  async function jpost(url) {
+    const r = await fetch(url, {
+      method: "POST",
+      cache: "no-store",
+      headers: { "Content-Type": "application/json" }
+    });
+    const j = await r.json();
+    if (!j || j.ok !== true) throw new Error("Bad " + url + ": " + JSON.stringify(j));
+    return j;
+  }
+
+  function paintBalances(bal) {
+    // Update common ids if present
+    const cash = bal?.cash_usd;
+    const btc  = bal?.btc;
+
+    const setText = (sel, val) => {
+      const el = document.querySelector(sel);
+      if (el) el.textContent = String(val);
+    };
+    setText("#cash_usd", cash);
+    setText("#btc", btc);
+
+    document.querySelectorAll('[data-field="cash_usd"]').forEach(el => el.textContent = String(cash));
+    document.querySelectorAll('[data-field="btc"]').forEach(el => el.textContent = String(btc));
+  }
+
+  function paintLastConfirm(last) {
+    const setText = (sel, val) => {
+      const el = document.querySelector(sel);
+      if (el) el.textContent = String(val ?? "");
+    };
+    setText("#last_confirm_ts", last?.ts);
+    setText("#last_confirm_evt", last?.evt ? JSON.stringify(last.evt) : "");
+    document.querySelectorAll('[data-field="last_confirm_ts"]').forEach(el => el.textContent = String(last?.ts ?? ""));
+    document.querySelectorAll('[data-field="last_confirm_evt"]').forEach(el => el.textContent = last?.evt ? JSON.stringify(last.evt) : "");
+  }
+
+  
+  // === EZ_CONFIRM_ENABLE_FROM_SIGNAL_V1 ===
+  async function refreshSignalAndEnable() {
+    try {
+      const s = await jget("/signal");
+      const bias = String(s.bias || "WAIT").toUpperCase();
+      const btn = document.querySelector("#confirmBtn") ||
+                  document.querySelector("#confirm") ||
+                  document.querySelector('button[data-action="confirm"]') ||
+                  Array.from(document.querySelectorAll("button")).find(b => (b.textContent||"").trim().toUpperCase().includes("CONFIRM"));
+
+      // Update any visible "Server offline" text -> ONLINE when we can reach /signal
+      const offlineEl = Array.from(document.querySelectorAll("*"))
+        .find(el => (el.textContent||"").trim().toLowerCase() === "server offline");
+      if (offlineEl) offlineEl.textContent = "ONLINE";
+
+      if (btn) {
+        // Enable only when actionable
+        const actionable = (bias === "BUY" || bias === "SELL");
+        btn.disabled = !actionable;
+        // Optional: slight visual cue via aria
+        btn.setAttribute("aria-disabled", btn.disabled ? "true" : "false");
+      }
+      return bias;
+    } catch (e) {
+      // If signal fails, be safe: disable confirm
+      const btn = document.querySelector("#confirmBtn");
+      if (btn) btn.disabled = true;
+      // And mark offline label if present
+      const offlineEl = Array.from(document.querySelectorAll("*"))
+        .find(el => (el.textContent||"").trim().toLowerCase() === "online");
+      if (offlineEl) offlineEl.textContent = "Server offline";
+      return null;
+    }
+  }
+  // === /EZ_CONFIRM_ENABLE_FROM_SIGNAL_V1 ===
+
+  async function refreshAll() {
+    const b = await jget("/balances");
+    paintBalances(b.balances || {});
+    const l = await jget("/last_confirm");
+    paintLastConfirm(l);
+  }
+
+  let busy = false;
+
+  async function doConfirm() {
+    if (busy) return;
+    busy = true;
+    setPill("POST /confirm…");
+    try {
+      const res = await jpost("/confirm");
+      // res includes balances; paint immediately
+      if (res && res.balances) paintBalances(res.balances);
+
+      // then refresh from endpoints (source of truth)
+      await refreshAll();
+
+      const ts = res?.trade?.ts ?? "";
+      setPill("✅ confirmed " + ts);
+      announceConfirmed(res);
+      beep(880, 90, 0.06);
+      
+    } catch (e) {
+      console.error(e);
+      setPill("❌ " + (e?.message || String(e)));
+      announceError();
+      beep(220, 140, 0.07);
+      
+    } finally {
+      busy = false;
+    }
+  }
+
+  
+  // === EZ_DEMO_DROPDOWN_BIND_V1 ===
+  function bindDemoDropdown() {
+    const sel = document.querySelector("#demoSel");
+    if (!sel || sel.__ezDemoBound) return;
+    sel.__ezDemoBound = true;
+
+    const DEMO_PRICE = 42000; // simple fixed demo price; change later if you want
+    sel.addEventListener("change", async () => {
+      const v = String(sel.value || "auto").toLowerCase();
+      try {
+        if (v === "auto") {
+          await fetch("/signal?demo_bias=auto&demo_price=0&t=" + Date.now(), {cache:"no-store"});
+          setPill("demo: auto");
+        } else if (v === "buy") {
+          await fetch(`/signal?demo_bias=BUY&demo_price=${DEMO_PRICE}&t=` + Date.now(), {cache:"no-store"});
+          setPill("demo: BUY");
+        } else if (v === "sell") {
+          await fetch(`/signal?demo_bias=SELL&demo_price=${DEMO_PRICE}&t=` + Date.now(), {cache:"no-store"});
+          setPill("demo: SELL");
+        } else if (v === "notrade") {
+          await fetch(`/signal?demo_bias=WAIT&demo_price=${DEMO_PRICE}&t=` + Date.now(), {cache:"no-store"});
+          setPill("demo: WAIT");
+        }
+      } catch (e) {
+        setPill("demo set failed");
+      }
+    });
+  }
+  // === /EZ_DEMO_DROPDOWN_BIND_V1 ===
+
+  // Capture-phase delegation: hard to break
+  document.addEventListener("click", (ev) => {
+    if (looksLikeConfirmButton(ev.target)) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      doConfirm();
+    }
+  }, true);
+
+  // Init
+  setPill("wired (tap CONFIRM)");
+    bindDemoDropdown();
+  refreshAll().catch(() => {});
+    refreshSignalAndEnable().catch(() => {});
+    setInterval(() => refreshSignalAndEnable().catch(() => {}), 1200);
+})();
+</script>
+<!-- EZTRADER_CONFIRM_WIRING_END -->
+
+
+<!-- EZTRADER_ACCOUNT_UI_START -->
+<style>
+  .ez_account_bar {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .ez_kv {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    font: 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    opacity: 0.95;
+  }
+  .ez_kv b {
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+  .ez_muted {
+    opacity: 0.75;
+  }
+</style>
+
+<div class="ez_account_bar" id="ez_account_bar">
+  <div class="ez_kv"><span class="ez_muted">Cash:</span> <b id="cash_usd">—</b></div>
+  <div class="ez_kv"><span class="ez_muted">BTC:</span> <b id="btc">—</b></div>
+  <div class="ez_kv"><span class="ez_muted">Last Confirm:</span> <b id="last_confirm_ts">—</b></div>
+</div>
+<!-- EZTRADER_ACCOUNT_UI_END -->
+
+
+<!-- === EZ_ZONE_ANNOUNCER_V1 === -->
+<script>
+(function(){
+  // ---------- settings ----------
+  function q(id){ return document.querySelector(id); }
+  function mode(){
+    const sel = q("#ezAudioMode");
+    return sel ? String(sel.value).toLowerCase() : "off";
+  }
+  function tonesPack(){
+    const sel = q("#ezTonePack");
+    return sel ? String(sel.value).toLowerCase() : "soft";
+  }
+  function voiceRate(){
+    const sel = q("#ezVoiceRate");
+    const v = sel ? Number(sel.value) : 1.0;
+    return (v > 0.5 && v < 2.0) ? v : 1.0;
+  }
+  function volGain(){
+    const r = q("#ezBeepVol");
+    const v = r ? Number(r.value) : 35;
+    const g = Math.max(0, Math.min(100, v)) / 100 * 0.12; // 0..0.12
+    return g;
+  }
+  function announceSignalsOn(){
+    const cb = q("#ezAnnounceSignals");
+    return cb ? !!cb.checked : true;
+  }
+
+  // ---------- audio engine (beeps always reliable on Android) ----------
+  let ctx = null;
+  let unlocked = false;
+
+  function ensureCtx(){
+    try{
+      if(!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+      if(ctx && ctx.state === "suspended") ctx.resume().catch(()=>{});
+    }catch(e){}
+    return ctx;
+  }
+
+  // unlock audio on a real user gesture (needed on mobile)
+  ["pointerdown","touchstart","click"].forEach(ev=>{
+    document.addEventListener(ev, ()=>{ unlocked = true; ensureCtx(); }, {once:true, passive:true});
+  });
+
+  function packFreqs(pack){
+    // return {red, yellow, green, ok} base tones
+    if(pack === "sharp") return {red:220, yellow:440, green:880, ok:880};
+    if(pack === "deep")  return {red:160, yellow:330, green:520, ok:520};
+    return {red:260, yellow:520, green:740, ok:740}; // soft
+  }
+
+  function beep(kind){
+    const m = mode();
+    if(m !== "beep" && m !== "both") return;
+    const c = ensureCtx();
+    if(!c) return;
+    const f = packFreqs(tonesPack());
+    const freq = (kind === "red") ? f.red : (kind === "yellow") ? f.yellow : f.green;
+    const ms = (kind === "green") ? 120 : 90;
+    try{
+      const o = c.createOscillator();
+      const g = c.createGain();
+      o.type = "sine";
+      o.frequency.value = freq;
+      g.gain.value = volGain();
+      o.connect(g); g.connect(c.destination);
+      o.start();
+      setTimeout(()=>{ try{o.stop();}catch(e){} }, ms);
+    }catch(e){}
+  }
+
+  function speak(text){
+    const m = mode();
+    if(m !== "voice" && m !== "both") return;
+    try{
+      const u = new SpeechSynthesisUtterance(String(text));
+      u.rate = voiceRate();
+      u.pitch = 1.0;
+      u.volume = 1.0;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  // ---------- dollars & cents speech ----------
+  function dollarsAndCents(n){
+    try{
+      const x = Number(n);
+      if(!isFinite(x)) return "";
+      const centsTotal = Math.round(x * 100);
+      const dollars = Math.floor(centsTotal / 100);
+      const cents = centsTotal % 100;
+      const d = dollars.toLocaleString("en-US");
+      if(cents === 0) return `${d} dollars`;
+      const c = String(cents).padStart(2,"0");
+      return `${d} dollars and ${c} cents`;
+    }catch(e){
+      return "";
+    }
+  }
+
+  // ---------- zone logic ----------
+  function zoneFromReadiness(r){
+    const x = Number(r);
+    if(!isFinite(x)) return "red";
+    if(x >= 80) return "green";
+    if(x >= 40) return "yellow";
+    return "red";
+  }
+
+  // memory so we only announce on transitions/changes
+  let lastZone = null;
+  let lastRecKey = null;
+    // === EZ_POLL_PILL_WIRE_V1 ===
+    function __ezSetNet(online){
+      try{
+        const t = document.getElementById("netText");
+        const d = document.getElementById("dot");
+        if(t) t.textContent = online ? "Server online" : "Server offline";
+        if(d){
+          if(online) d.classList.add("on");
+          else d.classList.remove("on");
+        }
+      }catch(e){}
+    }
+    function __ezSetPill(txt){
+      try{
+        if(typeof window.__ezSetPillSafe === "function") window.__ezSetPillSafe(txt);
+        else{
+          const el = document.getElementById("ez-pill");
+          if(el) el.innerText = txt;
+        }
+      }catch(e){}
+    }
+    // === /EZ_POLL_PILL_WIRE_V1 ===
+
+
+  async function poll(){
+    if(!announceSignalsOn()) return;
+
+    let j = null;
+    try{
+        const r = await fetch("/signal?ts=" + Date.now(), {cache:"no-store"});
+        j = await r.json();
+        __ezSetNet(true);
+        __ezSetPill("EZ: online");
+      }catch(e){
+        __ezSetNet(false);
+        __ezSetPill("EZ: offline");
+        return;
+      }
+
+    if(!j || j.ok !== true) return;
+
+    
+    // === EZ_SUPPRESS_DEMO_VOICE_V1 ===
+    if (String(j.reason||"").toLowerCase() === "demo_mode") return;
+    // === /EZ_SUPPRESS_DEMO_VOICE_V1 ===
+const z = zoneFromReadiness(j.readiness);
+    const bias = String(j.bias || "WAIT").toUpperCase();
+    const usd = (typeof j.recommended_usd === "number" && isFinite(j.recommended_usd)) ? j.recommended_usd : null;
+
+    // 1) Zone transition tones (red/yellow/green)
+    if(z !== lastZone){
+      lastZone = z;
+      // tones for all zone transitions
+      beep(z);
+
+      // Voice only when entering green (your request: "becoming into the green/yellow/red")
+      // I recommend voice ONLY for green to avoid chatter; tones handle yellow/red.
+      if(z === "green"){
+        speak("EZTrader. Trade ready.");
+      }
+    }
+
+    // 2) When green AND actionable AND has recommended amount, announce BUY/SELL + amount (only on change)
+    if(z === "green" && (bias === "BUY" || bias === "SELL") && usd && usd > 0){
+      const key = bias + "|" + usd.toFixed(2);
+      if(key !== lastRecKey){
+        lastRecKey = key;
+        speak(`EZTrader. ${bias}. Recommended ${dollarsAndCents(usd)}.`);
+// optional: a short confirm-ish tone on new recommendation
+        beep("green");
+      }
+    } else {
+      // reset recommendation key when not actionable
+      lastRecKey = null;
+    }
+  }
+
+  // Run
+  setInterval(poll, 1200);
+  poll();
+})();
+</script>
+<!-- === /EZ_ZONE_ANNOUNCER_V1 === -->
+
+
+<!-- === EZ_CONFIRM_SPEAK_V1 === -->
+<script>
+(function(){
+  function q(id){ return document.querySelector(id); }
+
+  function mode(){
+    const sel = q("#ezAudioMode");
+    return sel ? String(sel.value).toLowerCase() : "off";
+  }
+  function confirmOn(){
+    const cb = q("#ezAnnounceConfirm");
+    return cb ? !!cb.checked : true;
+  }
+  function voiceRate(){
+    const sel = q("#ezVoiceRate");
+    const v = sel ? Number(sel.value) : 1.0;
+    return (v > 0.5 && v < 2.0) ? v : 1.0;
+  }
+  function dollarsAndCents(n){
+    try{
+      const x = Number(n);
+      if(!isFinite(x)) return "";
+      const centsTotal = Math.round(x * 100);
+      const dollars = Math.floor(centsTotal / 100);
+      const cents = centsTotal % 100;
+      const d = dollars.toLocaleString("en-US");
+      if(cents === 0) return `${d} dollars`;
+      const c = String(cents).padStart(2,"0");
+      return `${d} dollars and ${c} cents`;
+    }catch(e){ return ""; }
+  }
+  function speak(text){
+    const m = mode();
+    if(m !== "voice" && m !== "both") return;
+    try{
+      const u = new SpeechSynthesisUtterance(String(text));
+      u.rate = voiceRate();
+      u.pitch = 1.0;
+      u.volume = 1.0;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  // Exported function used by confirm handler hook
+  window.announceConfirmed = function(res){
+    try{
+      if(!confirmOn()) return;
+      const t = (res && (res.trade || res.logged || res.pending_trade)) || res || {};
+      const side = String(t.side || t.type || "").toUpperCase();
+      const usd = (typeof t.usd === "number") ? t.usd : (t.amount_usd || t.recommended_usd);
+      const side2 = (side === "BUY" || side === "SELL") ? side : "";
+      const amt = dollarsAndCents(usd);
+      if(side2 && amt){
+        speak(`EZTrader. Confirmed ${side2}. ${amt}.`);
+      }else{
+        speak("EZTrader. Confirmed.");
+      }
+    }catch(e){
+      speak("EZTrader. Confirmed.");
+    }
+  };
+
+  window.announceError = function(){
+    try{ speak("EZTrader. Unable to confirm."); }catch(e){}
+  };
+})();
+</script>
+<!-- === /EZ_CONFIRM_SPEAK_V1 === -->
+
+
+<!-- === EZ_VOICE_CONFIRM_DETAILS_V1 === -->
+<script>
+(function(){
+  function qs(sel){ return document.querySelector(sel); }
+
+  function mode(){
+    const sel = qs("#ezAudioMode");
+    return sel ? String(sel.value).toLowerCase() : "off";
+  }
+  function voiceRate(){
+    const sel = qs("#ezVoiceRate");
+    const v = sel ? Number(sel.value) : 1.0;
+    return (v > 0.5 && v < 2.0) ? v : 1.0;
+  }
+
+  function speak(text){
+    const m = mode();
+    if(m !== "voice" && m !== "both") return;
+    try{
+      const u = new SpeechSynthesisUtterance(String(text));
+      u.rate = voiceRate();
+      u.pitch = 1.0;
+      u.volume = 1.0;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function dollarsAndCents(n){
+    try{
+      const x = Number(n);
+      if(!isFinite(x)) return "";
+      const centsTotal = Math.round(x * 100);
+      const dollars = Math.floor(centsTotal / 100);
+      const cents = centsTotal % 100;
+      const d = dollars.toLocaleString("en-US");
+      if(cents === 0) return `${d} dollars`;
+      const c = String(cents).padStart(2,"0");
+      return `${d} dollars and ${c} cents`;
+    }catch(e){
+      return "";
+    }
+  }
+
+  function fmtPrice(n){
+    try{
+      const x = Number(n);
+      if(!isFinite(x)) return "";
+      return x.toLocaleString("en-US", {maximumFractionDigits: 2});
+    }catch(e){
+      return "";
+    }
+  }
+
+  // Called after a successful POST /confirm
+  window.announceConfirmed = function(res){
+    try{
+      // server currently returns {ok:true, applied:{...}, balances:{...}}
+      const t = (res && (res.applied || res.trade || res.logged)) ? (res.applied || res.trade || res.logged) : null;
+      if(!t || typeof t !== "object") { speak("EZTrader. Confirmed."); return; }
+
+      const side = String(t.side || t.bias || "CONFIRMED").toUpperCase();
+      const usd = (typeof t.usd === "number") ? t.usd : null;
+      const price = (typeof t.price === "number") ? t.price : null;
+
+      let msg = "EZTrader. Confirmed.";
+      if(side === "BUY" || side === "SELL"){
+        if(usd && usd > 0){
+          msg = `EZTrader. Confirmed ${side}. ${dollarsAndCents(usd)}.`;
+          if(price && price > 0){
+            msg += ` At ${fmtPrice(price)}.`;
+          }
+        } else {
+          msg = `EZTrader. Confirmed ${side}.`;
+          if(price && price > 0){
+            msg += ` At ${fmtPrice(price)}.`;
+          }
+        }
+      }
+      speak(msg);
+    }catch(e){
+      speak("EZTrader. Confirmed.");
+    }
+  };
+
+  window.announceError = function(){
+    speak("EZTrader. Confirm failed.");
+  };
+})();
+</script>
+<!-- === /EZ_VOICE_CONFIRM_DETAILS_V1 === -->
+
+
+<!-- === EZ_CONFIRM_REQUIRES_RECO_V1 === -->
+<script>
+(function(){
+  function qs(sel){ return document.querySelector(sel); }
+
+  async function jget(url){
+    const r = await fetch(url, {cache:"no-store"});
+    const j = await r.json().catch(()=>null);
+    return j;
+  }
+
+  function hasReco(j){
+    try{
+      const pt = j && j.pending_trade;
+      const usd = pt && pt.usd;
+      return (typeof usd === "number") && isFinite(usd) && usd > 0;
+    }catch(e){ return false; }
+  }
+
+  function setConfirmEnabled(on){
+    const btn = qs("#confirmBtn");
+    if(!btn) return;
+    btn.disabled = !on;
+    btn.setAttribute("aria-disabled", on ? "false" : "true");
+  }
+
+  // HARD GUARD: if somehow clicked while disabled, block it.
+  function bindGuard(){
+    const btn = qs("#confirmBtn");
+    if(!btn || btn.__ezRecoGuardBound) return;
+    btn.__ezRecoGuardBound = true;
+    btn.addEventListener("click", function(ev){
+      if(btn.disabled){
+        ev.preventDefault();
+        ev.stopPropagation();
+        return false;
+      }
+    }, true);
+  }
+
+  async function tick(){
+    try{
+      const j = await jget("/signal?ts=" + Date.now());
+      const ok = !!(j && j.ok === true);
+      const allow = ok && hasReco(j);
+      setConfirmEnabled(allow);
+    }catch(e){
+      // If we can't fetch signal, safest is disable confirm
+      setConfirmEnabled(false);
+    }
+    bindGuard();
+  }
+
+  // Run fast so it feels instant
+  tick();
+  setInterval(tick, 800);
+})();
+</script>
+<!-- === /EZ_CONFIRM_REQUIRES_RECO_V1 === -->
+
+
+<!-- === EZ_DUAL_CONFIRM_V1 === -->
+<script>
+(function(){
+  function qs(sel){ return document.querySelector(sel); }
+  function qsa(sel){ return Array.from(document.querySelectorAll(sel)); }
+
+  async function jget(url){
+    const r = await fetch(url, {cache:"no-store"});
+    const j = await r.json().catch(()=>null);
+    if(!j || j.ok !== true) throw new Error("Bad " + url + ": " + JSON.stringify(j));
+    return j;
+  }
+  async function jpost(url, body){
+    const r = await fetch(url, {
+      method:"POST",
+      cache:"no-store",
+      headers: {"Content-Type":"application/json"},
+      body: body ? JSON.stringify(body) : "{}"
+    });
+    const j = await r.json().catch(()=>null);
+    if(!j || j.ok !== true) throw new Error("Bad " + url + ": " + JSON.stringify(j));
+    return j;
+  }
+
+  // ----- UI helpers -----
+  function panelOpen(){
+    const p = qs("#ezAudioPanel");
+    return !!(p && p.getAttribute("data-open") === "1");
+  }
+
+  // Find editable balance inputs if you have them; supports either:
+  // 1) <input id="cashEdit"> / <input id="btcEdit">
+  // 2) <input data-edit="cash_usd"> / <input data-edit="btc">
+  function readEditedBalances(){
+    const cashEl = qs('#cashEdit') || qs('input[data-edit="cash_usd"]');
+    const btcEl  = qs('#btcEdit')  || qs('input[data-edit="btc"]');
+
+    if(!cashEl && !btcEl) return null;
+
+    const cash = cashEl ? Number(String(cashEl.value).trim()) : null;
+    const btc  = btcEl  ? Number(String(btcEl.value).trim())  : null;
+
+    const out = {};
+    if(cashEl) out.cash_usd = (isFinite(cash) ? cash : null);
+    if(btcEl)  out.btc      = (isFinite(btc)  ? btc  : null);
+    return out;
+  }
+
+  function paintBalances(bal){
+    const cash = (bal && typeof bal.cash_usd === "number") ? bal.cash_usd : null;
+    const btc  = (bal && typeof bal.btc === "number") ? bal.btc : null;
+
+    const cashEl = qs('[data-field="cash_usd"]') || qs("#cash_usd");
+    const btcEl  = qs('[data-field="btc"]') || qs("#btc");
+    if(cashEl) cashEl.textContent = (cash===null ? "—" : String(cash));
+    if(btcEl)  btcEl.textContent  = (btc===null  ? "—" : String(btc));
+  }
+
+  function paintLastConfirm(last){
+    const tsEl = qs('[data-field="last_confirm_ts"]') || qs("#last_confirm_ts");
+    if(tsEl) tsEl.textContent = String((last && last.ts) ? last.ts : "—");
+  }
+
+  // Loading badge: treat ANY ok:true /signal as "loaded", even if no trade.
+  function setLoading(ok){
+    const pill = qs("#pill") || qs("#toast");
+    if(!pill) return;
+    if(ok){
+      // If you still want a small "online" indicator, keep it; otherwise hide.
+      // We'll just clear "loading" wording.
+      const t = (pill.textContent||"");
+      pill.textContent = t.replace(/loading\.\.\./i, "online").trim() || "EZ: online";
+    } else {
+      pill.textContent = "EZ: loading...";
+    }
+  }
+
+  // ----- dual-confirm behavior -----
+  let busy = false;
+  let lastSignal = null;
+
+  function setConfirmLabel(text){
+    const btn = qs("#confirmBtn");
+    if(btn) btn.textContent = text;
+  }
+
+  function enableConfirm(on){
+    const btn = qs("#confirmBtn");
+    if(btn) btn.disabled = !on;
+  }
+
+  function canConfirmTrade(sig){
+    // Trade confirm ONLY if pending_trade has a usable USD amount
+    const pt = sig && sig.pending_trade;
+    const usd = pt && typeof pt.usd === "number" ? pt.usd : null;
+    return !!(usd && isFinite(usd) && usd > 0);
+  }
+
+  async function refreshAll(){
+    try{
+      const b = await jget("/balances");
+      paintBalances(b.balances || {});
+    }catch(e){}
+    try{
+      const l = await jget("/last_confirm");
+      paintLastConfirm(l);
+    }catch(e){}
+  }
+
+  async function refreshSignal(){
+    try{
+      const s = await jget("/signal");
+      lastSignal = s;
+      setLoading(true);
+
+      // If balances edit panel open -> CONFIRM becomes SAVE BALANCES and is enabled
+      if(panelOpen()){
+        setConfirmLabel("SAVE BALANCES");
+        enableConfirm(true);
+        return;
+      }
+
+      // Normal mode -> CONFIRM TRADE only when we have a recommendation
+      setConfirmLabel("CONFIRM");
+      enableConfirm(canConfirmTrade(s));
+
+    }catch(e){
+      // If signal fails, keep disabled (unless panel open)
+      setLoading(false);
+      if(panelOpen()){
+        setConfirmLabel("SAVE BALANCES");
+        enableConfirm(true);
+      } else {
+        setConfirmLabel("CONFIRM");
+        enableConfirm(false);
+      }
+    }
+  }
+
+  async function doConfirm(){
+    if(busy) return;
+    busy = true;
+    try{
+      // If balances edit open -> POST /balances with edited values (if available)
+      if(panelOpen()){
+        const edited = readEditedBalances();
+        if(edited){
+          const res = await jpost("/balances", edited);
+          if(res && res.balances) paintBalances(res.balances);
+        } else {
+          // No inputs found; still ping balances so user gets feedback if server is alive
+          await jget("/balances");
+        }
+        await refreshAll();
+        return;
+      }
+
+      // Normal trade confirm
+      // Extra guard: if no recommendation, do nothing.
+      if(!canConfirmTrade(lastSignal)){
+        enableConfirm(false);
+        return;
+      }
+
+      const res = await jpost("/confirm");
+      // If server returns balances, paint them
+      if(res && res.balances) paintBalances(res.balances);
+      await refreshAll();
+
+      // If you have voice hooks, they can use window.__ezLastConfirmRes
+      try { window.__ezLastConfirmRes = res; } catch(e){}
+      if(typeof announceConfirmed === "function") announceConfirmed(res);
+
+    }catch(e){
+      if(typeof announceError === "function") announceError();
+      console.error(e);
+    }finally{
+      busy = false;
+    }
+  }
+
+  function bind(){
+    const btn = qs("#confirmBtn");
+    if(btn && !btn.__ezDualBound){
+      btn.__ezDualBound = true;
+      btn.addEventListener("click", (ev)=>{
+        ev.preventDefault();
+        ev.stopPropagation();
+        doConfirm();
+      }, false);
+    }
+  }
+
+  // Keep button state synced even if panel opens/closes
+  function watchPanel(){
+    // lightweight polling is fine
+    setInterval(refreshSignal, 1200);
+  }
+
+  // init
+  bind();
+  refreshAll();
+  refreshSignal();
+  watchPanel();
+  setInterval(refreshAll, 4000);
+})();
+</script>
+<!-- === /EZ_DUAL_CONFIRM_V1 === -->
+
+
+<!-- === EZ_UI_WATCHDOG_V1 === -->
+<script>
+(function(){
+  function findConfirmBtn(){
+    // Prefer explicit ids if they exist, else find by button text
+    const byId = document.querySelector('#confirmBtn,[id*="confirm" i],button[name*="confirm" i]');
+    if(byId && byId.tagName === "BUTTON") return byId;
+
+    const btns = Array.from(document.querySelectorAll('button'));
+    // choose the one that literally says CONFIRM (not dropdown items)
+    let best = null;
+    for(const b of btns){
+      const t = (b.textContent||"").trim().toUpperCase();
+      if(t === "CONFIRM") { best = b; break; }
+      if(!best && t.includes("CONFIRM")) best = b;
+    }
+    return best;
+  }
+
+  function findEzPill(){
+    // Find any element that contains "EZ:" text
+    const all = Array.from(document.querySelectorAll('div,span,p'));
+    for(const el of all){
+      const t = (el.textContent||"").trim();
+      if(t.startsWith("EZ:")) return el;
+    }
+    return null;
+  }
+
+  async function jget(url){
+    const r = await fetch(url, {cache:"no-store"});
+    const j = await r.json().catch(()=>null);
+    return j;
+  }
+
+  function setPill(ok){
+    const pill = findEzPill();
+    if(!pill) return;
+    const t = (pill.textContent||"").trim();
+    if(ok){
+      // Replace loading / failed wording with online
+      if(/loading/i.test(t) || /failed/i.test(t) || t === "EZ:"){
+        pill.textContent = "EZ: online";
+      }
+    } else {
+      if(!/loading/i.test(t)) pill.textContent = "EZ: loading...";
+    }
+  }
+
+  function setConfirmEnabled(on){
+    const btn = findConfirmBtn();
+    if(!btn) return;
+    btn.disabled = !on;
+    btn.style.opacity = on ? "" : "";
+  }
+
+  // Poll /signal and drive UI state from server truth
+  async function tick(){
+    try{
+      const sig = await jget("/signal");
+      if(sig && sig.ok === true){
+        setPill(true);
+        const usd = sig?.pending_trade?.usd;
+        const actionable = (typeof usd === "number" && isFinite(usd) && usd > 0);
+        // Enable CONFIRM only when we truly have a usd recommendation
+        setConfirmEnabled(actionable);
+      } else {
+        setPill(false);
+        setConfirmEnabled(false);
+      }
+    } catch(e){
+      setPill(false);
+      setConfirmEnabled(false);
+    }
+  }
+
+  // start fast then steady
+  tick();
+  setInterval(tick, 1200);
+})();
+</script>
+<!-- === /EZ_UI_WATCHDOG_V1 === -->
+
+
+<!-- === EZ_PILL_FROM_FETCH_V1 === -->
+<script>
+window.__ezSetPillSafe = function(txt){
+  try {
+    const el = document.getElementById("ez-pill");
+    if (el) { el.innerText = txt; return; }
+  } catch(e){}
+};
+</script>
+<!-- === /EZ_PILL_FROM_FETCH_V1 === -->
+
+</body>
+</html>

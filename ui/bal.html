@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>EZTrade • Balances</title>
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0b1220;color:#e9eefc}
+    .wrap{max-width:720px;margin:0 auto;padding:18px}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .card{flex:1;min-width:220px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:18px;padding:16px}
+    .k{letter-spacing:.22em;font-size:12px;opacity:.7}
+    .v{margin-top:8px;font-size:34px;font-weight:800}
+    .sub{margin-top:6px;opacity:.7;font-size:14px}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    a.btn{display:inline-block;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.12);color:#e9eefc;text-decoration:none}
+    code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:8px}
+    .ok{color:#9fffb0}
+    .bad{color:#ffb0b0}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2 style="margin:0 0 8px 0">EZTrade • Balances Dashboard</h2>
+    <div class="sub">This page shows the *authoritative* server balances from <code>/balances</code> and the last UI confirm from <code>/last_confirm</code>.</div>
+
+    <div class="btns">
+      <a class="btn" href="/?v=main">Open EZTrade UI</a>
+      <a class="btn" href="/bal.html?v=bal">Refresh Dashboard</a>
+    </div>
+
+    <div style="height:14px"></div>
+
+    <div class="row">
+      <div class="card">
+        <div class="k">CASH</div>
+        <div class="v" id="cash">$—</div>
+        <div class="sub" id="cashSub"></div>
+      </div>
+      <div class="card">
+        <div class="k">BTC</div>
+        <div class="v" id="btc">—</div>
+        <div class="sub" id="btcSub"></div>
+      </div>
+    </div>
+
+    <div style="height:14px"></div>
+
+    <div class="card">
+      <div class="k">LAST CONFIRM</div>
+      <div class="sub" id="lc">—</div>
+      <div class="sub" id="lc2"></div>
+    </div>
+
+    <div style="height:14px"></div>
+    <div class="sub" id="status">Status: …</div>
+  </div>
+
+<script>
+(function(){
+  const $ = (id)=>document.getElementById(id);
+  function fmtUSD(x){
+    if (x===null||x===undefined||isNaN(x)) return "$—";
+    return "$" + Number(x).toLocaleString(undefined,{maximumFractionDigits:2});
+  }
+  function fmtBTC(x){
+    if (x===null||x===undefined||isNaN(x)) return "—";
+    return Number(x).toFixed(8).replace(/0+$/,'').replace(/\.$/,'');
+  }
+
+  async function tick(){
+    try{
+      const b = await fetch("/balances?t="+Date.now(), {cache:"no-store"}).then(r=>r.json());
+      if (!b || !b.ok || !b.balances) throw new Error("balances not ok");
+      $("cash").textContent = fmtUSD(b.balances.cash_usd);
+      $("btc").textContent  = fmtBTC(b.balances.btc);
+      $("cashSub").textContent = "cash_usd: " + b.balances.cash_usd;
+      $("btcSub").textContent  = "btc: " + b.balances.btc;
+
+      const lc = await fetch("/last_confirm?t="+Date.now(), {cache:"no-store"}).then(r=>r.json()).catch(()=>null);
+      if (lc && lc.ok && lc.ts){
+        $("lc").innerHTML = `<span class="ok">Seen</span> • ts=${lc.ts}`;
+        $("lc2").textContent = JSON.stringify(lc.evt || {});
+      } else {
+        $("lc").innerHTML = `<span class="bad">None</span>`;
+        $("lc2").textContent = "";
+      }
+
+      $("status").innerHTML = `Status: <span class="ok">ONLINE</span> • updated ${new Date().toLocaleTimeString()}`;
+    }catch(e){
+      $("status").innerHTML = `Status: <span class="bad">OFFLINE</span> • ${String(e)}`;
+    }
+  }
+
+  setInterval(tick, 1000);
+  tick();
+})();
+</script>
+
+<!-- === EZ_BAL_SYNC_V1 === -->
+<script>
+(function(){
+  function fmtUSD(x){
+    if(x===null||x===undefined||isNaN(x)) return "—";
+    try{ return "$" + Number(x).toLocaleString(undefined,{maximumFractionDigits:0}); }
+    catch(e){ return "$" + String(x); }
+  }
+  function fmtBTC(x){
+    if(x===null||x===undefined||isNaN(x)) return "—";
+    try{ return Number(x).toFixed(8).replace(/0+$/,'').replace(/\.$/,''); }
+    catch(e){ return String(x); }
+  }
+
+  function findValueEl(label){
+    // Try common patterns: LABEL then next big number
+    const nodes = Array.from(document.querySelectorAll("*"))
+      .filter(el => (el.childElementCount===0) && (el.textContent||"").trim().toUpperCase()===label);
+    for(const n of nodes){
+      // Look for next sibling text node-like element
+      let el = n.parentElement;
+      if(!el) continue;
+      // Find the first large-number element under same card
+      const cand = Array.from(el.querySelectorAll("*"))
+        .find(x => x!==n && (x.childElementCount===0) && /[0-9]/.test((x.textContent||"").trim()));
+      if(cand) return cand;
+    }
+    return null;
+  }
+
+  const cashEl = findValueEl("CASH");
+  const btcEl  = findValueEl("BTC");
+
+  async function tick(){
+    try{
+      const r = await fetch("/balances?t="+Date.now(), {cache:"no-store"});
+      const j = await r.json().catch(()=>null);
+      if(!j || !j.ok || !j.balances) return;
+      if(cashEl) cashEl.textContent = fmtUSD(j.balances.cash_usd);
+      if(btcEl) btcEl.textContent = fmtBTC(j.balances.btc);
+    }catch(e){}
+  }
+  setInterval(tick, 1500);
+  tick();
+})();
+</script>
+<!-- === /EZ_BAL_SYNC_V1 === -->
+
+</body>
+</html>

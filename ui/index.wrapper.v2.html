@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>V70 Wrapper v3 — Confirm Mode B + History + Sizing</title>
+  <style>
+    body { font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:#0f1115; color:#eaeaea; padding:18px; }
+    .card { max-width:820px; margin:0 auto; background:#161a22; border-radius:14px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .pill { padding:6px 10px; border-radius:999px; font-weight:800; font-size:12px; display:inline-block; }
+    .ok { background:#17351f; color:#79f28a; }
+    .warn { background:#3a2a14; color:#ffcf6b; }
+    .bad { background:#3a1414; color:#ff8b8b; }
+    h1 { font-size:18px; margin:0 0 10px; }
+    h2 { font-size:14px; margin:0 0 8px; color:#cfd7e3; }
+    .big { font-size:44px; font-weight:900; letter-spacing:1px; margin:6px 0 6px; }
+    .muted { color:#9aa4b2; font-size:13px; }
+    .kv { display:grid; grid-template-columns:140px 1fr; gap:6px 10px; margin-top:12px; }
+    .kv div { font-size:14px; }
+    button { border:0; border-radius:12px; padding:12px 14px; font-size:14px; font-weight:900; cursor:pointer; }
+    .btn { background:#232a36; color:#eaeaea; }
+    .buy { background:#17351f; color:#79f28a; }
+    .sell { background:#3a1414; color:#ff8b8b; }
+    button:disabled { opacity:.45; cursor:not-allowed; }
+    .hr { height:1px; background:rgba(255,255,255,.08); margin:14px 0; }
+    .toast { margin-top:10px; padding:10px 12px; border-radius:12px; background:#111522; border:1px solid rgba(255,255,255,.08); }
+    input { width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:#0c0f15; color:#eaeaea; padding:10px 12px; }
+    code { background:#0c0f15; padding:2px 6px; border-radius:8px; border:1px solid rgba(255,255,255,.10); }
+    .grid2 { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    @media (max-width: 900px){ .grid2 { grid-template-columns: 1fr; } }
+
+    .panel { background:#111522; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:12px; }
+    .list { display:flex; flex-direction:column; gap:8px; }
+    .item { display:flex; gap:10px; align-items:flex-start; justify-content:space-between; padding:10px; border-radius:12px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); }
+    .item .left { display:flex; flex-direction:column; gap:4px; }
+    .tag { font-weight:900; }
+    .tag.buy { color:#79f28a; }
+    .tag.sell { color:#ff8b8b; }
+    .small { font-size:12px; color:#9aa4b2; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>V70 Wrapper v3 — Confirm Mode B + History + Sizing</h1>
+
+    <div class="row" style="justify-content:space-between">
+      <div class="muted">API: <span id="api">http://127.0.0.1:8080</span></div>
+      <div class="pill warn" id="serverPill">OFFLINE</div>
+    </div>
+
+    <div class="big" id="action">—</div>
+
+    <div class="kv">
+      <div class="muted">Symbol</div><div id="symbol">—</div>
+      <div class="muted">Price</div><div id="price">—</div>
+      <div class="muted">Reason</div><div id="reason">—</div>
+      <div class="muted">Timestamp</div><div id="ts">—</div>
+      <div class="muted">Last update</div><div id="meta">—</div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="muted" style="margin-bottom:8px;">Optional note (saved with confirmation):</div>
+    <input id="note" placeholder="e.g., confirmed after re-check" />
+
+    <div class="row" style="margin-top:10px;">
+      <button class="btn" id="refreshBtn">Refresh now</button>
+      <button class="buy" id="confirmBuy" disabled>CONFIRM BUY</button>
+      <button class="sell" id="confirmSell" disabled>CONFIRM SELL</button>
+    </div>
+
+    <div id="toast" class="toast" style="display:none;"></div>
+
+    <div class="hr"></div>
+
+    <div class="grid2">
+      <!-- SIZING PANEL -->
+      <div class="panel">
+        <h2>Trade sizing (wrapper-only)</h2>
+        <div class="small">This does NOT place trades. It’s just a calculator for what you might do.</div>
+        <div style="height:10px"></div>
+
+        <div class="small">Available cash (USD)</div>
+        <input id="cash" inputmode="decimal" placeholder="e.g., 1669.85" />
+
+        <div style="height:10px"></div>
+        <div class="small">Risk % (per signal)</div>
+        <input id="risk" inputmode="decimal" placeholder="e.g., 25" />
+
+        <div style="height:10px"></div>
+        <div class="small">BTC holdings (for SELL sizing)</div>
+        <input id="btc" inputmode="decimal" placeholder="e.g., 0.00123456" />
+
+        <div style="height:10px"></div>
+        <button class="btn" id="calcBtn">Calculate</button>
+
+        <div style="height:10px"></div>
+        <div class="small">Suggested amount</div>
+        <div class="mono" id="sizingOut" style="margin-top:6px;">—</div>
+
+        <div style="height:10px"></div>
+        <div class="small">Tip: set risk to 10–25 for SAFE feel. Higher = more aggressive.</div>
+      </div>
+
+      <!-- HISTORY PANEL -->
+      <div class="panel">
+        <h2>Confirmation history (last 20)</h2>
+        <div class="small">Saved locally on your phone (browser storage).</div>
+        <div style="height:10px"></div>
+        <div class="row">
+          <button class="btn" id="exportBtn">Export JSON</button>
+          <button class="btn" id="clearBtn">Clear history</button>
+        </div>
+        <div style="height:10px"></div>
+        <div class="list" id="historyList"></div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="muted">
+      Open any time at:
+      <div style="margin-top:6px;"><code>/ui/index.wrapper.v2.html</code></div>
+      <div style="margin-top:6px;">(You’re editing this file. Keep the URL the same so your bookmark still works.)</div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  const API = "";
+  const POLL_MS = 5000;
+
+  const el = (id) => document.getElementById(id);
+  const fmtPrice = (p) => (p === null || p === undefined) ? "—" : (Number(p).toLocaleString(undefined, {maximumFractionDigits: 2}));
+  const nowStr = () => new Date().toLocaleString();
+
+  // ---------- Local history ----------
+  const KEY = "v70_confirm_history_v1";
+  function loadHist() {
+    try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch { return []; }
+  }
+  function saveHist(arr) {
+    localStorage.setItem(KEY, JSON.stringify(arr.slice(0,20)));
+  }
+  function addHist(entry) {
+    const arr = loadHist();
+    arr.unshift(entry);
+    saveHist(arr);
+    renderHist();
+  }
+  function renderHist() {
+    const list = el("historyList");
+    const arr = loadHist();
+    list.innerHTML = "";
+    if (!arr.length) {
+      list.innerHTML = '<div class="small">No confirmations yet.</div>';
+      return;
+    }
+    for (const x of arr) {
+      const action = (x.action || "").toUpperCase();
+      const tagCls = action === "BUY" ? "buy" : "sell";
+      const price = (x.signal && x.signal.price != null) ? fmtPrice(x.signal.price) : "—";
+      const sym = (x.signal && x.signal.symbol) ? x.signal.symbol : "—";
+      const reason = (x.signal && x.signal.reason) ? x.signal.reason : "—";
+      const when = x.confirmed_at || "—";
+      const note = x.note ? x.note : "";
+
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `
+        <div class="left">
+          <div><span class="tag ${tagCls}">${action}</span> <span class="small"> @ ${price} (${sym})</span></div>
+          <div class="small">Reason: <span class="mono">${reason}</span></div>
+          ${note ? `<div class="small">Note: <span class="mono">${note}</span></div>` : ``}
+          <div class="small">Confirmed: ${when}</div>
+        </div>
+      `;
+      list.appendChild(div);
+    }
+  }
+
+  // ---------- UI helpers ----------
+  function setServer(online) {
+    const pill = el("serverPill");
+    pill.textContent = online ? "ONLINE" : "OFFLINE";
+    pill.className = "pill " + (online ? "ok" : "bad");
+  }
+
+  function showToast(msg, kind) {
+    const t = el("toast");
+    t.style.display = "block";
+    t.textContent = msg;
+    t.style.borderColor =
+      kind === "ok" ? "rgba(121,242,138,.35)" :
+      kind === "bad" ? "rgba(255,139,139,.35)" :
+      "rgba(255,207,107,.35)";
+  }
+
+  function setActionUI(action) {
+    el("action").textContent = action || "—";
+    const buyBtn = el("confirmBuy");
+    const sellBtn = el("confirmSell");
+    buyBtn.disabled = action !== "BUY";
+    sellBtn.disabled = action !== "SELL";
+  }
+
+  async function fetchJSON(path) {
+    const r = await fetch(API + path, { cache: "no-store" });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error || ("HTTP " + r.status));
+    return j;
+  }
+
+  // ---------- Refresh ----------
+  async function refresh() {
+    try {
+      await fetchJSON("/health");
+      setServer(true);
+
+      const s = await fetchJSON("/signal");
+      const sig = s.signal || {};
+      setActionUI(sig.action);
+
+      el("symbol").textContent = sig.symbol || "—";
+      el("price").textContent = fmtPrice(sig.price);
+      el("reason").textContent = sig.reason || "—";
+      el("ts").textContent = sig.ts || "—";
+      el("meta").textContent = "Last update: " + nowStr() + " (Auto-refresh: ON, " + (POLL_MS/1000) + "s)";
+
+      // Keep last signal available
+      localStorage.setItem("v70_last_signal", JSON.stringify({ at: Date.now(), sig }));
+    } catch (e) {
+      setServer(false);
+      el("meta").textContent = "Could not reach API at " + nowStr() + " (is app.server running?)";
+      setActionUI(null);
+    }
+  }
+
+  // ---------- Confirm + Re-check ----------
+  async function confirm(action) {
+    try {
+      const s = await fetchJSON("/signal");
+      const sig = s.signal || {};
+      if ((sig.action || "HOLD") !== action) {
+        showToast("RECHECK FAILED — now " + (sig.action || "HOLD") + " (not " + action + ")", "warn");
+        return;
+      }
+
+      const note = el("note").value || "";
+      const r = await fetch(API + "/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action, note })
+      });
+      const j = await r.json();
+      if (!r.ok) {
+        showToast("CONFIRM FAILED — " + (j.error || ("HTTP " + r.status)), "bad");
+        return;
+      }
+
+      // Save to local history
+      const entry = {
+        confirmed_at: (j.confirm && j.confirm.confirmed_at) ? j.confirm.confirmed_at : nowStr(),
+        action,
+        signal: sig,
+        note
+      };
+      addHist(entry);
+
+      showToast("CONFIRMED " + action + " ✅ (saved)", "ok");
+      el("note").value = "";
+    } catch (e) {
+      showToast("CONFIRM FAILED — " + e.message, "bad");
+    }
+  }
+
+  // ---------- Sizing ----------
+  function num(v) {
+    const x = parseFloat(String(v || "").replace(/,/g,""));
+    return Number.isFinite(x) ? x : null;
+  }
+  function calcSizing() {
+    const cash = num(el("cash").value);
+    const riskPct = num(el("risk").value);
+    const btc = num(el("btc").value);
+    let last = null;
+    try { last = JSON.parse(localStorage.getItem("v70_last_signal") || "null"); } catch {}
+    const sig = last && last.sig ? last.sig : null;
+    const price = sig && (sig.price != null) ? Number(sig.price) : null;
+    const action = sig && sig.action ? sig.action : null;
+
+    if (!price || !action) {
+      el("sizingOut").textContent = "Need a live /signal first (refresh).";
+      return;
+    }
+    if (!riskPct || riskPct <= 0) {
+      el("sizingOut").textContent = "Enter a Risk % (ex: 25).";
+      return;
+    }
+
+    const frac = riskPct / 100.0;
+
+    if (action === "BUY") {
+      if (!cash || cash <= 0) {
+        el("sizingOut").textContent = "Enter cash (USD) for BUY sizing.";
+        return;
+      }
+      const usd = Math.max(0, cash * frac);
+      const btcAmt = usd / price;
+      el("sizingOut").textContent =
+        `BUY sizing @ ${price.toLocaleString()}:\n` +
+        `USD: ${usd.toFixed(2)}\n` +
+        `BTC: ${btcAmt.toFixed(8)}`;
+      return;
+    }
+
+    if (action === "SELL") {
+      if (!btc || btc <= 0) {
+        el("sizingOut").textContent = "Enter BTC holdings for SELL sizing.";
+        return;
+      }
+      const btcSell = Math.max(0, btc * frac);
+      const usdEst = btcSell * price;
+      el("sizingOut").textContent =
+        `SELL sizing @ ${price.toLocaleString()}:\n` +
+        `BTC: ${btcSell.toFixed(8)}\n` +
+        `USD(est): ${usdEst.toFixed(2)}`;
+      return;
+    }
+
+    el("sizingOut").textContent = "HOLD — no sizing needed.";
+  }
+
+  // ---------- Wire up ----------
+  el("refreshBtn").addEventListener("click", refresh);
+  el("confirmBuy").addEventListener("click", () => confirm("BUY"));
+  el("confirmSell").addEventListener("click", () => confirm("SELL"));
+
+  el("calcBtn").addEventListener("click", calcSizing);
+  el("exportBtn").addEventListener("click", () => {
+    const data = JSON.stringify(loadHist(), null, 2);
+    // show in toast; user can copy by long-press selecting
+    showToast("EXPORT JSON (copy):\n" + data, "warn");
+  });
+  el("clearBtn").addEventListener("click", () => {
+    localStorage.removeItem(KEY);
+    renderHist();
+    showToast("History cleared.", "warn");
+  });
+
+  // start
+  renderHist();
+  refresh();
+  setInterval(refresh, POLL_MS);
+})();
+</script>
+</body>
+</html>
