@@ -168,7 +168,20 @@
     </div>
 
     <div class="grid">
-      <div class="kv"><div class="k">Symbol</div><div class="v" id="symTxt">—</div></div>
+      
+    <!-- === BEST TIME GAUGE === -->
+    <div class="kv" id="bestTimeRow">
+      <div class="k">Best Time</div>
+      <div class="v">
+        <div style="width:160px;height:14px;border-radius:10px;background:rgba(255,255,255,.15);overflow:hidden">
+          <div id="bestTimeBar" style="height:100%;width:0%;background:linear-gradient(90deg,#f44336,#ff9800,#4caf50);transition:width .4s ease"></div>
+        </div>
+        <span id="bestTimePct" style="margin-left:8px;font-weight:600">—</span>
+      </div>
+    </div>
+    <!-- === END BEST TIME GAUGE === -->
+
+<div class="kv"><div class="k">Symbol</div><div class="v" id="symTxt">—</div></div>
       <div class="kv"><div class="k">Price</div><div class="v" id="priceTxt">—</div></div>
       <div class="kv"><div class="k">Timestamp</div><div class="v" id="tsTxt">—</div></div>
       <div class="kv"><div class="k">Recommended Amount</div><div class="v" id="recoTxt">Coming next</div></div>
@@ -228,6 +241,9 @@
   const priceTxt = $("priceTxt");
   const tsTxt = $("tsTxt");
   const recoTxt = $("recoTxt");
+  const bestTimeBar = $("bestTimeBar");
+  const bestTimePct = $("bestTimePct");
+
   const msg = $("msg");
   const btnConfirm = $("btnConfirm");
   const btnRefresh = $("btnRefresh");
@@ -277,6 +293,7 @@ let currentSignal = null;
     async function doConfirm(){
     try{
       setMsg("", "");
+
       if(!currentSignal) return setMsg("bad", "No signal loaded");
 
       const action = String(currentSignal.action || "").toUpperCase();
@@ -356,7 +373,65 @@ let currentSignal = null;
 
     
   // --- RESTORE: fetchSignal() using /reco ---
-  async function fetchSignal(){
+  
+  // --- BEST TIME GAUGE LOGIC ---
+  let __ez_last_price = null;
+  let __ez_last_action = null;
+  let __ez_stable_ticks = 0;
+
+  function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+
+  function computeBestTimeScore(sig, recoUsd){
+    let s = 35;
+
+    const a = String((sig && sig.action) || "HOLD").toUpperCase();
+    const price = (sig && sig.price != null) ? Number(sig.price) : null;
+
+    // If not actionable, keep it low
+    if(a !== "BUY" && a !== "SELL"){
+      return 10;
+    }
+
+    // recommended amount exists => more confident
+    const ru = Number(recoUsd || 0);
+    if(isFinite(ru) && ru > 0){
+      s += 25;
+    }
+
+    // stability: if action holds steady for consecutive ticks, raise score
+    if(__ez_last_action === a){
+      __ez_stable_ticks += 1;
+    }else{
+      __ez_stable_ticks = 0;
+    }
+    __ez_last_action = a;
+    s += clamp(__ez_stable_ticks * 8, 0, 24);
+
+    // price momentum: small boost if price moved in favor since last tick
+    if(__ez_last_price !== null && price !== null && isFinite(price)){
+      const dp = price - __ez_last_price;
+      if(a === "BUY" && dp > 0) s += 8;
+      else if(a === "SELL" && dp < 0) s += 8;
+      else s -= 4;
+    }
+
+    // update last price
+    if(price !== null && isFinite(price)){
+      __ez_last_price = price;
+    }
+
+    return clamp(Math.round(s), 0, 100);
+  }
+
+  function renderBestTime(score){
+    try{
+      if(bestTimeBar) bestTimeBar.style.width = String(score) + "%";
+      if(bestTimePct) bestTimePct.textContent = String(score) + "%";
+    }catch(e){}
+  }
+  // --- END BEST TIME GAUGE LOGIC ---
+
+async function fetchSignal(){
     try{
       setPill(true, "Online");
       const j = await fetch("/reco?ts=" + Date.now(), {cache:"no-store"}).then(r=>r.json());
@@ -406,6 +481,13 @@ let currentSignal = null;
       btnConfirm.disabled = !(chkConfirm.checked && recoOk && (a === "BUY" || a === "SELL"));
 
       setMsg("", "");
+
+      // update Best Time gauge (final, correct placement)
+      try{
+        const score = computeBestTimeScore(sig, recoAmt);
+        renderBestTime(score);
+      }catch(e){}
+
     }catch(e){
       setPill(false, "Offline");
       btnConfirm.disabled = true;
