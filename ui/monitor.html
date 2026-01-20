@@ -175,7 +175,7 @@ async function refresh() {
   const now = new Date().toLocaleString();
 
   try {
-    const status = await fetch("/health").then(r => r.json());
+    const status = await fetch("/api/status").then(r => r.json());
     el("serverStatus").textContent = "ONLINE";
     el("serverStatus").className = "status online";
     el("platform").textContent = status.platform || "—";
@@ -187,7 +187,7 @@ async function refresh() {
   }
 
   try {
-    const sig = await fetch("/signal").then(r => r.json());
+    const sig = await fetch("/api/signal/latest").then(r => r.json());
 
     if (sig.status === "SIGNAL") {
       setAction(sig.action);

@@ -1,0 +1,63 @@
+{
+  "alerts": {
+    "speak": true,
+    "voice_style": "SHORT"
+  },
+  "control_version": 1,
+  "cooldowns": {
+    "prompt_seconds": 600,
+    "trade_seconds": 2700
+  },
+  "education": {
+    "enabled": true,
+    "show_suppressed_why": true
+  },
+  "fees": {
+    "close_call_ratio": 1.2,
+    "safety_multiplier": 3.0
+  },
+  "mode": "BEGINNER",
+  "paused": false,
+  "platform": "ROBINHOOD",
+  "scan": {
+    "fast_eval_seconds": 15,
+    "full_scan_seconds": 60,
+    "heartbeat_seconds": 300,
+    "min_24h_volume_usd": 10000000,
+    "primary_symbol": "BTC-USD",
+    "watchlist": [
+      "BTC-USD",
+      "ETH-USD",
+      "SOL-USD",
+      "AVAX-USD",
+      "LINK-USD",
+      "ADA-USD",
+      "XRP-USD",
+      "DOGE-USD",
+      "POL-USD",
+      "LTC-USD",
+      "BCH-USD",
+      "ATOM-USD",
+      "OP-USD",
+      "ARB-USD",
+      "DOT-USD",
+      "UNI-USD",
+      "AAVE-USD",
+      "NEAR-USD",
+      "FIL-USD",
+      "INJ-USD"
+    ]
+  },
+  "strategy": {
+    "max_position_pct": 0.35,
+    "rsi_buy": 28.0,
+    "rsi_period": 14,
+    "rsi_sell": 72.0,
+    "stop_loss_pct": 0.015,
+    "take_profit_pct": 0.015
+  },
+  "trading": {
+    "accept_trades": true,
+    "paper_default": false
+  }
+}

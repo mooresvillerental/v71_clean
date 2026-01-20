@@ -1,0 +1,26 @@
+{
+  "cash_usd": 1500.0,
+  "decision": {
+    "action": null,
+    "expected_move_pct": 0.0,
+    "reason": "RSI_NOT_READY",
+    "required_move_pct": 0.024
+  },
+  "holdings": {},
+  "mode": "BEGINNER",
+  "paper_enforced": false,
+  "platform": "ROBINHOOD",
+  "position": null,
+  "primary": {
+    "price": 95192.69,
+    "rsi": null,
+    "symbol": "BTC-USD",
+    "vol_usd": 148796084.27151215
+  },
+  "stats": {
+    "losses": 0,
+    "pnl_usd": 0.0,
+    "wins": 0
+  },
+  "ts": "2026-01-18 04:34:30 AM"
+}

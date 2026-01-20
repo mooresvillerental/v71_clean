@@ -3,8 +3,6 @@ import json, os, time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse
 
-from app.pnl import update_after_confirm
-
 HOST = os.environ.get("V70_HOST", "127.0.0.1")
 PORT = int(os.environ.get("V70_PORT", "8080"))
 
@@ -49,10 +47,6 @@ def _load_settings():
     if not isinstance(s, dict):
         s = _default_settings()
         _write_json(SETTINGS_PATH, s)
-    # default minimum trade (USD)
-    if "min_trade_usd" not in s:
-        s["min_trade_usd"] = 25
-
         return s
     # fill any missing keys
     d = _default_settings()
@@ -65,6 +59,7 @@ def _load_settings():
         s["updated_at"] = time.strftime("%Y-%m-%d %I:%M:%S %p")
         _write_json(SETTINGS_PATH, s)
     return s
+
 def latest_signal_from_engine(engine_state: dict) -> dict:
     """Normalized signal contract:
       { action, reason, symbol, price, ts }
@@ -164,26 +159,6 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_json(503, {"ok": False, "error": "engine state missing/unreadable", "engine_state_path": ENGINE_STATE_PATH})
 
         if path == "/decision":
-            # --- PNL POST-CONFIRM (safe) ---
-            try:
-                _pnl_info = _pnl_update_after_confirm(
-                    symbol=symbol,
-                    action=action,
-                    price=float(price),
-                    pre_cash=float(_pnl_pre_cash),
-                    pre_qty=float(_pnl_pre_qty),
-                    pre_mtime=float(_pnl_pre_mtime),
-                )
-            except Exception as e:
-                _pnl_info = {'ok': False, 'note': 'pnl_exception', 'detail': str(e)}
-            # Attach pnl info if payload is a dict
-            try:
-                if isinstance({"ok": True, "decision": (engine.get("decision") or {})}, dict):
-                    {"ok": True, "decision": (engine.get("decision") or {})}['pnl'] = _pnl_info
-            except Exception:
-                pass
-            # --- END PNL POST-CONFIRM ---
-
             return self._send_json(200, {"ok": True, "decision": (engine.get("decision") or {})})
 
         if path == "/signal":
@@ -270,7 +245,6 @@ class Handler(BaseHTTPRequestHandler):
                 "symbol": symbol,
                 "price": price,
                 "recommended_usd": recommended_usd,
-
                 "recommended_btc": recommended_btc
             })
 
@@ -303,6 +277,7 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/settings":
             # merge posted keys into settings, keep only allowed keys
             s = _load_settings()
+            allowed = {"reco_mode","reco_percent","fee_buffer_pct","fee_buffer_usd"}
             if isinstance(payload, dict):
                 for k,v in payload.items():
                     if k in allowed:
@@ -328,40 +303,6 @@ class Handler(BaseHTTPRequestHandler):
         if sig.get("action") != requested:
             return self._send_json(409, {"ok": False, "error": "recheck_mismatch", "requested": requested, "current": sig})
 
-        # --- PNL PRE-SNAPSHOT (safe) ---
-
-        _pnl_pre_cash = 0.0
-
-        _pnl_pre_qty = 0.0
-
-        _pnl_pre_mtime = 0.0
-
-        try:
-
-            from pathlib import Path as _Path
-
-            _app_path = _Path.home() / 'v69_app_data' / 'app_state.json'
-
-            if _app_path.exists():
-
-                _pnl_pre_mtime = _app_path.stat().st_mtime
-
-                _st = _read_json(str(_app_path)) or {}
-
-                _pnl_pre_cash = float(_st.get('cash_usd', 0.0))
-
-                _h = (_st.get('holdings', {}) or {})
-
-                _pnl_pre_qty = float(_h.get(symbol, 0.0))
-
-        except Exception:
-
-            pass
-
-        # --- END PNL PRE-SNAPSHOT ---
-
-
-
         confirm = {
             "confirmed_at": time.strftime("%Y-%m-%d %I:%M:%S %p"),
             "action": requested,
@@ -370,10 +311,6 @@ class Handler(BaseHTTPRequestHandler):
         }
         try:
             _write_json(CONFIRM_PATH, confirm)
-            try:
-                update_after_confirm(confirm)
-            except Exception as _e:
-                pass
         except Exception as e:
             return self._send_json(500, {"ok": False, "error": "write_failed", "detail": str(e), "confirm_path": CONFIRM_PATH})
 
