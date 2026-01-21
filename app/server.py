@@ -3,6 +3,83 @@ import json, os, time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse
 
+
+# --- MARKET INTEL (Fortune-teller Phase 1) ---
+_EZ_INTEL_CACHE = {"ts": 0, "headline": None}
+_EZ_PRICE_TAPE = []
+
+def _sentiment_label(text: str) -> str:
+    t = (text or "").lower()
+    pos = ["surge","rally","gain","gains","up","bull","bullish","approval","approved","win","wins","record","breakout","soar","positive","buy"]
+    neg = ["crash","dump","loss","losses","down","bear","bearish","hack","lawsuit","ban","rejected","rejection","collapse","plunge","negative","sell"]
+    score = 0
+    for w in pos:
+        if w in t: score += 1
+    for w in neg:
+        if w in t: score -= 1
+    if score >= 2: return "POSITIVE"
+    if score <= -2: return "NEGATIVE"
+    return "NEUTRAL"
+
+def _trend_from_tape(tape):
+    try:
+        t = list(tape or [])
+        if len(t) >= 6:
+            a = sum(t[-3:]) / 3.0
+            b = sum(t[-6:-3]) / 3.0
+            if a > b * 1.0004: return "UP"
+            if a < b * 0.9996: return "DOWN"
+    except Exception:
+        pass
+    return "FLAT"
+
+def _get_rss_headline():
+    # CoinDesk RSS with 60s cache
+    import time as _t
+    now = int(_t.time())
+    cached = _EZ_INTEL_CACHE.get("headline")
+    ts = int(_EZ_INTEL_CACHE.get("ts", 0) or 0)
+    if cached and (now - ts) <= 60:
+        return cached
+    try:
+        import urllib.request
+        import xml.etree.ElementTree as ET
+        rss_url = "https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml"
+        req = urllib.request.Request(rss_url, headers={"User-Agent":"EZTrader/1.0"})
+        with urllib.request.urlopen(req, timeout=6) as r:
+            xml = r.read()
+        root = ET.fromstring(xml)
+        item = root.find(".//item")
+        ttl = item.findtext("title") if item is not None else None
+        if ttl:
+            headline = ttl.strip()
+            _EZ_INTEL_CACHE["headline"] = headline
+            _EZ_INTEL_CACHE["ts"] = now
+            return headline
+    except Exception:
+        pass
+    return cached or "—"
+
+def get_market_intel(tape):
+    headline = _get_rss_headline()
+    sent = _sentiment_label(headline)
+    trend = _trend_from_tape(tape)
+    # micro trend (last 3 ticks)
+    micro = "FLAT"
+    try:
+        t = list(tape or [])
+        if len(t) >= 3:
+            if t[-1] > t[-2] > t[-3]:
+                micro = "UP"
+            elif t[-1] < t[-2] < t[-3]:
+                micro = "DOWN"
+    except Exception:
+        pass
+
+    return {"headline": headline, "sentiment": sent, "trend": trend, "micro_trend": micro}
+# --- END MARKET INTEL ---
+
+
 from app.pnl import update_after_confirm
 
 HOST = os.environ.get("V70_HOST", "127.0.0.1")
@@ -190,6 +267,47 @@ class Handler(BaseHTTPRequestHandler):
             sig = latest_signal_from_engine(engine)
             return self._send_json(200, {"ok": True, "signal": sig})
 
+        if path == "/intel":
+            # Fortune-teller Phase 1: headline + sentiment + trend
+            global _EZ_PRICE_TAPE
+
+            sig = latest_signal_from_engine(engine)
+            lp = None
+
+            try:
+                # Live price (Coinbase spot, no API key)
+                import urllib.request, json
+                with urllib.request.urlopen(
+                    "https://api.coinbase.com/v2/prices/BTC-USD/spot",
+                    timeout=6
+                ) as r:
+                    j = json.loads(r.read().decode("utf-8"))
+                lp = float((j.get("data") or {}).get("amount") or 0) or None
+            except Exception:
+                lp = None
+
+            if lp is None:
+                lp = None  # stay None if Coinbase fetch fails
+
+            try:
+                if lp is not None:
+                    _EZ_PRICE_TAPE.append(lp)
+                    if len(_EZ_PRICE_TAPE) > 20:
+                        _EZ_PRICE_TAPE = _EZ_PRICE_TAPE[-20:]
+            except Exception:
+                pass
+
+            info = get_market_intel(_EZ_PRICE_TAPE)
+            return self._send_json(
+                200,
+                {
+                    "ok": True,
+                    "lp": lp,
+                    "tape_len": len(_EZ_PRICE_TAPE),
+                    **info
+                }
+            )
+
         if path == "/reco":
             # Recommended amount endpoint (authoritative engine-driven signal + balances)
             sig = latest_signal_from_engine(engine)
@@ -322,7 +440,7 @@ class Handler(BaseHTTPRequestHandler):
         if engine is None:
             return self._send_json(503, {"ok": False, "error": "engine state missing/unreadable", "engine_state_path": ENGINE_STATE_PATH})
 
-        sig = latest_signal_from_engine(engine)
+            sig = latest_signal_from_engine(engine)
 
         # Confirm + Re-check: only allow if engine still matches
         if sig.get("action") != requested:

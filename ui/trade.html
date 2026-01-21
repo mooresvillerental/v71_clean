@@ -176,7 +176,7 @@
         <div style="width:160px;height:14px;border-radius:10px;background:rgba(255,255,255,.15);overflow:hidden">
           <div id="bestTimeBar" style="height:100%;width:0%;background:linear-gradient(90deg,#f44336,#ff9800,#4caf50);transition:width .4s ease"></div>
         </div>
-        <span id="bestTimePct" style="margin-left:8px;font-weight:600">—</span>
+        <span id="bestTimePct" style="margin-left:8px;font-weight:600">—</span><span id="bestTimeLbl" style="margin-left:8px;opacity:.85">—</span>
       </div>
     </div>
     <!-- === END BEST TIME GAUGE === -->
@@ -214,6 +214,21 @@
         </div>
       </div>
     </div>
+    <!-- === MARKET INTEL (Fortune-teller Phase 1) === -->
+    <div class="grid" id="intelCard" style="margin-top:10px">
+      <div class="kv">
+        <div class="k">Market Intel</div>
+        <div class="v" style="display:flex;flex-direction:column;gap:6px">
+          <div><span style="opacity:.75">Headline:</span> <span id="intelHeadline">—</span></div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap">
+            <div><span style="opacity:.75">Sentiment:</span> <span id="intelSent">—</span></div>
+            <div><span style="opacity:.75">Trend:</span> <span id="intelTrend">—</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- === END MARKET INTEL === -->
+
 
     <div class="btnbar" style="margin-top:10px">
       <button class="btnRefresh" id="btnSave" type="button">SAVE SETTINGS</button>
@@ -243,6 +258,7 @@
   const recoTxt = $("recoTxt");
   const bestTimeBar = $("bestTimeBar");
   const bestTimePct = $("bestTimePct");
+  const bestTimeLbl = $("bestTimeLbl");
 
   const msg = $("msg");
   const btnConfirm = $("btnConfirm");
@@ -253,6 +269,9 @@
     const inpFeePct = $("inpFeePct");
     const inpFeeUsd = $("inpFeeUsd");
     const btnSave = $("btnSave");
+  const intelHeadline = $("intelHeadline");
+  const intelSent = $("intelSent");
+  const intelTrend = $("intelTrend");
 
   let lastKey = "";
   let lastActionable = null;
@@ -378,6 +397,7 @@ let currentSignal = null;
   let __ez_last_price = null;
   let __ez_last_action = null;
   let __ez_stable_ticks = 0;
+  let __ez_last_score = null;
 
   function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
 
@@ -425,11 +445,45 @@ let currentSignal = null;
 
   function renderBestTime(score){
     try{
-      if(bestTimeBar) bestTimeBar.style.width = String(score) + "%";
-      if(bestTimePct) bestTimePct.textContent = String(score) + "%";
+      // Smooth jumps: EMA-ish blend (70% previous, 30% new)
+      let s = Number(score);
+      if(!isFinite(s)) s = 0;
+      if(__ez_last_score === null){
+        __ez_last_score = s;
+      }else{
+        __ez_last_score = (__ez_last_score * 0.70) + (s * 0.30);
+      }
+      const v = Math.max(0, Math.min(100, Math.round(__ez_last_score)));
+
+      // Color thresholds + label
+      let lbl = "Watch";
+      let grad = "linear-gradient(90deg,#f44336,#ff9800,#4caf50)";
+      if(v < 40){ lbl = "Caution"; grad = "linear-gradient(90deg,#f44336,#f44336)"; }
+      else if(v < 70){ lbl = "Watch"; grad = "linear-gradient(90deg,#ff9800,#ff9800)"; }
+      else { lbl = "Prime"; grad = "linear-gradient(90deg,#4caf50,#4caf50)"; }
+
+      if(bestTimeBar){
+        bestTimeBar.style.width = String(v) + "%";
+        bestTimeBar.style.background = grad;
+      }
+      if(bestTimePct) bestTimePct.textContent = String(v) + "%";
+      if(bestTimeLbl) bestTimeLbl.textContent = lbl;
     }catch(e){}
   }
   // --- END BEST TIME GAUGE LOGIC ---
+
+
+  // --- MARKET INTEL (Fortune-teller Phase 1) ---
+  async function fetchIntel(){
+    try{
+      const j = await fetch("/intel?ts=" + Date.now(), {cache:"no-store"}).then(r=>r.json());
+      if(!j || !j.ok) return;
+      if(intelHeadline) intelHeadline.textContent = j.headline || "—";
+      if(intelSent) intelSent.textContent = j.sentiment || "—";
+      if(intelTrend) intelTrend.textContent = j.trend || "—";
+    }catch(e){}
+  }
+  // --- END MARKET INTEL ---
 
 async function fetchSignal(){
     try{
@@ -512,7 +566,9 @@ async function diag(){
 
   // start
   fetchSignal();
+  fetchIntel();
   setInterval(fetchSignal, 5000);
+  setInterval(fetchIntel, 10000);
 })();
 </script>
 </body>
