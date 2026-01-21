@@ -164,6 +164,52 @@ def _default_settings():
         "updated_at": time.strftime("%Y-%m-%d %I:%M:%S %p")
     }
 
+def apply_settings_patch(payload: dict, s: dict):
+    """
+    Validate + apply allowed settings keys. Returns (new_settings, changed_keys).
+    Raises ValueError for invalid inputs.
+    """
+    if not isinstance(s, dict):
+        s = {}
+    if not isinstance(payload, dict):
+        payload = {}
+
+    allowed = {
+        "reco_mode", "reco_percent",
+        "fee_buffer_pct", "fee_buffer_usd",
+        "min_trade_usd",
+        "intel_profile",
+    }
+
+    out = dict(s)
+    changed = {}
+
+    # intel_profile (bounded presets)
+    if payload.get("intel_profile") is not None:
+        ip = str(payload.get("intel_profile")).strip().lower()
+        if ip not in EZ_INTEL_PROFILES:
+            raise ValueError("bad intel_profile")
+        out["intel_profile"] = ip
+        changed["intel_profile"] = ip
+
+    # other allowed keys
+    for k in allowed:
+        if k == "intel_profile":
+            continue
+        if k in payload:
+            out[k] = payload[k]
+            changed[k] = payload[k]
+
+    # stamp
+    try:
+        import time as _t
+        out["updated_at"] = _t.strftime("%Y-%m-%d %I:%M:%S %p")
+    except Exception:
+        pass
+
+    return out, changed
+
+
 def _load_settings():
     s = _read_json(SETTINGS_PATH)
     if not isinstance(s, dict):
@@ -473,54 +519,22 @@ class Handler(BaseHTTPRequestHandler):
             payload = {}
 
         if path == "/settings":
-            # merge posted keys into settings, keep only allowed keys
-
-            # intel_profile (bounded presets) — safe, validated, persisted
-
             try:
+                s0 = _load_settings()
+                s1, changed = apply_settings_patch(payload, s0)
+                _write_json(SETTINGS_PATH, s1)
 
-                ip = payload.get("intel_profile")
+                # apply active profile live (default balanced)
+                global EZ_INTEL_ACTIVE_PROFILE
+                EZ_INTEL_ACTIVE_PROFILE = str(s1.get("intel_profile") or "balanced").strip().lower()
+                if EZ_INTEL_ACTIVE_PROFILE not in EZ_INTEL_PROFILES:
+                    EZ_INTEL_ACTIVE_PROFILE = "balanced"
 
-                if ip is not None:
-
-                    ip = str(ip).strip().lower()
-
-                    if ip not in EZ_INTEL_PROFILES:
-
-                        return self._send_json(400, {"ok": False, "error": "bad intel_profile"})
-
-                    s = _load_settings()
-
-                    if not isinstance(s, dict): s = {}
-
-                    s["intel_profile"] = ip
-
-                    _write_json(SETTINGS_PATH, s)
-
-                    global EZ_INTEL_ACTIVE_PROFILE
-
-                    EZ_INTEL_ACTIVE_PROFILE = ip
-
+                return self._send_json(200, {"ok": True, "settings_path": SETTINGS_PATH, "settings": s1, "changed": changed})
+            except ValueError as e:
+                return self._send_json(400, {"ok": False, "error": str(e)})
             except Exception as e:
-
-                return self._send_json(500, {"ok": False, "error": "intel_profile_apply_failed", "detail": str(e)})
-
-            s = _load_settings()
-                        # guard: prevent POST /settings from crashing (no more empty replies)
-            allowed = {
-                "reco_mode","reco_percent","fee_buffer_pct","fee_buffer_usd","min_trade_usd","intel_profile"
-            }
-            try:
-                if isinstance(payload, dict):
-                                for k,v in payload.items():
-                                    if k in allowed:
-                                        s[k] = v
-            except Exception as e:
-                pass
-            s["updated_at"] = time.strftime("%Y-%m-%d %I:%M:%S %p")
-            _write_json(SETTINGS_PATH, s)
-            return self._send_json(200, {"ok": True, "settings_path": SETTINGS_PATH, "settings": s})
-
+                return self._send_json(500, {"ok": False, "error": "settings_post_failed", "detail": str(e)})
 
         requested = (payload.get("action") or "").upper().strip()
         note = (payload.get("note") or "").strip()
