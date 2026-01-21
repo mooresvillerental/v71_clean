@@ -157,6 +157,7 @@
     <div class="pill" id="pill">
       <span class="dot" id="dot"></span>
       <span id="pillText">Starting…</span>
+      <span id="testModeBadge" style="margin-left:8px; padding:2px 8px; border-radius:999px; font-size:12px; display:none; background:rgba(255,140,0,.18); border:1px solid rgba(255,140,0,.35); color:var(--text)">TEST MODE</span>
     </div>
   </div>
 
@@ -286,6 +287,7 @@
 
   const dot = $("dot");
   const pillText = $("pillText");
+  const testModeBadge = $("testModeBadge");
   const actionTxt = $("actionTxt");
   const reasonTxt = $("reasonTxt");
   const symTxt = $("symTxt");
@@ -588,6 +590,13 @@ async function fetchSignal(){
       const a = sig.action;
       actionTxt.textContent = a || "HOLD";
       reasonTxt.textContent = sig.reason ? String(sig.reason) : "—";
+      try{
+        const rs = String(sig.reason || "");
+        if(testModeBadge){
+          testModeBadge.style.display = (rs.indexOf("TEST_") >= 0) ? "inline-block" : "none";
+        }
+      }catch(e){}
+
       symTxt.textContent = sig.symbol ? String(sig.symbol) : "—";
             try{
         const live = Number(window.__ez_live_lp);
