@@ -219,6 +219,16 @@ def _load_settings():
     if "min_trade_usd" not in s:
         s["min_trade_usd"] = 25
 
+    # apply active intel profile from settings (startup consistency)
+    global EZ_INTEL_ACTIVE_PROFILE
+    try:
+        ip = str((s or {}).get("intel_profile") or EZ_INTEL_ACTIVE_PROFILE or "balanced").strip().lower()
+        if ip in EZ_INTEL_PROFILES:
+            EZ_INTEL_ACTIVE_PROFILE = ip
+    except Exception:
+        pass
+
+
         return s
     # fill any missing keys
     d = _default_settings()
