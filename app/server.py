@@ -4,6 +4,44 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse
 
 
+
+# === INTEL GUARDRAILS (stability + safety) ===
+EZ_INTEL_GUARDRAILS = {
+    # Network safety
+    "HTTP_TIMEOUT_SEC": 6,
+    "RSS_CACHE_TTL_SEC": 60,     # minimum cache window (prevents hammering)
+    # Memory safety
+    "TAPE_MAX_LEN": 20,          # hard cap to prevent memory creep
+}
+# === END INTEL GUARDRAILS ===
+
+# === INTEL PROFILES (bounded presets) ===
+EZ_INTEL_PROFILES = {
+    # Most stable: fewer flips, micro trend off
+    "conservative": {
+        "TREND_UP_MULT": 1.0008,
+        "TREND_DOWN_MULT": 0.9992,
+        "MICRO_TREND_ENABLED": False,
+    },
+    # Default: balanced sensitivity
+    "balanced": {
+        "TREND_UP_MULT": 1.0004,
+        "TREND_DOWN_MULT": 0.9996,
+        "MICRO_TREND_ENABLED": True,
+    },
+    # Most responsive: flips easier, micro trend on
+    "aggressive": {
+        "TREND_UP_MULT": 1.0002,
+        "TREND_DOWN_MULT": 0.9998,
+        "MICRO_TREND_ENABLED": True,
+    },
+}
+
+# Active profile (internal for now; later becomes user setting)
+EZ_INTEL_ACTIVE_PROFILE = "balanced"
+# === END INTEL PROFILES ===
+
+
 # --- MARKET INTEL (Fortune-teller Phase 1) ---
 _EZ_INTEL_CACHE = {"ts": 0, "headline": None}
 _EZ_PRICE_TAPE = []
@@ -27,8 +65,8 @@ def _trend_from_tape(tape):
         if len(t) >= 6:
             a = sum(t[-3:]) / 3.0
             b = sum(t[-6:-3]) / 3.0
-            if a > b * 1.0004: return "UP"
-            if a < b * 0.9996: return "DOWN"
+            if a > b * EZ_INTEL_PROFILES[EZ_INTEL_ACTIVE_PROFILE]["TREND_UP_MULT"]: return "UP"
+            if a < b * EZ_INTEL_PROFILES[EZ_INTEL_ACTIVE_PROFILE]["TREND_DOWN_MULT"]: return "DOWN"
     except Exception:
         pass
     return "FLAT"
@@ -39,14 +77,14 @@ def _get_rss_headline():
     now = int(_t.time())
     cached = _EZ_INTEL_CACHE.get("headline")
     ts = int(_EZ_INTEL_CACHE.get("ts", 0) or 0)
-    if cached and (now - ts) <= 60:
+    if cached and (now - ts) <= EZ_INTEL_GUARDRAILS["RSS_CACHE_TTL_SEC"]:
         return cached
     try:
         import urllib.request
         import xml.etree.ElementTree as ET
         rss_url = "https://www.coindesk.com/arc/outboundfeeds/rss/?outputType=xml"
         req = urllib.request.Request(rss_url, headers={"User-Agent":"EZTrader/1.0"})
-        with urllib.request.urlopen(req, timeout=6) as r:
+        with urllib.request.urlopen(req, timeout=EZ_INTEL_GUARDRAILS["HTTP_TIMEOUT_SEC"]) as r:
             xml = r.read()
         root = ET.fromstring(xml)
         item = root.find(".//item")
@@ -64,19 +102,24 @@ def get_market_intel(tape):
     headline = _get_rss_headline()
     sent = _sentiment_label(headline)
     trend = _trend_from_tape(tape)
-    # micro trend (last 3 ticks)
-    micro = "FLAT"
-    try:
-        t = list(tape or [])
-        if len(t) >= 3:
-            if t[-1] > t[-2] > t[-3]:
-                micro = "UP"
-            elif t[-1] < t[-2] < t[-3]:
-                micro = "DOWN"
-    except Exception:
-        pass
+    if EZ_INTEL_PROFILES[EZ_INTEL_ACTIVE_PROFILE]["MICRO_TREND_ENABLED"]:
 
-    return {"headline": headline, "sentiment": sent, "trend": trend, "micro_trend": micro}
+        # micro trend (last 3 ticks)
+        micro = "FLAT"
+        try:
+            t = list(tape or [])
+            if len(t) >= 3:
+                if t[-1] > t[-2] > t[-3]:
+                    micro = "UP"
+                elif t[-1] < t[-2] < t[-3]:
+                    micro = "DOWN"
+        except Exception:
+            pass
+
+    out = {"headline": headline, "sentiment": sent, "trend": trend}
+    if EZ_INTEL_PROFILES[EZ_INTEL_ACTIVE_PROFILE]["MICRO_TREND_ENABLED"]:
+        out["micro_trend"] = micro
+    return out
 # --- END MARKET INTEL ---
 
 
@@ -279,7 +322,7 @@ class Handler(BaseHTTPRequestHandler):
                 import urllib.request, json
                 with urllib.request.urlopen(
                     "https://api.coinbase.com/v2/prices/BTC-USD/spot",
-                    timeout=6
+                    timeout=EZ_INTEL_GUARDRAILS["HTTP_TIMEOUT_SEC"]
                 ) as r:
                     j = json.loads(r.read().decode("utf-8"))
                 lp = float((j.get("data") or {}).get("amount") or 0) or None
@@ -292,8 +335,8 @@ class Handler(BaseHTTPRequestHandler):
             try:
                 if lp is not None:
                     _EZ_PRICE_TAPE.append(lp)
-                    if len(_EZ_PRICE_TAPE) > 20:
-                        _EZ_PRICE_TAPE = _EZ_PRICE_TAPE[-20:]
+                    if len(_EZ_PRICE_TAPE) > EZ_INTEL_GUARDRAILS["TAPE_MAX_LEN"]:
+                        _EZ_PRICE_TAPE = _EZ_PRICE_TAPE[-EZ_INTEL_GUARDRAILS["TAPE_MAX_LEN"]:]
             except Exception:
                 pass
 
@@ -397,7 +440,18 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_json(200, {"ok": True, "confirm_path": CONFIRM_PATH, "confirm": c})
 
         if path == "/settings":
+            # allowed keys for POST /settings
+            allowed = {
+                "reco_mode", "reco_percent",
+                "fee_buffer_pct", "fee_buffer_usd",
+                "min_trade_usd",
+                "intel_profile",
+            }
+
+
             s = _load_settings()
+            if isinstance(s, dict) and "intel_profile" not in s:
+                s["intel_profile"] = EZ_INTEL_ACTIVE_PROFILE
             return self._send_json(200, {"ok": True, "settings_path": SETTINGS_PATH, "settings": s})
 
         return self._send_json(404, {"ok": False, "error": "not found", "paths": ["/health", "/decision", "/signal", "/confirm", "/confirm/status", "/ui/*", "/"]})
@@ -420,11 +474,49 @@ class Handler(BaseHTTPRequestHandler):
 
         if path == "/settings":
             # merge posted keys into settings, keep only allowed keys
+
+            # intel_profile (bounded presets) — safe, validated, persisted
+
+            try:
+
+                ip = payload.get("intel_profile")
+
+                if ip is not None:
+
+                    ip = str(ip).strip().lower()
+
+                    if ip not in EZ_INTEL_PROFILES:
+
+                        return self._send_json(400, {"ok": False, "error": "bad intel_profile"})
+
+                    s = _load_settings()
+
+                    if not isinstance(s, dict): s = {}
+
+                    s["intel_profile"] = ip
+
+                    _write_json(SETTINGS_PATH, s)
+
+                    global EZ_INTEL_ACTIVE_PROFILE
+
+                    EZ_INTEL_ACTIVE_PROFILE = ip
+
+            except Exception as e:
+
+                return self._send_json(500, {"ok": False, "error": "intel_profile_apply_failed", "detail": str(e)})
+
             s = _load_settings()
-            if isinstance(payload, dict):
-                for k,v in payload.items():
-                    if k in allowed:
-                        s[k] = v
+                        # guard: prevent POST /settings from crashing (no more empty replies)
+            allowed = {
+                "reco_mode","reco_percent","fee_buffer_pct","fee_buffer_usd","min_trade_usd","intel_profile"
+            }
+            try:
+                if isinstance(payload, dict):
+                                for k,v in payload.items():
+                                    if k in allowed:
+                                        s[k] = v
+            except Exception as e:
+                pass
             s["updated_at"] = time.strftime("%Y-%m-%d %I:%M:%S %p")
             _write_json(SETTINGS_PATH, s)
             return self._send_json(200, {"ok": True, "settings_path": SETTINGS_PATH, "settings": s})
