@@ -191,6 +191,12 @@
     <div class="controls">
       <div class="row">
         <label><input type="checkbox" id="chkAnnounce" checked> Announce changes</label>
+        <label style="margin-left:14px"><input type="checkbox" id="chkRepeat"> Repeat</label>
+        <select id="selRepeatSec" style="margin-left:8px; padding:6px 8px; border-radius:10px; border:1px solid var(--line); background:rgba(0,0,0,.18); color:var(--text)">
+          <option value="60">60s</option>
+          <option value="120" selected>120s</option>
+          <option value="300">300s</option>
+        </select>
         <span class="k">Voice</span>
       </div>
       <div class="row">
@@ -304,6 +310,8 @@
   const btnConfirm = $("btnConfirm");
   const btnRefresh = $("btnRefresh");
   const chkAnnounce = $("chkAnnounce");
+  const chkRepeat = $("chkRepeat");
+  const selRepeatSec = $("selRepeatSec");
   const chkConfirm = $("chkConfirm");
     const inpPct = $("inpPct");
     const inpFeePct = $("inpFeePct");
@@ -326,6 +334,9 @@ window.__ez_minTradeUsd = window.__ez_minTradeUsd || 0;
 window.__ez_suppress_announce = window.__ez_suppress_announce || false;
 let lastRecoSpokenKey = "";
 let currentSignal = null;
+  let repeatTimer = null;
+  let repeatLastKey = "";
+
 
   function setPill(ok, text){
     dot.classList.remove("ok","bad");
@@ -349,6 +360,51 @@ let currentSignal = null;
       window.speechSynthesis.cancel();
       window.speechSynthesis.speak(u);
     }catch(e){}
+  }
+
+  function stopRepeat(){
+    try{
+      if(repeatTimer){ clearInterval(repeatTimer); repeatTimer = null; }
+      repeatLastKey = "";
+    }catch(e){}
+  }
+
+  function startRepeatIfNeeded(sig){
+    try{
+      if(!chkAnnounce || !chkAnnounce.checked) return stopRepeat();
+      if(!chkRepeat || !chkRepeat.checked) return stopRepeat();
+      const a = String((sig && sig.action) || "").toUpperCase();
+      if(a !== "BUY" && a !== "SELL") return stopRepeat();
+
+      const sec = selRepeatSec ? Number(selRepeatSec.value || 120) : 120;
+      const ms = (isFinite(sec) && sec >= 30) ? Math.round(sec * 1000) : 120000;
+
+      const key = [sig.action, sig.reason, sig.symbol, sig.price, sig.ts].join("|");
+      if(repeatLastKey !== key){
+        stopRepeat();
+        repeatLastKey = key;
+      }
+
+      if(!repeatTimer){
+        try{
+          const shown = (recoTxt && recoTxt.textContent) ? String(recoTxt.textContent).trim() : "";
+          const amt = shown.replace(/[^0-9.]/g,"");
+          if(amt) speak(`EZTrader repeat alert. ${a}. Recommended amount: ${amt} dollars.`);
+          else speak(`EZTrader repeat alert. ${a}.`);
+        }catch(e){}
+
+        repeatTimer = setInterval(()=>{
+          try{
+            const shown = (recoTxt && recoTxt.textContent) ? String(recoTxt.textContent).trim() : "";
+            const amt = shown.replace(/[^0-9.]/g,"");
+            if(amt) speak(`EZTrader repeat alert. ${a}. Recommended amount: ${amt} dollars.`);
+            else speak(`EZTrader repeat alert. ${a}.`);
+          }catch(e){}
+        }, ms);
+      }
+    }catch(e){
+      stopRepeat();
+    }
   }
 
 
@@ -586,6 +642,7 @@ async function fetchSignal(){
         ts: j.ts || ""
       };
       currentSignal = sig;
+      startRepeatIfNeeded(sig);
 
       const a = sig.action;
       actionTxt.textContent = a || "HOLD";
@@ -667,6 +724,11 @@ async function diag(){
     btnRefresh.addEventListener("click", fetchSignal);
   btnConfirm.addEventListener("click", (e) => { e.preventDefault(); doConfirm(); });
     btnSave.addEventListener("click", (e) => { e.preventDefault(); saveSettings(); });
+
+    if(chkRepeat) chkRepeat.addEventListener("change", ()=>{ if(!chkRepeat.checked) stopRepeat(); else if(currentSignal) startRepeatIfNeeded(currentSignal); });
+    if(chkAnnounce) chkAnnounce.addEventListener("change", ()=>{ if(!chkAnnounce.checked) stopRepeat(); else if(currentSignal) startRepeatIfNeeded(currentSignal); });
+    if(selRepeatSec) selRepeatSec.addEventListener("change", ()=>{ stopRepeat(); if(currentSignal) startRepeatIfNeeded(currentSignal); });
+
 
   // start
   fetchSignal();
