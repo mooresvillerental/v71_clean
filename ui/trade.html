@@ -182,7 +182,7 @@
     <!-- === END BEST TIME GAUGE === -->
 
 <div class="kv"><div class="k">Symbol</div><div class="v" id="symTxt">—</div></div>
-      <div class="kv"><div class="k">Price</div><div class="v" id="priceTxt">—</div></div>
+      <div class="kv"><div class="k">Price (Live)</div><div class="v" id="priceTxt">—</div></div>
       <div class="kv"><div class="k">Timestamp</div><div class="v" id="tsTxt">—</div></div>
       <div class="kv"><div class="k">Recommended Amount</div><div class="v" id="recoTxt">Coming next</div></div>
     </div>
@@ -207,6 +207,15 @@
         </div>
       </div>
       <div class="kv">
+        <div class="k">Live BTC (Coinbase)</div>
+        <div class="v"><span id="livePriceTxt">—</span></div>
+      </div>
+      <div class="kv">
+        <div class="k">Engine Price</div>
+        <div class="v"><span id="enginePriceTxt">—</span></div>
+      </div>
+
+      <div class="kv">
         <div class="k">Fee buffer</div>
         <div class="v" style="display:flex; gap:10px; flex-wrap:wrap">
           <span><input id="inpFeePct" type="number" step="0.1" min="0" max="10" style="width:110px; padding:8px; border-radius:10px; border:1px solid var(--line); background:rgba(0,0,0,.18); color:var(--text)"> %</span>
@@ -215,7 +224,20 @@
       </div>
     </div>
     <!-- === MARKET INTEL (Fortune-teller Phase 1) === -->
-    <div class="grid" id="intelCard" style="margin-top:10px">
+    
+    <!-- === TRACKING BALANCES (Manual) === -->
+    <div class="grid" id="balancesCard" style="margin-top:10px">
+      <div class="kv">
+        <div class="k">Tracking Balances (Manual)</div>
+        <div class="v" style="display:flex;flex-direction:column;gap:6px">
+          <div><span style="opacity:.75">Cash:</span> <span id="balCash">—</span></div>
+          <div><span style="opacity:.75">BTC Value:</span> <span id="balBtcUsd">—</span></div>
+          <div style="opacity:.7;font-size:12px">These are manual values for monitoring only (not connected to Robinhood).</div>
+        </div>
+      </div>
+    </div>
+    <!-- === END TRACKING BALANCES === -->
+<div class="grid" id="intelCard" style="margin-top:10px">
       <div class="kv">
         <div class="k">Market Intel</div>
         <div class="v" style="display:flex;flex-direction:column;gap:6px">
@@ -268,6 +290,8 @@
   const reasonTxt = $("reasonTxt");
   const symTxt = $("symTxt");
   const priceTxt = $("priceTxt");
+  const livePriceTxt = $("livePriceTxt");
+  const enginePriceTxt = $("enginePriceTxt");
   const tsTxt = $("tsTxt");
   const recoTxt = $("recoTxt");
   const bestTimeBar = $("bestTimeBar");
@@ -287,6 +311,8 @@
   const intelHeadline = $("intelHeadline");
   const intelSent = $("intelSent");
   const intelTrend = $("intelTrend");
+  const balCash = $("balCash");
+  const balBtcUsd = $("balBtcUsd");
   const intelProfile = $("intelProfile");
 
   let lastKey = "";
@@ -504,6 +530,14 @@ let currentSignal = null;
       if(intelHeadline) intelHeadline.textContent = j.headline || "—";
       if(intelSent) intelSent.textContent = j.sentiment || "—";
       if(intelTrend) intelTrend.textContent = j.trend || "—";
+      try{
+        if(livePriceTxt){
+          const lp = Number(j.lp);
+          window.__ez_live_lp = lp;
+          livePriceTxt.textContent = (isFinite(lp) && lp > 0) ? ("$" + lp.toFixed(2)) : "—";
+        }
+      }catch(e){}
+
     }catch(e){}
   }
   
@@ -514,6 +548,19 @@ let currentSignal = null;
       if(intelProfile) intelProfile.textContent = ip;
     }catch(e){}
   }
+  // --- TRACKING BALANCES (Manual) ---
+  async function fetchBalances(){
+    try{
+      const j = await fetch("/settings?ts=" + Date.now(), {cache:"no-store"}).then(r=>r.json());
+      const s = (j && j.settings) ? j.settings : {};
+      const cash = Number(s.manual_cash_usd);
+      const btcusd = Number(s.manual_btc_usd);
+      if(balCash) balCash.textContent = (isFinite(cash) ? ("$" + cash.toFixed(2)) : "—");
+      if(balBtcUsd) balBtcUsd.textContent = (isFinite(btcusd) ? ("$" + btcusd.toFixed(2)) : "—");
+    }catch(e){}
+  }
+  // --- END TRACKING BALANCES ---
+
 
   // --- END MARKET INTEL ---
 
@@ -542,7 +589,23 @@ async function fetchSignal(){
       actionTxt.textContent = a || "HOLD";
       reasonTxt.textContent = sig.reason ? String(sig.reason) : "—";
       symTxt.textContent = sig.symbol ? String(sig.symbol) : "—";
-      priceTxt.textContent = (sig.price != null && isFinite(Number(sig.price))) ? Number(sig.price).toFixed(2) : "—";
+            try{
+        const live = Number(window.__ez_live_lp);
+        if(isFinite(live) && live > 0){
+          priceTxt.textContent = live.toFixed(2);
+        }else{
+          priceTxt.textContent = (sig.price != null && isFinite(Number(sig.price))) ? Number(sig.price).toFixed(2) : "—";
+        }
+      }catch(e){
+        priceTxt.textContent = (sig.price != null && isFinite(Number(sig.price))) ? Number(sig.price).toFixed(2) : "—";
+      }
+      try{
+        if(enginePriceTxt){
+          const ep = Number(sig.price);
+          enginePriceTxt.textContent = (isFinite(ep) && ep > 0) ? ("$" + ep.toFixed(2)) : "—";
+        }
+      }catch(e){}
+
       tsTxt.textContent = sig.ts ? String(sig.ts) : "—";
 
       // Recommended amount (prefer USD)
@@ -599,9 +662,11 @@ async function diag(){
   // start
   fetchSignal();
   fetchIntel();
+  fetchBalances();
   fetchIntelProfile();
   setInterval(fetchSignal, 5000);
   setInterval(fetchIntel, 10000);
+  setInterval(fetchBalances, 10000);
   setInterval(fetchIntelProfile, 10000);
 })();
 </script>
