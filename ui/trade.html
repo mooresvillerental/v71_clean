@@ -229,6 +229,19 @@
     </div>
     <!-- === END MARKET INTEL === -->
 
+      <!-- === Intel Profile (bounded presets) === -->
+      <div class="kv">
+        <div class="k">Intel Profile</div>
+        <div class="v">
+          <select id="selIntelProfile" style="width:220px; padding:8px; border-radius:10px; border:1px solid var(--line); background:rgba(0,0,0,.18); color:var(--text)">
+            <option value="conservative">Conservative (no micro trend)</option>
+            <option value="balanced">Balanced (default)</option>
+            <option value="aggressive">Aggressive</option>
+          </select>
+        </div>
+      </div>
+      <!-- === End Intel Profile === -->
+
 
     <div class="btnbar" style="margin-top:10px">
       <button class="btnRefresh" id="btnSave" type="button">SAVE SETTINGS</button>
@@ -269,6 +282,7 @@
     const inpFeePct = $("inpFeePct");
     const inpFeeUsd = $("inpFeeUsd");
     const btnSave = $("btnSave");
+  const selIntelProfile = $("selIntelProfile");
   const intelHeadline = $("intelHeadline");
   const intelSent = $("intelSent");
   const intelTrend = $("intelTrend");
@@ -359,6 +373,13 @@ let currentSignal = null;
 
         if(j && j.ok && j.settings){
           const s = j.settings;
+          try{
+            if(selIntelProfile){
+              const ip = (s.intel_profile || "balanced");
+              selIntelProfile.value = String(ip).toLowerCase();
+            }
+          }catch(_e){}
+
           inpPct.value = ((Number(s.reco_percent) || 0.05) * 100).toFixed(1);
           inpFeePct.value = ((Number(s.fee_buffer_pct) || 0.0) * 100).toFixed(1);
           inpFeeUsd.value = (Number(s.fee_buffer_usd) || 0).toFixed(2);
@@ -374,7 +395,7 @@ let currentSignal = null;
         const r = await fetch("/settings", {
           method: "POST",
           headers: {"Content-Type":"application/json"},
-          body: JSON.stringify({reco_mode:"percent", reco_percent: rp, fee_buffer_pct: fp, fee_buffer_usd: fu})
+          body: JSON.stringify({reco_mode:"percent", reco_percent: rp, fee_buffer_pct: fp, fee_buffer_usd: fu, intel_profile: (selIntelProfile ? String(selIntelProfile.value||"balanced").toLowerCase() : "balanced")})
         });
         const j = await r.json().catch(()=> ({}));
         if(r.status === 200 && j && j.ok){
