@@ -179,6 +179,7 @@ def apply_settings_patch(payload: dict, s: dict):
         "fee_buffer_pct", "fee_buffer_usd",
         "min_trade_usd",
         "intel_profile",
+        "manual_cash_usd", "manual_btc_usd", "manual_btc_qty",
     }
 
     out = dict(s)
@@ -206,6 +207,24 @@ def apply_settings_patch(payload: dict, s: dict):
         out["updated_at"] = _t.strftime("%Y-%m-%d %I:%M:%S %p")
     except Exception:
         pass
+
+
+    # manual balances (tracking only)
+    for k in ("manual_cash_usd", "manual_btc_usd", "manual_btc_qty"):
+        if k in payload:
+            v = payload.get(k)
+            if v is None or v == "":
+                out[k] = None
+                changed[k] = None
+                continue
+            try:
+                fv = float(v)
+            except Exception:
+                raise ValueError(f"bad {k}")
+            if fv < 0:
+                raise ValueError(f"bad {k}")
+            out[k] = fv
+            changed[k] = fv
 
     return out, changed
 
@@ -414,6 +433,19 @@ class Handler(BaseHTTPRequestHandler):
             symbol = sig.get("symbol") or "BTC-USD"
             price = sig.get("price")
 
+            # Live price for /reco (Coinbase spot, no API key). If it fails, keep engine price.
+            engine_price = price
+            try:
+                import urllib.request as _u, json as _j
+                with _u.urlopen("https://api.coinbase.com/v2/prices/BTC-USD/spot", timeout=EZ_INTEL_GUARDRAILS["HTTP_TIMEOUT_SEC"]) as _r:
+                    _jj = _j.loads(_r.read().decode("utf-8"))
+                _lp = float((_jj.get("data") or {}).get("amount") or 0) or None
+                if _lp and _lp > 0:
+                    price = _lp
+            except Exception:
+                pass
+
+
             # Try multiple places for cash + BTC holdings (engine format varies across versions)
             cash = None
             for k in ("cash_usd", "usd", "cash"):
@@ -481,11 +513,34 @@ class Handler(BaseHTTPRequestHandler):
                 recommended_usd = None
                 recommended_btc = None
 
+
+            # --- MANUAL BALANCES OVERRIDE (tracking only) ---
+            try:
+                s = _load_settings()
+                rp = float((s or {}).get("reco_percent") or 0.0)
+                rp = max(0.0, min(1.0, rp))
+                mc = (s or {}).get("manual_cash_usd")
+                mb_usd = (s or {}).get("manual_btc_usd")
+                mb_qty = (s or {}).get("manual_btc_qty")
+                # prefer qty if provided; else usd value
+                if action in ("BUY", "SELL") and rp > 0:
+                    if action == "BUY" and mc is not None:
+                        recommended_usd = round(float(mc) * rp, 2)
+                    elif action == "SELL":
+                        if mb_qty is not None and price and float(price) > 0:
+                            recommended_usd = round(float(mb_qty) * float(price) * rp, 2)
+                        elif mb_usd is not None:
+                            recommended_usd = round(float(mb_usd) * rp, 2)
+            except Exception:
+                pass
+            # --- END MANUAL BALANCES OVERRIDE ---
+
             return self._send_json(200, {
                 "ok": True,
                 "action": action,
                 "symbol": symbol,
                 "price": price,
+                "engine_price": engine_price,
                 "recommended_usd": recommended_usd,
 
                 "recommended_btc": recommended_btc
