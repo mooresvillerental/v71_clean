@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from pathlib import Path
 import json
+import os
+import uvicorn
 
 app = FastAPI(title="EZTRADER API", version="1.0")
 
@@ -20,3 +22,7 @@ def get_signal():
         return {"ok": True, "signal": data}
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", "10000"))
+    uvicorn.run(app, host="0.0.0.0", port=port)
