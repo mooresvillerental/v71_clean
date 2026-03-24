@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LABEL="${1:-}"
+OFFSETS="${2:-}"
+shift 2 || true
+
+if [ -z "${LABEL}" ] || [ -z "${OFFSETS}" ]; then
+  echo "Usage:"
+  echo "  ./bin/bt_gate_and_promote.sh \"LABEL\" \"OFFSETS\" -- <backtest args...>"
+  echo "Example:"
+  echo "  ./bin/bt_gate_and_promote.sh \"CPP_v1+MACRO fee40/slip20\" \"0 270\" -- \\"
+  echo "    --days 90 --data-source binanceus --fee-bps 40 --slip-bps 20 --macro-mode --macro-ema-len 200 --macro-symbol BTC-USD ..."
+  exit 2
+fi
+
+if [ "${1:-}" != "--" ]; then
+  echo "ERROR: missing -- separator before backtest args"
+  exit 2
+fi
+shift
+
+# ---- WINNER RULES (edit here later if you want) ----
+MIN_FINAL_EQUITY="${MIN_FINAL_EQUITY:-5000.0}"
+MAX_DD_USD="${MAX_DD_USD:-500.0}"
+MIN_TRADES="${MIN_TRADES:-30}"
+# MIN_WINRATE="${MIN_WINRATE:-0}"   # off by default
+# ---------------------------------------------------
+
+echo "Running gated backtests:"
+echo "  LABEL   : $LABEL"
+echo "  OFFSETS : $OFFSETS"
+echo "  RULES   : final>=${MIN_FINAL_EQUITY} dd<=${MAX_DD_USD} trades>=${MIN_TRADES}"
+echo ""
+
+PASS_ALL=1
+
+for OFF in $OFFSETS; do
+  echo "=================================================="
+  echo "$LABEL | 90d off${OFF}"
+  echo "=================================================="
+
+  OUT="$(python bin/backtest_v2_engine.py --days 90 --offset-days "$OFF" "$@" 2>&1 | tee /dev/stderr)"
+
+  FE="$(printf "%s\n" "$OUT" | awk -F": " "/^final_equity:/ {print \$2; exit}")"
+  DD="$(printf "%s\n" "$OUT" | awk -F": " "/^max_drawdown_usd:/ {print \$2; exit}")"
+  TR="$(printf "%s\n" "$OUT" | awk -F": " "/^trades_total:/ {print \$2; exit}" | awk "{print \$1}")"
+
+  if [ -z "${FE:-}" ] || [ -z "${DD:-}" ] || [ -z "${TR:-}" ]; then
+    echo "FAIL(off${OFF}): could not parse metrics from output."
+    PASS_ALL=0
+    continue
+  fi
+
+  # numeric compares via python (reliable)
+  python - <<PY
+fe=float("$FE"); dd=float("$DD"); tr=int("$TR")
+min_fe=float("$MIN_FINAL_EQUITY"); max_dd=float("$MAX_DD_USD"); min_tr=int("$MIN_TRADES")
+ok = (fe>=min_fe) and (dd<=max_dd) and (tr>=min_tr)
+print("METRICS(off$OFF): final_equity=",fe," dd=",dd," trades=",tr," -> ","PASS" if ok else "FAIL")
+raise SystemExit(0 if ok else 1)
+PY
+  if [ $? -ne 0 ]; then PASS_ALL=0; fi
+done
+
+echo ""
+if [ "$PASS_ALL" -ne 1 ]; then
+  echo "===================="
+  echo "RESULT: NOT PROMOTED"
+  echo "Reason: At least one offset FAILED winner rules."
+  echo "No app changes were made."
+  echo "===================="
+  exit 1
+fi
+
+echo "===================="
+echo "RESULT: WINNER -> PROMOTING TO APP"
+echo "===================="
+
+# promote/restart (expects this script exists; if not, we’ll create it next)
+if [ -x ./bin/promote_to_app.sh ]; then
+  ./bin/promote_to_app.sh "$LABEL"
+else
+  echo "ERROR: ./bin/promote_to_app.sh not found/executable."
+  echo "Tell Forge and we will generate it in one shot."
+  exit 2
+fi

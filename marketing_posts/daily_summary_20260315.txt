@@ -1,0 +1,11 @@
+EZTrader Daily Engine Report
+
+Symbol: BTC-USD
+Signals observed: 459
+Winning signals: 44
+Strategies learned: 4
+Latest action: NONE
+Latest strategy: NO_SIGNAL
+Current regime: RANGE
+Current trend: Neutral
+Current confidence: 30%

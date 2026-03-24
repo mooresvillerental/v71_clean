@@ -1,0 +1,3344 @@
+{
+  "cash_usd": 1500.0,
+  "holdings": {
+    "BTC-USD": 0.0
+  },
+  "position": {},
+  "stats": {
+    "equity_peak": 1500.0,
+    "drawdown_pct": 0.0,
+    "day_key": "2026-03-07",
+    "daily_pnl_usd": 0.0,
+    "disabled_until_day": null,
+    "disabled_reason": null
+  },
+  "cooldowns": {},
+  "last_event_id": null,
+  "version": "ezcore_v1",
+  "_diag_n": 5000,
+  "_diag_emit": true,
+  "diag": {},
+  "confirm": {
+    "buy_streaks": {
+      "BTC-USD": 0
+    }
+  },
+  "seen_signals": {
+    "BTC-USD": {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51213.252138803655,
+      "rsi": 55.19463321477781,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    }
+  },
+  "seen_signals_log": [
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51664.20565164019,
+      "rsi": 23.550162396291924,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51664.20565164019,
+      "rsi": 23.550162396291924,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51675.85883502894,
+      "rsi": 29.333177430055756,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51675.85883502894,
+      "rsi": 29.333177430055756,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51785.743036243875,
+      "rsi": 39.90146496800358,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51785.743036243875,
+      "rsi": 39.90146496800358,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51922.60900436739,
+      "rsi": 41.6809038727981,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51922.60900436739,
+      "rsi": 41.6809038727981,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51911.0636508217,
+      "rsi": 49.28757412152323,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51911.0636508217,
+      "rsi": 49.28757412152323,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51949.02152009686,
+      "rsi": 52.688594691374455,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51949.02152009686,
+      "rsi": 52.688594691374455,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52035.268257896896,
+      "rsi": 60.23173440362999,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52035.268257896896,
+      "rsi": 60.23173440362999,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52069.49184633654,
+      "rsi": 66.23954908909326,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52069.49184633654,
+      "rsi": 66.23954908909326,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52095.53878059191,
+      "rsi": 71.33840458678397,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52095.53878059191,
+      "rsi": 71.33840458678397,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51974.47366879802,
+      "rsi": 61.24458398031139,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51974.47366879802,
+      "rsi": 61.24458398031139,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51968.80264969268,
+      "rsi": 65.38373031187996,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51968.80264969268,
+      "rsi": 65.38373031187996,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52070.11972374374,
+      "rsi": 79.751228531873,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52070.11972374374,
+      "rsi": 79.751228531873,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52093.56830971479,
+      "rsi": 83.12034662233052,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52093.56830971479,
+      "rsi": 83.12034662233052,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52077.81290642336,
+      "rsi": 79.38398858510244,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52077.81290642336,
+      "rsi": 79.38398858510244,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51989.117836077276,
+      "rsi": 70.04699942383152,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51989.117836077276,
+      "rsi": 70.04699942383152,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52058.71575967383,
+      "rsi": 72.04582146662833,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 52058.71575967383,
+      "rsi": 72.04582146662833,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51935.43618248117,
+      "rsi": 58.4887372709725,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51935.43618248117,
+      "rsi": 58.4887372709725,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51689.65857344301,
+      "rsi": 38.242283461282184,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51689.65857344301,
+      "rsi": 38.242283461282184,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51787.22701008152,
+      "rsi": 44.24898841175293,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51787.22701008152,
+      "rsi": 44.24898841175293,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51801.91780488026,
+      "rsi": 43.01756368593739,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51801.91780488026,
+      "rsi": 43.01756368593739,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51845.079337930234,
+      "rsi": 40.58749025405031,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51845.079337930234,
+      "rsi": 40.58749025405031,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51831.81776902651,
+      "rsi": 37.98821011916928,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51831.81776902651,
+      "rsi": 37.98821011916928,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51667.44161399593,
+      "rsi": 31.018439029001527,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51667.44161399593,
+      "rsi": 31.018439029001527,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51741.276102775686,
+      "rsi": 39.20816549509825,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51741.276102775686,
+      "rsi": 39.20816549509825,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51644.773525511555,
+      "rsi": 36.16757835415516,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51644.773525511555,
+      "rsi": 36.16757835415516,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51476.08590982886,
+      "rsi": 26.02067227707029,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51476.08590982886,
+      "rsi": 26.02067227707029,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51605.69188617972,
+      "rsi": 31.8605615911291,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51605.69188617972,
+      "rsi": 31.8605615911291,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51624.24801007856,
+      "rsi": 33.17132578057759,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51624.24801007856,
+      "rsi": 33.17132578057759,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51545.46649970031,
+      "rsi": 33.41715846295767,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51545.46649970031,
+      "rsi": 33.41715846295767,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51368.11875110598,
+      "rsi": 26.111046924115684,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51368.11875110598,
+      "rsi": 26.111046924115684,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51506.77312240964,
+      "rsi": 35.32786316252188,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51506.77312240964,
+      "rsi": 35.32786316252188,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51618.41955049599,
+      "rsi": 47.31512973058822,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51618.41955049599,
+      "rsi": 47.31512973058822,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51516.473808952105,
+      "rsi": 39.82935782247208,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51516.473808952105,
+      "rsi": 39.82935782247208,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51573.126635676024,
+      "rsi": 41.66829113563194,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51573.126635676024,
+      "rsi": 41.66829113563194,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51566.90217147612,
+      "rsi": 39.58978254209656,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51566.90217147612,
+      "rsi": 39.58978254209656,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51432.114854972955,
+      "rsi": 36.28903687668043,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51432.114854972955,
+      "rsi": 36.28903687668043,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51367.217055310146,
+      "rsi": 38.94709393010635,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51367.217055310146,
+      "rsi": 38.94709393010635,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51187.93655008709,
+      "rsi": 31.09625188525216,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51187.93655008709,
+      "rsi": 31.09625188525216,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51144.93971865813,
+      "rsi": 32.276217236851096,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51144.93971865813,
+      "rsi": 32.276217236851096,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51234.27207762153,
+      "rsi": 40.91410481294345,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51234.27207762153,
+      "rsi": 40.91410481294345,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51191.21050717976,
+      "rsi": 33.34299790898966,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51191.21050717976,
+      "rsi": 33.34299790898966,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51270.310150375786,
+      "rsi": 36.43613908668758,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51270.310150375786,
+      "rsi": 36.43613908668758,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51289.50107344227,
+      "rsi": 39.72124258417296,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51289.50107344227,
+      "rsi": 39.72124258417296,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51076.37652848206,
+      "rsi": 38.61178517632682,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51076.37652848206,
+      "rsi": 38.61178517632682,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51200.89436395976,
+      "rsi": 37.92671655445862,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51200.89436395976,
+      "rsi": 37.92671655445862,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51217.51400393534,
+      "rsi": 32.89260914215107,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51217.51400393534,
+      "rsi": 32.89260914215107,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51081.50310837666,
+      "rsi": 31.963355169893035,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51081.50310837666,
+      "rsi": 31.963355169893035,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50992.87801970989,
+      "rsi": 26.560714465689173,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50992.87801970989,
+      "rsi": 26.560714465689173,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50968.003738458785,
+      "rsi": 26.16645715731522,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50968.003738458785,
+      "rsi": 26.16645715731522,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50985.45096547902,
+      "rsi": 30.393641148790692,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50985.45096547902,
+      "rsi": 30.393641148790692,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50976.148682241896,
+      "rsi": 31.95319417878386,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50976.148682241896,
+      "rsi": 31.95319417878386,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50879.64014610824,
+      "rsi": 34.59614210098417,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50879.64014610824,
+      "rsi": 34.59614210098417,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51222.99482920197,
+      "rsi": 52.99965182034363,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51222.99482920197,
+      "rsi": 52.99965182034363,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51250.63370285788,
+      "rsi": 50.66007510620706,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51250.63370285788,
+      "rsi": 50.66007510620706,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51349.57114905489,
+      "rsi": 56.113121381753295,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51349.57114905489,
+      "rsi": 56.113121381753295,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51163.39486464274,
+      "rsi": 46.187937331478956,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51163.39486464274,
+      "rsi": 46.187937331478956,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51302.559227643294,
+      "rsi": 50.42889500079271,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51302.559227643294,
+      "rsi": 50.42889500079271,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51179.6256646186,
+      "rsi": 53.6047881793282,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51179.6256646186,
+      "rsi": 53.6047881793282,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51234.08984558314,
+      "rsi": 51.218578708018335,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51234.08984558314,
+      "rsi": 51.218578708018335,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51239.932220488125,
+      "rsi": 50.829517761195056,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51239.932220488125,
+      "rsi": 50.829517761195056,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51256.104133409055,
+      "rsi": 57.089296647944764,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51256.104133409055,
+      "rsi": 57.089296647944764,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51195.50297129944,
+      "rsi": 58.41873276850516,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51195.50297129944,
+      "rsi": 58.41873276850516,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51154.040538140776,
+      "rsi": 57.62442573190499,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51154.040538140776,
+      "rsi": 57.62442573190499,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51183.01741216314,
+      "rsi": 58.0211464295657,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51183.01741216314,
+      "rsi": 58.0211464295657,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51053.89126092348,
+      "rsi": 52.87645947350333,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51053.89126092348,
+      "rsi": 52.87645947350333,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51145.592100417656,
+      "rsi": 59.87530090669638,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51145.592100417656,
+      "rsi": 59.87530090669638,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50960.40128963746,
+      "rsi": 38.95168493390974,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50960.40128963746,
+      "rsi": 38.95168493390974,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50903.415470255895,
+      "rsi": 35.743266956339326,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50903.415470255895,
+      "rsi": 35.743266956339326,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50989.03589916472,
+      "rsi": 35.03279219226556,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50989.03589916472,
+      "rsi": 35.03279219226556,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51152.2431275848,
+      "rsi": 49.52804796679701,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51152.2431275848,
+      "rsi": 49.52804796679701,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51234.99955977528,
+      "rsi": 46.99745541642941,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51234.99955977528,
+      "rsi": 46.99745541642941,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51309.307353376505,
+      "rsi": 56.023780603743596,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51309.307353376505,
+      "rsi": 56.023780603743596,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51225.41821532683,
+      "rsi": 49.6079163817673,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51225.41821532683,
+      "rsi": 49.6079163817673,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51420.97850519644,
+      "rsi": 56.98719704374906,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51420.97850519644,
+      "rsi": 56.98719704374906,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51389.92078692261,
+      "rsi": 55.10577878285222,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51389.92078692261,
+      "rsi": 55.10577878285222,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51458.29420940882,
+      "rsi": 59.967689731172406,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51458.29420940882,
+      "rsi": 59.967689731172406,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51362.53288525638,
+      "rsi": 57.5952706482023,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51362.53288525638,
+      "rsi": 57.5952706482023,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51282.100624343315,
+      "rsi": 53.47911950371063,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51282.100624343315,
+      "rsi": 53.47911950371063,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51317.448326606034,
+      "rsi": 59.90673611215116,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51317.448326606034,
+      "rsi": 59.90673611215116,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51253.08307668495,
+      "rsi": 54.12520676436826,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51253.08307668495,
+      "rsi": 54.12520676436826,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51113.903691712985,
+      "rsi": 56.10665995360685,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51113.903691712985,
+      "rsi": 56.10665995360685,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51024.261127300524,
+      "rsi": 54.68575297011477,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51024.261127300524,
+      "rsi": 54.68575297011477,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51021.428890866955,
+      "rsi": 51.342199782455445,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51021.428890866955,
+      "rsi": 51.342199782455445,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51051.232632016916,
+      "rsi": 45.29443658711526,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51051.232632016916,
+      "rsi": 45.29443658711526,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51169.812869071604,
+      "rsi": 47.06136743886782,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51169.812869071604,
+      "rsi": 47.06136743886782,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51100.27427970536,
+      "rsi": 40.53604154520582,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51100.27427970536,
+      "rsi": 40.53604154520582,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51007.781451800634,
+      "rsi": 40.222681528855446,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51007.781451800634,
+      "rsi": 40.222681528855446,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50955.63593994053,
+      "rsi": 26.00220539323044,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50955.63593994053,
+      "rsi": 26.00220539323044,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50871.50596515257,
+      "rsi": 24.65274134021692,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50871.50596515257,
+      "rsi": 24.65274134021692,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50771.95462340091,
+      "rsi": 17.435107863421806,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50771.95462340091,
+      "rsi": 17.435107863421806,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50775.68721376628,
+      "rsi": 19.491505206577287,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50775.68721376628,
+      "rsi": 19.491505206577287,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50824.549093600144,
+      "rsi": 25.405845742333867,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50824.549093600144,
+      "rsi": 25.405845742333867,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50902.272064861754,
+      "rsi": 28.655912856585715,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 50902.272064861754,
+      "rsi": 28.655912856585715,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51002.57186756345,
+      "rsi": 37.58017761268215,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51002.57186756345,
+      "rsi": 37.58017761268215,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51015.28200168824,
+      "rsi": 44.40948269223514,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51015.28200168824,
+      "rsi": 44.40948269223514,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51148.65129686267,
+      "rsi": 56.718192273694264,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51148.65129686267,
+      "rsi": 56.718192273694264,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51216.58925879806,
+      "rsi": 59.847861825857734,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51216.58925879806,
+      "rsi": 59.847861825857734,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51296.85398104713,
+      "rsi": 61.79354766088984,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51296.85398104713,
+      "rsi": 61.79354766088984,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51137.93861938074,
+      "rsi": 48.526622615026746,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51137.93861938074,
+      "rsi": 48.526622615026746,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51213.252138803655,
+      "rsi": 55.19463321477781,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    },
+    {
+      "ts": 1772910353,
+      "action": "NONE",
+      "symbol": "BTC-USD",
+      "price": 51213.252138803655,
+      "rsi": 55.19463321477781,
+      "confidence": 0,
+      "strategy": "NONE",
+      "reasons": [
+        "No signal (A&B NONE)"
+      ],
+      "kind": null
+    }
+  ],
+  "perf": {
+    "open_pos": null,
+    "trades": [
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772909849,
+        "exit_ts": 1772909864,
+        "hold_s": 15,
+        "entry_price": 47624.909505715674,
+        "exit_price": 47643.466558267355,
+        "pnl_pct": 0.038965013780140195,
+        "entry_rsi": 53.174306685032384,
+        "exit_rsi": 71.36623565610506,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772909881,
+        "exit_ts": 1772909896,
+        "hold_s": 15,
+        "entry_price": 48334.63195596152,
+        "exit_price": 48382.5028402124,
+        "pnl_pct": 0.09904054776809833,
+        "entry_rsi": 53.41406578347148,
+        "exit_rsi": 76.34821395147483,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772909896,
+        "exit_ts": 1772909910,
+        "hold_s": 14,
+        "entry_price": 48067.48942746209,
+        "exit_price": 48306.755494337034,
+        "pnl_pct": 0.4977710916980961,
+        "entry_rsi": 51.8045343009403,
+        "exit_rsi": 52.34314705381314,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "ATR_TP",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "ATR target 48277.25"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772909910,
+        "exit_ts": 1772909924,
+        "hold_s": 14,
+        "entry_price": 48211.53568020413,
+        "exit_price": 48464.53730740448,
+        "pnl_pct": 0.5247740476025372,
+        "entry_rsi": 54.36885925208969,
+        "exit_rsi": 55.35641446427478,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "ATR_TP",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "ATR target 48410.08"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772909924,
+        "exit_ts": 1772909939,
+        "hold_s": 15,
+        "entry_price": 49095.84983372573,
+        "exit_price": 49645.66391702126,
+        "pnl_pct": 1.1198789412090748,
+        "entry_rsi": 54.662018195777144,
+        "exit_rsi": 72.20102486610833,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772909939,
+        "exit_ts": 1772909954,
+        "hold_s": 15,
+        "entry_price": 48967.551463822434,
+        "exit_price": 49285.49059185231,
+        "pnl_pct": 0.6492853298265666,
+        "entry_rsi": 55.577519289477486,
+        "exit_rsi": 62.96745702585548,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "ATR_TP",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "ATR target 49264.23"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772909954,
+        "exit_ts": 1772909968,
+        "hold_s": 14,
+        "entry_price": 48943.20447363018,
+        "exit_price": 49329.686379800216,
+        "pnl_pct": 0.7896538657951239,
+        "entry_rsi": 54.78818511832339,
+        "exit_rsi": 77.72533395757652,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772909968,
+        "exit_ts": 1772909983,
+        "hold_s": 15,
+        "entry_price": 48890.95269896797,
+        "exit_price": 48591.66004240192,
+        "pnl_pct": -0.6121636827346391,
+        "entry_rsi": 48.40490485901026,
+        "exit_rsi": 82.58095055629298,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772909983,
+        "exit_ts": 1772909998,
+        "hold_s": 15,
+        "entry_price": 49463.53503493758,
+        "exit_price": 49658.29655950199,
+        "pnl_pct": 0.3937476859000192,
+        "entry_rsi": 63.01987230408813,
+        "exit_rsi": 74.3947338595988,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772909998,
+        "exit_ts": 1772910013,
+        "hold_s": 15,
+        "entry_price": 49759.255775067286,
+        "exit_price": 49939.35890689315,
+        "pnl_pct": 0.3619490063115148,
+        "entry_rsi": 55.09443390720597,
+        "exit_rsi": 73.29814134816286,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910013,
+        "exit_ts": 1772910028,
+        "hold_s": 15,
+        "entry_price": 49868.115453602004,
+        "exit_price": 50392.46144717029,
+        "pnl_pct": 1.0514654279569535,
+        "entry_rsi": 54.84456619147429,
+        "exit_rsi": 78.54497752515724,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "ATR_TP",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "ATR target 50384.84"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910028,
+        "exit_ts": 1772910042,
+        "hold_s": 14,
+        "entry_price": 50818.71329799068,
+        "exit_price": 50879.90212295761,
+        "pnl_pct": 0.12040608861568237,
+        "entry_rsi": 58.78021386780695,
+        "exit_rsi": 71.72323401925817,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910042,
+        "exit_ts": 1772910057,
+        "hold_s": 15,
+        "entry_price": 50398.682755791706,
+        "exit_price": 50729.778015667136,
+        "pnl_pct": 0.6569522094054759,
+        "entry_rsi": 47.385892339121156,
+        "exit_rsi": 75.20924631034259,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "ATR_TP",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "ATR target 50724.04"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910057,
+        "exit_ts": 1772910071,
+        "hold_s": 14,
+        "entry_price": 50848.385909112214,
+        "exit_price": 51072.31185212618,
+        "pnl_pct": 0.4403796482630066,
+        "entry_rsi": 61.04850043146316,
+        "exit_rsi": 70.92174541570274,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910071,
+        "exit_ts": 1772910086,
+        "hold_s": 15,
+        "entry_price": 50916.5155400417,
+        "exit_price": 51074.39498058744,
+        "pnl_pct": 0.3100751079904228,
+        "entry_rsi": 60.494888171926625,
+        "exit_rsi": 74.95860210419788,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910086,
+        "exit_ts": 1772910100,
+        "hold_s": 14,
+        "entry_price": 51217.315453180585,
+        "exit_price": 51534.32304339565,
+        "pnl_pct": 0.618946126734914,
+        "entry_rsi": 50.602486399658126,
+        "exit_rsi": 74.0737232830148,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910100,
+        "exit_ts": 1772910115,
+        "hold_s": 15,
+        "entry_price": 51558.62505138971,
+        "exit_price": 51790.7142384219,
+        "pnl_pct": 0.4501461914487785,
+        "entry_rsi": 54.71939285768316,
+        "exit_rsi": 56.63755239037108,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "ATR_TP",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "ATR target 51772.69"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910115,
+        "exit_ts": 1772910129,
+        "hold_s": 14,
+        "entry_price": 51341.96120022631,
+        "exit_price": 51482.294624693975,
+        "pnl_pct": 0.2733308607366709,
+        "entry_rsi": 50.78451413551596,
+        "exit_rsi": 71.45964563869201,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910130,
+        "exit_ts": 1772910144,
+        "hold_s": 14,
+        "entry_price": 51018.92797751167,
+        "exit_price": 51700.693019706196,
+        "pnl_pct": 1.3362982509060957,
+        "entry_rsi": 45.455211797821356,
+        "exit_rsi": 82.91548784261295,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "ATR_TP",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "ATR target 51695.49"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910145,
+        "exit_ts": 1772910159,
+        "hold_s": 14,
+        "entry_price": 51218.89545321785,
+        "exit_price": 51386.991515511436,
+        "pnl_pct": 0.3281915019958291,
+        "entry_rsi": 47.92643259412641,
+        "exit_rsi": 70.34692388572651,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910160,
+        "exit_ts": 1772910174,
+        "hold_s": 14,
+        "entry_price": 50335.53348612406,
+        "exit_price": 50682.345801418465,
+        "pnl_pct": 0.6890009726230636,
+        "entry_rsi": 50.058606755463956,
+        "exit_rsi": 65.95623196430549,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "ATR_TP",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "ATR target 50682.23"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910174,
+        "exit_ts": 1772910189,
+        "hold_s": 15,
+        "entry_price": 50223.571065809316,
+        "exit_price": 50491.52043745793,
+        "pnl_pct": 0.5335131810868572,
+        "entry_rsi": 45.42158977858469,
+        "exit_rsi": 62.66109438748676,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "ATR_TP",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "ATR target 50411.14"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910189,
+        "exit_ts": 1772910203,
+        "hold_s": 14,
+        "entry_price": 50446.170604753905,
+        "exit_price": 49832.82043836702,
+        "pnl_pct": -1.215850795083107,
+        "entry_rsi": 56.17369242063619,
+        "exit_rsi": 73.76646755463261,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910205,
+        "exit_ts": 1772910219,
+        "hold_s": 14,
+        "entry_price": 50627.68550396283,
+        "exit_price": 50919.081976343914,
+        "pnl_pct": 0.57556743801428,
+        "entry_rsi": 57.287616150146846,
+        "exit_rsi": 73.06237580088438,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910220,
+        "exit_ts": 1772910234,
+        "hold_s": 14,
+        "entry_price": 52567.20377498254,
+        "exit_price": 52476.64240235976,
+        "pnl_pct": -0.17227732525099895,
+        "entry_rsi": 60.168407350414206,
+        "exit_rsi": 70.7437025044005,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910235,
+        "exit_ts": 1772910249,
+        "hold_s": 14,
+        "entry_price": 52572.95415958307,
+        "exit_price": 52893.753004822196,
+        "pnl_pct": 0.6101974872200586,
+        "entry_rsi": 47.47152459316427,
+        "exit_rsi": 68.44471096366442,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "ATR_TP",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "ATR target 52882.86"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910249,
+        "exit_ts": 1772910263,
+        "hold_s": 14,
+        "entry_price": 53030.67532399959,
+        "exit_price": 53556.47356130578,
+        "pnl_pct": 0.9914982867816394,
+        "entry_rsi": 56.40561528982296,
+        "exit_rsi": 83.13525042912461,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910264,
+        "exit_ts": 1772910279,
+        "hold_s": 15,
+        "entry_price": 52259.494797746236,
+        "exit_price": 52410.11523822279,
+        "pnl_pct": 0.2882164113133522,
+        "entry_rsi": 58.979602120339734,
+        "exit_rsi": 72.37789101056296,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910279,
+        "exit_ts": 1772910293,
+        "hold_s": 14,
+        "entry_price": 52435.39760493574,
+        "exit_price": 52863.52670136395,
+        "pnl_pct": 0.8164887003506128,
+        "entry_rsi": 52.59788218758144,
+        "exit_rsi": 75.13055722256105,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910293,
+        "exit_ts": 1772910307,
+        "hold_s": 14,
+        "entry_price": 52348.35810935967,
+        "exit_price": 52430.21509903712,
+        "pnl_pct": 0.1563697365759673,
+        "entry_rsi": 53.64014674786658,
+        "exit_rsi": 70.7450839726575,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910308,
+        "exit_ts": 1772910322,
+        "hold_s": 14,
+        "entry_price": 53679.55706635222,
+        "exit_price": 53867.64596433621,
+        "pnl_pct": 0.3503920454326672,
+        "entry_rsi": 64.37396748038525,
+        "exit_rsi": 70.45643013747569,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910323,
+        "exit_ts": 1772910337,
+        "hold_s": 14,
+        "entry_price": 52610.24054786823,
+        "exit_price": 52688.679708293814,
+        "pnl_pct": 0.14909485227351882,
+        "entry_rsi": 45.064533122033275,
+        "exit_rsi": 72.10841517451696,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "EXIT",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "RSI>=70 exit"
+        ]
+      },
+      {
+        "symbol": "BTC-USD",
+        "entry_ts": 1772910337,
+        "exit_ts": 1772910352,
+        "hold_s": 15,
+        "entry_price": 54439.23456358671,
+        "exit_price": 54679.623990219574,
+        "pnl_pct": 0.4415738548860052,
+        "entry_rsi": 45.30188885771725,
+        "exit_rsi": 54.885301942498856,
+        "entry_strategy": "A_TREND_PULLBACK",
+        "exit_strategy": "ATR_TP",
+        "entry_reasons": [
+          "1h trend OK",
+          "15m EMA50>EMA200",
+          "RSI pullback recovery"
+        ],
+        "exit_reasons": [
+          "ATR target 54632.73"
+        ]
+      }
+    ]
+  },
+  "_last_action": {
+    "BTC-USD": "SELL"
+  }
+}

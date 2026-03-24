@@ -1,0 +1,102 @@
+{
+  "A_TREND_PULLBACK": {
+    "BUY": {
+      "15m": {
+        "avg_abs_move_pct": 0.028604932583927024,
+        "avg_move_pct": 0.0028956613167848647,
+        "n": 32,
+        "win_pct": 18.75,
+        "wins": 6
+      },
+      "1h": {
+        "avg_abs_move_pct": 0.31437357230633745,
+        "avg_move_pct": 0.03722136881547643,
+        "n": 29,
+        "win_pct": 55.172413793103445,
+        "wins": 16
+      },
+      "4h": {
+        "avg_abs_move_pct": 1.4059680114320514,
+        "avg_move_pct": 1.219482748740043,
+        "n": 29,
+        "win_pct": 75.86206896551724,
+        "wins": 22
+      }
+    }
+  },
+  "B_VOL_BREAKOUT": {
+    "BUY": {
+      "15m": {
+        "avg_abs_move_pct": 2.9659786153150383,
+        "avg_move_pct": -2.9659786153150383,
+        "n": 4,
+        "win_pct": 0.0,
+        "wins": 0
+      },
+      "1h": {
+        "avg_abs_move_pct": 5.9494170124723205,
+        "avg_move_pct": -5.9494170124723205,
+        "n": 4,
+        "win_pct": 0.0,
+        "wins": 0
+      },
+      "4h": {
+        "avg_abs_move_pct": 6.029123525147891,
+        "avg_move_pct": -6.029123525147891,
+        "n": 2,
+        "win_pct": 0.0,
+        "wins": 0
+      }
+    }
+  },
+  "NONE": {
+    "NONE": {
+      "15m": {
+        "avg_abs_move_pct": 0.5358060387390942,
+        "avg_move_pct": 0.155221310949946,
+        "n": 114,
+        "win_pct": 0.0,
+        "wins": 0
+      },
+      "1h": {
+        "avg_abs_move_pct": 1.0475746022118915,
+        "avg_move_pct": 0.3036150736415422,
+        "n": 114,
+        "win_pct": 0.0,
+        "wins": 0
+      },
+      "4h": {
+        "avg_abs_move_pct": 0.8762228039294991,
+        "avg_move_pct": 0.06057849674385547,
+        "n": 104,
+        "win_pct": 0.0,
+        "wins": 0
+      }
+    }
+  },
+  "UNKNOWN": {
+    "NONE": {
+      "15m": {
+        "avg_abs_move_pct": 0.3744048061177782,
+        "avg_move_pct": -0.27599198877507547,
+        "n": 9,
+        "win_pct": 0.0,
+        "wins": 0
+      },
+      "1h": {
+        "avg_abs_move_pct": 0.49996295865185797,
+        "avg_move_pct": -0.15224695038773536,
+        "n": 9,
+        "win_pct": 0.0,
+        "wins": 0
+      },
+      "4h": {
+        "avg_abs_move_pct": 1.5071656481290643,
+        "avg_move_pct": 0.9316349227819067,
+        "n": 9,
+        "win_pct": 0.0,
+        "wins": 0
+      }
+    }
+  }
+}

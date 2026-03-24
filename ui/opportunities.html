@@ -1,0 +1,339 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EZTrader - Opportunities</title>
+  <style>
+    :root{--bg:#0b0f1a;--panel:#0f1626;--line:#1e2433;--text:#cbd5e1;--muted:#94a3b8;--accent:#2dd4bf;--btn:#121a2c;}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+    .topbar{display:flex;align-items:center;gap:10px;padding:12px 12px 10px;position:sticky;top:0;background:linear-gradient(to bottom, rgba(11,15,26,.98), rgba(11,15,26,.86));border-bottom:1px solid rgba(30,36,51,.8);z-index:10;}
+    .brand{font-weight:800;letter-spacing:.3px}
+    .pill{opacity:.7}
+    select,button{background:var(--btn);color:var(--text);border:1px solid rgba(148,163,184,.25);border-radius:10px;padding:10px 12px;font-size:14px;}
+    button{cursor:pointer}
+    button:active{transform:translateY(1px)}
+    .spacer{flex:1}
+    .mini{font-size:12px;color:var(--muted);opacity:.9}
+    .wrap{padding:12px}
+    .card{background:rgba(15,22,38,.85);border:1px solid rgba(148,163,184,.18);border-radius:16px;padding:12px;margin:10px 0;}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .k{color:var(--muted);font-size:12px}
+    .v{font-weight:800}
+    pre{white-space:pre-wrap;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;font-size:12px;color:rgba(148,163,184,.95);opacity:.95}
+    a{color:var(--text);text-decoration:none;opacity:.85}
+  
+/* EZ_CONFIRM_UI_V1 */
+#confirmWrap{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 10px 12px 0;
+  background: linear-gradient(to bottom, rgba(11,15,26,.98), rgba(11,15,26,.88));
+  border-bottom: 1px solid rgba(30,36,51,.7);
+}
+#confirmCard{
+  display:none;
+  border: 2px solid rgba(45,212,191,.9);
+  border-radius: 18px;
+  padding: 12px;
+  background: rgba(15,22,38,.9);
+  box-shadow: 0 6px 22px rgba(0,0,0,.35);
+}
+#confirmTitle{
+  font-weight: 900;
+  letter-spacing: .3px;
+  margin-bottom: 6px;
+}
+#confirmLine{
+  color: rgba(203,213,225,.95);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+#confirmMeta{
+  color: rgba(148,163,184,.95);
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+#confirmBtns{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+#btnConfirm{
+  background: rgba(45,212,191,.16);
+  border: 2px solid rgba(45,212,191,.9);
+  color: rgba(203,213,225,1);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-weight: 900;
+}
+#btnDismiss{
+  background: rgba(148,163,184,.10);
+  border: 1px solid rgba(148,163,184,.25);
+  color: rgba(203,213,225,.9);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-weight: 700;
+}
+#confirmHint{
+  color: rgba(148,163,184,.9);
+  font-size: 12px;
+}
+
+
+/* EZ_OPPS_AUTOSCROLL_TOP_V1 */
+.tr-ez-focus {
+  outline: 2px solid rgba(45,212,191,.95);
+  box-shadow: 0 0 0 6px rgba(45,212,191,.15);
+  border-radius: 12px;
+  animation: ezPulse 1.2s ease-out 0s 1;
+}
+@keyframes ezPulse {
+  0%   { transform: scale(1.00); box-shadow: 0 0 0 0 rgba(45,212,191,.35); }
+  60%  { transform: scale(1.01); box-shadow: 0 0 0 10px rgba(45,212,191,.12); }
+  100% { transform: scale(1.00); box-shadow: 0 0 0 6px rgba(45,212,191,.15); }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- EZ_CONFIRM_UI_V1 -->
+<div id="confirmWrap">
+  <div id="confirmCard">
+    <div id="confirmTitle">EZTrader ALERT</div>
+    <div id="confirmLine">--</div>
+    <div id="confirmMeta">--</div>
+    <div id="confirmBtns">
+      <button id="btnConfirm">CONFIRM</button>
+      <button id="btnDismiss">Dismiss</button>
+      <div id="confirmHint">Tip: this pops when the top opportunity is BUY/SELL. HOLD does not alert.</div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="topbar">
+    <div class="brand">EZTrader</div>
+    <div class="pill">Trade</div>
+    <div class="pill">|</div>
+    <div>Opportunities</div>
+
+    <select id="interval">
+      <option value="1">1m</option>
+      <option value="5" selected>5m</option>
+      <option value="15">15m</option>
+      <option value="60">1h</option>
+    </select>
+
+    <select id="limit">
+      <option value="5">Top 5</option>
+      <option value="10" selected>Top 10</option>
+      <option value="15">Top 15</option>
+    </select>
+
+    <button id="reload">Reload</button>
+    <button id="back">Back</button>
+
+    <div class="spacer"></div>
+    <div class="mini" id="mini">-</div>
+  </div>
+
+  <div class="wrap" id="list"></div>
+  <pre id="dbg"></pre>
+
+<script>
+(function(){
+  const list = document.getElementById("list");
+  const dbg  = document.getElementById("dbg");
+  const mini = document.getElementById("mini");
+  const intervalSel = document.getElementById("interval");
+  const limitSel = document.getElementById("limit");
+
+  function log(m){ dbg.textContent += m + "\n"; }
+
+  async function jget(url, timeoutMs=20000){
+    const ctl = new AbortController();
+    const t = setTimeout(()=>ctl.abort(), timeoutMs);
+    try{
+      const r = await fetch(url, {signal: ctl.signal, cache:"no-store"});
+      return await r.json();
+    } finally { clearTimeout(t); }
+  }
+
+  function card(o){
+    const el = document.createElement("div");
+    el.className = "card";
+    el.innerHTML = `
+      <div class="row">
+        <div class="v">${o.symbol}</div>
+        <div class="k">${o.action}</div>
+        <div class="k">RSI</div><div class="v">${o.rsi ?? "-"}</div>
+        <div class="k">Price</div><div class="v">${o.price ?? "-"}</div>
+      </div>
+      <div class="k" style="margin-top:6px">${o.reason ?? ""}</div>
+      <div class="row" style="margin-top:10px">
+        <div class="k">Rec USD</div><div class="v">${o.recommended_usd ?? "-"}</div>
+        <div class="k">Rec Qty</div><div class="v">${o.recommended_qty ?? "-"}</div>
+        <div class="k">Hold Qty</div><div class="v">${o.holding_qty ?? "-"}</div>
+        <div class="k">Est USD</div><div class="v">${o.est_value_usd ?? "-"}</div>
+      </div>
+    `;
+    return el;
+  }
+
+  async function load(){
+    const iv = intervalSel.value;
+    const lim = limitSel.value;
+    mini.textContent = "loading...";
+    list.innerHTML = "";
+    try{
+      const j = await jget(`/opportunities?interval=${encodeURIComponent(iv)}&limit=${encodeURIComponent(lim)}&ts=${Date.now()}`, 25000);
+      const top = (j && j.top) ? j.top : [];
+      mini.textContent = `ready (${top.length})`;
+      log("Loaded ✅ count=" + top.length);
+      top.forEach(o => list.appendChild(card(o)));
+    }catch(e){
+      mini.textContent = "error";
+      log("ERROR: " + (e && (e.message||e)));
+    }
+  }
+
+  document.getElementById("reload").addEventListener("click", load);
+  intervalSel.addEventListener("change", load);
+  limitSel.addEventListener("change", load);
+  document.getElementById("back").addEventListener("click", () => location.href = "/ui/chart.html?ts=" + Date.now());
+
+  load();
+})();
+
+// EZ_OPPS_AUTOSCROLL_TOP_V1
+function ezGetParam(name){
+  try { return new URLSearchParams(location.search).get(name); } catch(e){ return null; }
+}
+function ezFocusTopRow(){
+  try{
+    const want = (ezGetParam("focus") || "").toLowerCase();
+    if (want !== "top") return;
+
+    // Try the first visible opportunity row:
+    const row = document.querySelector("tr[data-symbol]") || document.querySelector("tbody tr");
+    if (!row) return;
+
+    // Scroll + flash highlight
+    row.scrollIntoView({behavior:"smooth", block:"start"});
+    row.classList.add("tr-ez-focus");
+    setTimeout(()=>{ try{ row.classList.remove("tr-ez-focus"); }catch(e){} }, 2200);
+  }catch(e){}
+}
+
+setTimeout(ezFocusTopRow, 450);
+</script>
+
+<script>
+/* EZ_CONFIRM_UI_V1 */
+(function(){
+  const card = document.getElementById("confirmCard");
+  const line = document.getElementById("confirmLine");
+  const meta = document.getElementById("confirmMeta");
+  const btnC = document.getElementById("btnConfirm");
+  const btnD = document.getElementById("btnDismiss");
+
+  // keeps it clean: we only show for BUY/SELL
+  let lastKey = null;
+
+  function fmtMoney(x){
+    try { return Math.round(parseFloat(x)); } catch(e){ return null; }
+  }
+
+  function coinName(sym){
+    sym = (sym || "").trim();
+    if (!sym) return "UNKNOWN";
+    return sym.split("-", 1)[0];
+  }
+
+  function hide(){
+    if (card) card.style.display = "none";
+  }
+
+  function showTop(o){
+    if (!card) return;
+
+    const action = String(o.action || "HOLD").toUpperCase();
+    if (action !== "BUY" && action !== "SELL"){
+      hide();
+      return;
+    }
+
+    const sym = String(o.symbol || "").toUpperCase();
+    const c = coinName(sym);
+
+    const recUsd = fmtMoney(o.recommended_usd);
+    const px = o.price;
+
+    // unique-ish key so we don't spam re-showing the same thing
+    const key = action + "|" + sym + "|" + String(o.rsi) + "|" + String(o.score);
+    if (key === lastKey){
+      // still show if already visible
+      if (card.style.display !== "block") card.style.display = "block";
+      return;
+    }
+    lastKey = key;
+
+    const moneyPart = (recUsd != null) ? (recUsd + " dollars") : "no amount";
+    line.textContent = "EZTrader " + action + " " + moneyPart + " " + c;
+
+    const rsi = (o.rsi == null) ? "--" : String(o.rsi);
+    const score = (o.score == null) ? "--" : String(o.score);
+    meta.textContent = "symbol=" + sym + "  price=" + px + "  rsi=" + rsi + "  score=" + score + "  reason=" + (o.reason || "--");
+
+    // stash payload for the next step (wiring confirm)
+    card.dataset.payload = JSON.stringify(o);
+
+    card.style.display = "block";
+
+    // bring it into view fast
+    try { window.scrollTo({top:0, behavior:"smooth"}); } catch(e){ window.scrollTo(0,0); }
+    try { if (navigator.vibrate) navigator.vibrate([40, 40, 40]); } catch(e){}
+  }
+
+  btnD && btnD.addEventListener("click", function(){
+    hide();
+  });
+
+  btnC && btnC.addEventListener("click", function(){
+    // UI-only for now: we store pending payload so the next step can wire actual confirm + balance tracking safely.
+    try {
+      const payload = card.dataset.payload || "{}";
+      localStorage.setItem("EZ_PENDING_CONFIRM", payload);
+      alert("Saved pending confirm. Next step will wire confirm + re-check and show it on screen.");
+    } catch(e){
+      alert("Could not save pending confirm: " + String(e));
+    }
+  });
+
+  // Hook into existing refresh loop if it exists:
+  // We poll /opportunities lightly without changing your existing logic.
+  async function poll(){
+    try{
+      const u = "/opportunities?interval=5&limit=1&ts=" + Date.now();
+      const r = await fetch(u, {cache:"no-store"});
+      const j = await r.json();
+      const top = (j.top || []);
+      if (top.length) showTop(top[0]);
+    }catch(e){
+      // keep quiet; no spam
+    }
+  }
+
+  // Start polling. Keep it clean: 6 seconds.
+  setInterval(poll, 6000);
+  poll();
+})();
+</script>
+
+</body>
+</html>

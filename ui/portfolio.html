@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>EZTrader — Portfolio</title>
+<style>
+:root{
+ --bg:#0b0f1a; --panel:#0f1626; --line:#1e2433;
+ --text:#cbd5e1; --muted:#94a3b8; --accent:#2dd4bf;
+ --good:#22c55e; --bad:#ef4444;
+}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui;}
+.top{display:flex;gap:12px;padding:14px;border-bottom:1px solid #1f2937}
+.card{background:#0f1626;border:1px solid #1e293b;border-radius:16px;padding:14px;margin:12px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;text-align:left}
+th{color:var(--muted);font-size:12px}
+td{border-top:1px solid #1f2937}
+.big{font-size:22px;font-weight:700}
+.muted{color:var(--muted)}
+.good{color:var(--good)}
+.bad{color:var(--bad)}
+button{background:#111827;color:white;border:1px solid #334155;border-radius:10px;padding:8px 12px}
+</style>
+</head>
+<body>
+
+<div class="top">
+ <div style="font-weight:800">EZTrader</div>
+ <div>Portfolio</div>
+ <button onclick="load()">Reload</button>
+</div>
+
+<div class="card">
+ <div class="muted">Total Equity</div>
+ <div id="equity" class="big">—</div>
+ <div class="muted">Cash (USD)</div>
+ <div id="cash">—</div>
+</div>
+
+<div class="card">
+ <div class="muted" style="margin-bottom:10px">Holdings</div>
+ <table>
+  <thead>
+   <tr>
+    <th>Symbol</th>
+    <th>Qty</th>
+    <th>Price</th>
+    <th>Value</th>
+   </tr>
+  </thead>
+  <tbody id="rows">
+   <tr><td colspan="4">Loading...</td></tr>
+  </tbody>
+ </table>
+</div>
+
+<script>
+async function load(){
+ try{
+  const r = await fetch("/portfolio?ts="+Date.now());
+  const j = await r.json();
+
+  document.getElementById("cash").textContent =
+    "$" + Number(j.cash_usd || 0).toLocaleString(undefined,{minimumFractionDigits:2});
+
+  document.getElementById("equity").textContent =
+    "$" + Number(j.total_usd || 0).toLocaleString(undefined,{minimumFractionDigits:2});
+
+  const body = document.getElementById("rows");
+  body.innerHTML = "";
+
+  const qty = j.holdings_qty || {};
+  const prices = j.prices || {};
+  const values = j.values_usd || {};
+
+  Object.keys(qty).forEach(sym=>{
+    if(!qty[sym] || qty[sym] == 0) return;
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${sym}</td>
+      <td>${Number(qty[sym]).toFixed(8)}</td>
+      <td>$${Number(prices[sym]||0).toLocaleString()}</td>
+      <td>$${Number(values[sym]||0).toLocaleString(undefined,{minimumFractionDigits:2})}</td>
+    `;
+    body.appendChild(tr);
+  });
+
+  if(!body.children.length){
+    body.innerHTML = `<tr><td colspan="4">No active holdings</td></tr>`;
+  }
+
+ }catch(e){
+  console.error(e);
+ }
+}
+
+load();
+</script>
+</body>
+</html>

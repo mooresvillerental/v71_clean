@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EZTrader — Chart</title>
+  <style>
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:#0b0d10; color:#e6e6e6; }
+    .topbar { display:flex; gap:10px; align-items:center; padding:10px 12px; border-bottom:1px solid #222; }
+    .topbar a { color:#9ad; text-decoration:none; }
+    .topbar button, .topbar select { background:#12161c; color:#e6e6e6; border:1px solid #2a2f38; padding:8px 10px; border-radius:10px; }
+    .status { margin-left:auto; font-size:12px; opacity:0.85; }
+    #chart { height: calc(100vh - 56px); }
+  </style>
+
+<style id="ez_no_tradingview_click_v1">
+a[href*="tradingview"], a[href*="trading-view"], .tv-logo, .tv-watermark, .tradingview-widget-copyright {
+  pointer-events: none !important;
+}
+</style>
+
+
+<style id="ez_kill_tv_overlay_v1">
+/* kill any stray TV/branding overlays that might sit on top of the chart */
+#tv, .tv, .tv-logo, .tv-watermark, .watermark, .branding, .logo, .copyright,
+[class*="tv"], [id*="tv"], [class*="watermark"], [id*="watermark"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+/* ensure chart container fills space */
+#chart { width: 100% !important; height: 72vh !important; }
+</style>
+
+
+<style id="ez_chart_height_v1">
+#chart { width: 100%; height: 72vh; min-height: 320px; }
+</style>
+
+
+<style id="ez_debug_reposition_v1">
+/* best-effort: common ids/classes */
+#ez_debug, #ezDebug, #debug, .ez-debug, .debugBox {
+  position: fixed !important;
+  left: 12px !important;
+  bottom: 12px !important;
+  right: auto !important;
+  max-width: 55vw !important;
+  max-height: 28vh !important;
+  overflow: auto !important;
+  z-index: 99998 !important;
+}
+/* if the debug box is a generic div at bottom-left, keep it there */
+</style>
+
+
+<style id="ez_force_nonoverlap_v2">
+/* Force any ERR box to bottom-right */
+[id*="err" i], [class*="err" i] {
+  position: fixed !important;
+  right: 12px !important;
+  bottom: 12px !important;
+  left: auto !important;
+  top: auto !important;
+  max-width: 52vw !important;
+  max-height: 32vh !important;
+  overflow: auto !important;
+  z-index: 999999 !important;
+}
+
+/* Force any DEBUG box to bottom-left */
+[id*="debug" i], [class*="debug" i] {
+  position: fixed !important;
+  left: 12px !important;
+  bottom: 12px !important;
+  right: auto !important;
+  top: auto !important;
+  max-width: 52vw !important;
+  max-height: 32vh !important;
+  overflow: auto !important;
+  z-index: 999998 !important;
+}
+
+/* Force any LOG box to top-left (just in case) */
+[id*="log" i], [class*="log" i] {
+  position: fixed !important;
+  left: 12px !important;
+  top: 12px !important;
+  right: auto !important;
+  bottom: auto !important;
+  max-width: 70vw !important;
+  max-height: 24vh !important;
+  overflow: auto !important;
+  z-index: 999997 !important;
+}
+</style>
+
+</head>
+<body>
+
+<style id="ez_errbox_v1">
+#ez_errbox{
+  position:fixed; right:12px; bottom:12px; z-index:99999;
+  max-width:92vw; max-height:35vh; overflow:auto;
+  font: 12px/1.25 monospace; padding:10px 12px;
+  background: rgba(0,0,0,.70); color:#e7e7e7;
+  border:1px solid rgba(255,255,255,.18); border-radius:12px;
+  white-space: pre-wrap;
+}
+</style>
+<div id="ez_errbox">EZ ErrBox: armed ✅</div>
+<script>
+(function(){
+  function box(){ return document.getElementById("ez_errbox"); }
+  function log(msg){
+    try{
+      const b = box(); if(!b) return;
+      const t = new Date().toLocaleTimeString();
+      b.textContent += "\\n[" + t + "] " + msg;
+      b.scrollTop = b.scrollHeight;
+    }catch(e){}
+  }
+  window.addEventListener("error", function(e){
+    log("JS ERROR: " + (e.message||e.error||"unknown") + " @ " + (e.filename||"?") + ":" + (e.lineno||"?"));
+  
+      // --- FORCE MOBILE RESIZE FIX ---
+      setTimeout(function(){
+          try {
+              chart.applyOptions({
+                  width: container.clientWidth,
+                  height: container.clientHeight
+              });
+              chart.timeScale().fitContent();
+              console.log("Forced resize fix applied ✅");
+          } catch(e){}
+      }, 300);
+
+});
+  window.addEventListener("unhandledrejection", function(e){
+    log("PROMISE REJECT: " + (e.reason && (e.reason.stack||e.reason.message)) || String(e.reason));
+  });
+
+  // basic chart diagnostics after load
+  window.addEventListener("load", function(){
+    setTimeout(function(){
+      try{
+        const el = document.getElementById("chart");
+        if(!el){ log("No #chart element found."); return; }
+        const r = el.getBoundingClientRect();
+        log("chart rect: " + Math.round(r.width) + "x" + Math.round(r.height));
+        log("LightweightCharts typeof: " + (typeof window.LightweightCharts));
+      }catch(e){ log("diag exception: " + (e.message||e)); }
+    }, 400);
+  });
+
+  // expose logger for existing code if we want it
+  window.EZLOG = log;
+})();
+    // EZ_LINE_PROBE_V1 (prove rendering works at all)
+    let __ez_lineSeries = null;
+    try{
+      if (chart && typeof chart.addLineSeries === "function"){
+        __ez_lineSeries = chart.addLineSeries({ lineWidth: 3 });
+        const now = Math.floor(Date.now()/1000);
+        __ez_lineSeries.setData([
+          { time: now - 3600, value: 100 },
+          { time: now, value: 200 },
+        ]);
+        console.log("Line probe ✅ (if you see a diagonal line, canvas is drawing)");
+        try{ chart.timeScale().fitContent(); }catch(e){}
+      } else {
+        console.log("Line probe skipped (no addLineSeries)");
+      }
+    }catch(e){ console.error("Line probe error: " + (e && (e.stack||e.message)||e)); }
+
+</script>
+
+
+  <div class="topbar">
+    <strong>EZTrader</strong>
+    <a href="/ui/trade.html">Trade</a>
+    <span style="opacity:.6;">|</span>
+    <span>Chart</span>
+
+    <select id="interval">
+      <option value="1">1m</option>
+      <option value="5" selected>5m</option>
+      <option value="15">15m</option>
+      <option value="60">1h</option>
+    </select>
+
+    <button id="reload">Reload OHLC</button>
+    <button id="live">Live Price</button>
+
+    <div class="status" id="status">—</div>
+  </div>
+
+  <div id="chart"></div>
+<style id="EZ_CHART_OUTLINE_V1">#chart{outline:2px solid #2dd4bf; outline-offset:2px; background:#0b0f1a;}</style>
+
+  <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+  
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+
+    const container = document.getElementById("chart");
+    container.style.height = "70vh";
+
+    const chart = LightweightCharts.createChart(container, {
+          timeScale: { timeVisible: true, secondsVisible: false },
+        layout: { background: { color: "#0b0f1a" }, textColor: "#ccc" },
+        grid: { vertLines: { color: "#1e2433" }, horzLines: { color: "#1e2433" } },
+        width: container.clientWidth,
+        height: container.clientHeight
+    });
+
+  
+  
+    // EZ_FORCE_VISIBLE_OPTS_V1
+    try{
+      chart.applyOptions({
+        rightPriceScale:{ visible:true, borderVisible:true, borderColor:"#555" },
+        leftPriceScale:{ visible:false },
+        timeScale:{ visible:true, borderVisible:true, borderColor:"#555", timeVisible:true },
+        crosshair:{ mode: 1 },
+      });
+    }catch(e){}
+
+    // --- EZ: debug writers (always available in this scope) ---
+    function __ez_line(id, msg){
+      try{
+        var el = document.getElementById(id);
+        if(!el) return;
+        el.textContent = (el.textContent || "") + "\n" + msg;
+      }catch(e){}
+    }
+    // EZ: dbg/err helpers (safe)
+    function dbg(msg){ __ez_line("ez_debug", msg); }
+    function err(msg){ __ez_line("ez_errbox", msg); }
+    try{ console.log = dbg; console.error = err; }catch(e){}
+
+    const intervalSel =
+ document.getElementById("interval");
+  const btnReload = document.getElementById("reload");
+  const btnLive   = document.getElementById("live");
+
+  // --- EZ: Candlestick series (cross-version: v4 and v5) ---
+  let candleSeries = null;
+  (function(){
+    const opts = {
+      upColor: "#22c55e",
+      downColor: "#ef4444",
+      borderUpColor: "#22c55e",
+      borderDownColor: "#ef4444",
+      wickUpColor: "#22c55e",
+      wickDownColor: "#ef4444",
+    };
+    try{
+      if (chart && typeof chart.addCandlestickSeries === "function"){
+        candleSeries = chart.addCandlestickSeries(opts);
+        console.log("Series via addCandlestickSeries ✅");
+        return;
+      }
+      if (chart && typeof chart.addSeries === "function"){
+        const LC = window.LightweightCharts || {};
+        if (LC.SeriesType && LC.SeriesType.Candlestick){
+          candleSeries = chart.addSeries(LC.SeriesType.Candlestick, opts);
+          console.log("Series via addSeries(SeriesType.Candlestick) ✅");
+          return;
+        }
+        if (LC.CandlestickSeries){
+          candleSeries = chart.addSeries(LC.CandlestickSeries, opts);
+          console.log("Series via addSeries(CandlestickSeries) ✅");
+          return;
+        }
+        // last resort (some bundles accept a string)
+        candleSeries = chart.addSeries("Candlestick", opts);
+        console.log("Series via addSeries('Candlestick') ✅");
+        return;
+      }
+      console.error("No candlestick API found ❌");
+    }catch(e){
+      console.error("Series create error: " + (e && (e.stack||e.message)||e));
+    }
+  })();
+
+    async function loadOHLC() {
+      try{
+        if (!candleSeries) { console.error("candleSeries is null ❌ (cannot render)"); return; }
+
+        const iv = (intervalSel && intervalSel.value) ? intervalSel.value : "5";
+        const url = "/ohlc?interval=" + encodeURIComponent(iv) + "&ts=" + Date.now();
+
+        const res = await fetch(url, {cache:"no-store"});
+        if (!res.ok) { console.error("OHLC HTTP " + res.status); return; }
+
+        const data = await res.json();
+        if (!data || !data.ok || !Array.isArray(data.candles)) { console.error("Bad OHLC JSON"); return; }
+
+        const formatted = data.candles.map(c => ({
+          time: Number(c.time),
+          open: Number(c.open),
+          high: Number(c.high),
+          low:  Number(c.low),
+          close:Number(c.close),
+        }));
+          // EZ_CANDLE_VALIDATE_V1
+          const cleaned = [];
+          let bad = 0;
+          let minC = null, maxC = null;
+          for (const c of (formatted||[])) {
+            const t = Number(c.time);
+            const o = Number(c.open), h = Number(c.high), l = Number(c.low), cl = Number(c.close);
+            if (!Number.isFinite(t) || !Number.isFinite(o) || !Number.isFinite(h) || !Number.isFinite(l) || !Number.isFinite(cl)) { bad++; continue; }
+            cleaned.push({ time: t, open: o, high: h, low: l, close: cl });
+            minC = (minC===null) ? cl : Math.min(minC, cl);
+            maxC = (maxC===null) ? cl : Math.max(maxC, cl);
+          }
+          console.log("Candle validate ✅ in=" + (formatted||[]).length + " cleaned=" + cleaned.length + " bad=" + bad + " minC=" + minC + " maxC=" + maxC);
+          candleSeries.setData(cleaned);
+          // EZ_MARKER_TEST_V1
+          try{
+            if (candleSeries && typeof candleSeries.applyOptions === "function"){
+              candleSeries.applyOptions({ priceLineVisible:true, lastValueVisible:true });
+            }
+          }catch(e){}
+          try{
+            var last = formatted && formatted.length ? formatted[formatted.length-1] : null;
+            if (last && candleSeries && typeof candleSeries.setMarkers === "function"){
+              candleSeries.setMarkers([{ time:last.time, position:"aboveBar", color:"#f59e0b", shape:"arrowDown", text:"TEST" }]);
+              console.log("Marker TEST placed ✅ time=" + last.time);
+            } else {
+              console.log("Marker skipped (no setMarkers)");
+            }
+          }catch(e){ console.error("Marker error: " + (e && (e.stack||e.message)||e)); }
+
+        try { chart.timeScale().fitContent(); } catch(e) {}
+
+        console.log("Rendered ✅ bars=" + formatted.length + " iv=" + iv);
+        try{
+          const st = document.getElementById("status");
+          if (st) st.textContent = "bars=" + formatted.length + " • " + iv + "m";
+        }catch(e){}
+      }catch(e){
+        console.error("loadOHLC error: " + (e && (e.stack||e.message)||e));
+      }
+    }
+
+    // Wire controls ONCE
+    try{ if(btnReload) btnReload.addEventListener("click", function(){ loadOHLC(); }); }catch(e){}
+    try{ if(intervalSel) intervalSel.addEventListener("change", function(){ loadOHLC(); }); }catch(e){}
+    try{ if(btnLive) btnLive.addEventListener("click", async function(){
+      try{
+        const r = await fetch("/price?ts=" + Date.now(), {cache:"no-store"});
+        const j = await r.json();
+        console.log("Live price ✅ " + (j && j.price));
+      }catch(e){
+        console.error("Live price error: " + (e && (e.message||e)));
+      }
+    }); }catch(e){}
+
+    // First draw ONCE
+    try{ loadOHLC(); }catch(e){ console.error("Initial loadOHLC error: " + (e && (e.stack||e.message)||e)); }
+
+    window.addEventListener("resize", () => {
+        chart.applyOptions({ width: container.clientWidth });
+    });
+
+});
+</script>
+
+
+
+<script id="EZ_ERR_HOOKS_V1">
+(function(){
+  function ezAppend(id, msg){
+    try{
+      var el = document.getElementById(id);
+      if(!el) return;
+      el.textContent = (el.textContent || "") + "\n" + msg;
+    }catch(e){}
+  }
+  window.addEventListener("error", function(ev){
+    ezAppend("ez_errbox", "[JS ERROR] " + (ev.message||"") + " @ " + (ev.filename||"") + ":" + (ev.lineno||""));
+  });
+  window.addEventListener("unhandledrejection", function(ev){
+    ezAppend("ez_errbox", "[PROMISE REJECT] " + (ev.reason && (ev.reason.stack||ev.reason.message) || ev.reason));
+  });
+})();
+</script>
+
+
+<script id="EZ_HELPERS_V2">
+window.ezDebug = function(msg){
+  try{
+    var el = document.getElementById("ez_debug");
+    if(!el) return;
+    el.textContent = (el.textContent || "") + "\n" + msg;
+  }catch(e){}
+};
+window.ezErr = function(msg){
+  try{
+    var el = document.getElementById("ez_errbox");
+    if(!el) return;
+    el.textContent = (el.textContent || "") + "\n" + msg;
+  }catch(e){}
+};
+</script>
+
+
+
+
+
+<!-- EZ_DEBUG_ERR_PANELS_V2 -->
+<div id="ez_debug" style="position:fixed;left:10px;bottom:10px;z-index:99999;max-width:46vw;max-height:22vh;overflow:auto;
+background:#111;border:1px solid #333;color:#ddd;padding:10px;border-radius:12px;font:12px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Arial;white-space:pre-wrap;">
+EZ Debug
+</div>
+
+<div id="ez_errbox" style="position:fixed;right:10px;bottom:10px;z-index:99999;max-width:46vw;max-height:22vh;overflow:auto;
+background:#140a0a;border:1px solid #5a1f1f;color:#f2dede;padding:10px;border-radius:12px;font:12px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Arial;white-space:pre-wrap;">
+EZ ErrBox
+</div>
+
+
+<script id="EZ_GLOBAL_ERROR_TRAP_V1">
+(function(){
+  function _line(id, msg){
+    try{
+      var el = document.getElementById(id);
+      if(!el) return;
+      el.textContent = (el.textContent || "") + "\n" + msg;
+    }catch(e){}
+  }
+  window.addEventListener("error", function(ev){
+    try{
+      var msg = "JS ERROR: " + (ev && ev.message ? ev.message : ev);
+      if (ev && ev.filename) msg += " @ " + ev.filename + ":" + ev.lineno + ":" + ev.colno;
+      if (ev && ev.error && ev.error.stack) msg += "\n" + ev.error.stack;
+      _line("ez_errbox", msg);
+    }catch(e){}
+  });
+
+  window.addEventListener("unhandledrejection", function(ev){
+    try{
+      _line("ez_errbox", "PROMISE REJECT: " + (ev && ev.reason ? (ev.reason.stack||ev.reason.message||ev.reason) : ev));
+    }catch(e){}
+  });
+})();
+</script>
+
+</body>
+</html>

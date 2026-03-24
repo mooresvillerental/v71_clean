@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>EZTrader</title>
+<style>
+  :root{
+    --bg:#0b0f18;
+    --card:#121a2a;
+    --card2:#0f1626;
+    --text:#e9eefb;
+    --muted:#9aa7c2;
+    --line:rgba(255,255,255,.08);
+    --green:#2ecc71;
+    --red:#ff5c5c;
+    --yellow:#f5c542;
+    --blue:#3b82f6;
+  }
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    background:radial-gradient(1200px 600px at 20% 10%, #1a2440 0%, transparent 55%),
+               radial-gradient(1200px 600px at 80% 0%, #163a2a 0%, transparent 55%),
+               var(--bg);
+    color:var(--text);
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding:18px 14px;
+  }
+  .wrap{width:min(720px,100%);}
+
+  .top{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .brand{
+    display:flex; flex-direction:column; gap:2px;
+  }
+  .brand .h1{font-weight:900; letter-spacing:.5px; font-size:34px; line-height:1;}
+  .brand .sub{color:var(--muted); font-size:14px}
+  .pill{
+    display:flex; align-items:center; gap:10px;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    background:rgba(0,0,0,.22);
+    border-radius:999px;
+    font-size:13px;
+    color:var(--muted);
+    user-select:none;
+  }
+  .dot{width:10px;height:10px;border-radius:50%;background:#666; box-shadow:0 0 0 4px rgba(255,255,255,.05) inset}
+  .dot.ok{background:var(--green)}
+  .dot.bad{background:var(--red)}
+
+  .card{
+    border:1px solid var(--line);
+    background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border-radius:22px;
+    padding:18px;
+    box-shadow:0 18px 45px rgba(0,0,0,.35);
+  }
+  .big{
+    text-align:center;
+    padding:18px 14px 10px;
+    border-radius:18px;
+    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.2));
+    border:1px solid var(--line);
+  }
+  .action{
+    font-size:62px;
+    font-weight:900;
+    letter-spacing:1px;
+    margin:10px 0 0;
+  }
+  .action.buy{color:var(--green)}
+  .action.sell{color:var(--red)}
+  .action.hold{color:var(--yellow)}
+  .desc{color:var(--muted); margin:6px 0 0; font-size:15px}
+
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:14px;
+  }
+  .kv{
+    border:1px solid var(--line);
+    background:rgba(0,0,0,.18);
+    border-radius:16px;
+    padding:12px 12px;
+  }
+  .k{color:var(--muted); font-size:12px; letter-spacing:.6px; text-transform:uppercase}
+  .v{margin-top:6px; font-size:16px; font-weight:700}
+
+  .controls{
+    margin-top:14px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:10px;
+  }
+  .row{
+    display:flex; align-items:center; justify-content:space-between;
+    border:1px solid var(--line);
+    background:rgba(0,0,0,.18);
+    border-radius:16px;
+    padding:12px 12px;
+    gap:12px;
+  }
+  label{display:flex; align-items:center; gap:10px; color:var(--muted); font-size:14px}
+  input[type="checkbox"]{width:18px;height:18px}
+
+  .btnbar{
+    display:flex;
+    gap:10px;
+    margin-top:12px;
+  }
+  button{
+    flex:1;
+    border:0;
+    border-radius:16px;
+    padding:14px 14px;
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:.7px;
+    cursor:pointer;
+  }
+  .btnConfirm{background:var(--green); color:#08150d}
+  .btnConfirm:disabled{opacity:.35; cursor:not-allowed}
+  .btnRefresh{background:rgba(255,255,255,.10); color:var(--text); border:1px solid var(--line)}
+  .msg{
+    margin-top:10px;
+    font-size:13px;
+    color:var(--muted);
+    min-height:18px;
+    text-align:center;
+  }
+  .msg.ok{color:rgba(46,204,113,.95)}
+  .msg.bad{color:rgba(255,92,92,.95)}
+  .foot{
+    margin-top:12px;
+    color:var(--muted);
+    font-size:12px;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <div class="h1">EZTrader</div>
+      <div class="sub">One clear signal. Confirm + re-check. No pressure.</div>
+    </div>
+    <div class="pill" id="pill">
+      <span class="dot" id="dot"></span>
+      <span id="pillText">Starting…</span>
+      <span id="testModeBadge" style="margin-left:8px; padding:2px 8px; border-radius:999px; font-size:12px; display:none; background:rgba(255,140,0,.18); border:1px solid rgba(255,140,0,.35); color:var(--text)">TEST MODE</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="big">
+      <div class="k">Current Recommendation</div>
+      <div class="action hold" id="actionTxt">HOLD</div>
+      <div class="desc" id="reasonTxt">—</div>
+    </div>
+
+    <div class="grid">
+      
+    <!-- === BEST TIME GAUGE === -->
+    <div class="kv" id="bestTimeRow">
+      <div class="k">Best Time</div>
+      <div class="v">
+        <div style="width:160px;height:14px;border-radius:10px;background:rgba(255,255,255,.15);overflow:hidden">
+          <div id="bestTimeBar" style="height:100%;width:0%;background:linear-gradient(90deg,#f44336,#ff9800,#4caf50);transition:width .4s ease"></div>
+        </div>
+        <span id="bestTimePct" style="margin-left:8px;font-weight:600">—</span><span id="bestTimeLbl" style="margin-left:8px;opacity:.85">—</span>
+      </div>
+    </div>
+    <!-- === END BEST TIME GAUGE === -->
+
+<div class="kv"><div class="k">Symbol</div><div class="v" id="symTxt">—</div></div>
+      <div class="kv"><div class="k">Price (Live)</div><div class="v" id="priceTxt">—</div></div>
+      <div class="kv"><div class="k">Timestamp</div><div class="v" id="tsTxt">—</div></div>
+      <div class="kv"><div class="k">Recommended Amount</div><div class="v" id="recoTxt">Coming next</div></div>
+    </div>
+
+    <div class="controls">
+      <div class="row">
+        <label><input type="checkbox" id="chkAnnounce" checked> Announce changes</label>
+        <label style="margin-left:14px"><input type="checkbox" id="chkRepeat"> Repeat</label>
+        <select id="selRepeatSec" style="margin-left:8px; padding:6px 8px; border-radius:10px; border:1px solid var(--line); background:rgba(0,0,0,.18); color:var(--text)">
+          <option value="60">60s</option>
+          <option value="120" selected>120s</option>
+          <option value="300">300s</option>
+        </select>
+        <span class="k">Voice</span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="chkConfirm" checked> Confirm enabled</label>
+        <span class="k">Guard</span>
+      </div>
+    </div>
+
+    
+    <div class="grid" id="settingsCard" style="margin-top:10px">
+      <div class="kv">
+        <div class="k">Sizing % (BUY=Cash%, SELL=Pos%)</div>
+        <div class="v">
+          <input id="inpPct" type="number" step="0.1" min="0.1" max="25" style="width:120px; padding:8px; border-radius:10px; border:1px solid var(--line); background:rgba(0,0,0,.18); color:var(--text)"> %
+        </div>
+      </div>
+      <div class="kv">
+        <div class="k">Live BTC (Coinbase)</div>
+        <div class="v"><span id="livePriceTxt">—</span></div>
+      </div>
+      <div class="kv">
+        <div class="k">Engine Price</div>
+        <div class="v"><span id="enginePriceTxt">—</span></div>
+      </div>
+
+      <div class="kv">
+        <div class="k">Fee buffer</div>
+        <div class="v" style="display:flex; gap:10px; flex-wrap:wrap">
+          <span><input id="inpFeePct" type="number" step="0.1" min="0" max="10" style="width:110px; padding:8px; border-radius:10px; border:1px solid var(--line); background:rgba(0,0,0,.18); color:var(--text)"> %</span>
+          <span><input id="inpFeeUsd" type="number" step="0.01" min="0" max="1000" style="width:110px; padding:8px; border-radius:10px; border:1px solid var(--line); background:rgba(0,0,0,.18); color:var(--text)"> $</span>
+        </div>
+      </div>
+    </div>
+    <!-- === MARKET INTEL (Fortune-teller Phase 1) === -->
+    
+    <!-- === TRACKING BALANCES (Manual) === -->
+    <div class="grid" id="balancesCard" style="margin-top:10px">
+      <div class="kv">
+        <div class="k">Tracking Balances (Manual)</div>
+        <div class="v" style="display:flex;flex-direction:column;gap:6px">
+          <div><span style="opacity:.75">Cash:</span> <span id="balCash">—</span></div>
+          <div><span style="opacity:.75">BTC Value:</span> <span id="balBtcUsd">—</span></div>
+          <div style="opacity:.7;font-size:12px">These are manual values for monitoring only (not connected to Robinhood).</div>
+        </div>
+      </div>
+    </div>
+    <!-- === END TRACKING BALANCES === -->
+<div class="grid" id="intelCard" style="margin-top:10px">
+      <div class="kv">
+        <div class="k">Market Intel</div>
+        <div class="v" style="display:flex;flex-direction:column;gap:6px">
+          <div><span style="opacity:.75">Profile:</span> <span id="intelProfile">—</span></div>
+<div><span style="opacity:.75">Headline:</span> <span id="intelHeadline">—</span></div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap">
+            <div><span style="opacity:.75">Sentiment:</span> <span id="intelSent">—</span></div>
+            <div><span style="opacity:.75">Trend:</span> <span id="intelTrend">—</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- === END MARKET INTEL === -->
+
+      <!-- === Intel Profile (bounded presets) === -->
+      <div class="kv">
+        <div class="k">Intel Profile</div>
+        <div class="v">
+          <select id="selIntelProfile" style="width:220px; padding:8px; border-radius:10px; border:1px solid var(--line); background:rgba(0,0,0,.18); color:var(--text)">
+            <option value="conservative">Conservative (no micro trend)</option>
+            <option value="balanced">Balanced (default)</option>
+            <option value="aggressive">Aggressive</option>
+          </select>
+        </div>
+      </div>
+      <!-- === End Intel Profile === -->
+
+
+    <div class="btnbar" style="margin-top:10px">
+      <button class="btnRefresh" id="btnSave" type="button">SAVE SETTINGS</button>
+</div>
+
+    <div class="btnbar">
+      <button class="btnRefresh" id="btnRefresh" type="button">Refresh</button>
+      <button class="btnConfirm" id="btnConfirm" type="button" disabled>CONFIRM</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="foot">Confirm only succeeds if the engine still says the same action right now.</div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+
+  const dot = $("dot");
+  const pillText = $("pillText");
+  const testModeBadge = $("testModeBadge");
+  const actionTxt = $("actionTxt");
+  const reasonTxt = $("reasonTxt");
+  const symTxt = $("symTxt");
+  const priceTxt = $("priceTxt");
+  const livePriceTxt = $("livePriceTxt");
+  const enginePriceTxt = $("enginePriceTxt");
+  const tsTxt = $("tsTxt");
+  const recoTxt = $("recoTxt");
+  const bestTimeBar = $("bestTimeBar");
+  const bestTimePct = $("bestTimePct");
+  const bestTimeLbl = $("bestTimeLbl");
+
+  const msg = $("msg");
+  const btnConfirm = $("btnConfirm");
+  const btnRefresh = $("btnRefresh");
+  const chkAnnounce = $("chkAnnounce");
+  const chkRepeat = $("chkRepeat");
+  const selRepeatSec = $("selRepeatSec");
+  const chkConfirm = $("chkConfirm");
+    const inpPct = $("inpPct");
+    const inpFeePct = $("inpFeePct");
+    const inpFeeUsd = $("inpFeeUsd");
+    const btnSave = $("btnSave");
+  const selIntelProfile = $("selIntelProfile");
+  const intelHeadline = $("intelHeadline");
+  const intelSent = $("intelSent");
+  const intelTrend = $("intelTrend");
+  const balCash = $("balCash");
+  const balBtcUsd = $("balBtcUsd");
+  const intelProfile = $("intelProfile");
+
+  let lastKey = "";
+  let lastActionable = null;
+let retryTimer = null;
+let recoOk = false;
+  let recoAmt = "";
+window.__ez_minTradeUsd = window.__ez_minTradeUsd || 0;
+window.__ez_suppress_announce = window.__ez_suppress_announce || false;
+let lastRecoSpokenKey = "";
+let currentSignal = null;
+  let repeatTimer = null;
+  let repeatLastKey = "";
+
+
+  function setPill(ok, text){
+    dot.classList.remove("ok","bad");
+    dot.classList.add(ok ? "ok" : "bad");
+    pillText.textContent = text;
+  }
+
+  function setMsg(kind, text){
+    msg.classList.remove("ok","bad");
+    if(!text){ msg.textContent=""; return; }
+    msg.classList.add(kind === "ok" ? "ok" : "bad");
+    msg.textContent = text;
+  }
+
+  function speak(text){
+    try{
+      // --- MIN_TRADE_SUPPRESSION: hard voice gate ---
+      if(window.__ez_suppress_announce) return;
+      // --- END hard voice gate ---
+      const u = new SpeechSynthesisUtterance(String(text||""));
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function stopRepeat(){
+    try{
+      if(repeatTimer){ clearInterval(repeatTimer); repeatTimer = null; }
+      repeatLastKey = "";
+    }catch(e){}
+  }
+
+  function startRepeatIfNeeded(sig){
+    try{
+      if(!chkAnnounce || !chkAnnounce.checked) return stopRepeat();
+      if(!chkRepeat || !chkRepeat.checked) return stopRepeat();
+      const a = String((sig && sig.action) || "").toUpperCase();
+      if(a !== "BUY" && a !== "SELL") return stopRepeat();
+
+      const sec = selRepeatSec ? Number(selRepeatSec.value || 120) : 120;
+      const ms = (isFinite(sec) && sec >= 30) ? Math.round(sec * 1000) : 120000;
+
+      const key = [sig.action, sig.reason, sig.symbol, sig.price, sig.ts].join("|");
+      if(repeatLastKey !== key){
+        stopRepeat();
+        repeatLastKey = key;
+      }
+
+      if(!repeatTimer){
+        try{
+          const shown = (recoTxt && recoTxt.textContent) ? String(recoTxt.textContent).trim() : "";
+          const amt = shown.replace(/[^0-9.]/g,"");
+          if(amt) speak(`EZTrader repeat alert. ${a}. Recommended amount: ${amt} dollars.`);
+          else speak(`EZTrader repeat alert. ${a}.`);
+        }catch(e){}
+
+        repeatTimer = setInterval(()=>{
+          try{
+            const shown = (recoTxt && recoTxt.textContent) ? String(recoTxt.textContent).trim() : "";
+            const amt = shown.replace(/[^0-9.]/g,"");
+            if(amt) speak(`EZTrader repeat alert. ${a}. Recommended amount: ${amt} dollars.`);
+            else speak(`EZTrader repeat alert. ${a}.`);
+          }catch(e){}
+        }, ms);
+      }
+    }catch(e){
+      stopRepeat();
+    }
+  }
+
+
+
+    async function doConfirm(){
+    try{
+      setMsg("", "");
+
+      if(!currentSignal) return setMsg("bad", "No signal loaded");
+
+      const action = String(currentSignal.action || "").toUpperCase();
+      if(action !== "BUY" && action !== "SELL"){
+        return setMsg("bad", "Confirm only works for BUY/SELL");
+      }
+
+      const r = await fetch("/confirm", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({action, note:"trade_ui"})
+      });
+
+      const j = await r.json().catch(()=> ({}));
+
+      if(r.status === 200 && j && j.ok){
+        setMsg("ok", "Confirmed ✓");
+        if(chkAnnounce.checked){
+  const shown = (recoTxt && recoTxt.textContent) ? String(recoTxt.textContent).trim() : "";
+  const amt = shown.replace(/[^0-9.]/g,"");
+  if(amt) speak(`EZTrader confirm successful. Recommended amount: ${amt} dollars.`);
+  else speak("EZTrader confirm successful.");
+}
+}else{
+        const err = (j && j.error) ? j.error : ("HTTP " + r.status);
+        setMsg("bad", "Confirm failed: " + err);
+        if(chkAnnounce.checked && !window.__ez_suppress_announce) speak("EZTrader confirm failed.");
+      }
+    }catch(e){
+      setMsg("bad", "Confirm failed");
+      if(chkAnnounce.checked && !window.__ez_suppress_announce) speak("EZTrader confirm failed.");
+    }
+  }
+
+  
+    async function loadSettings(){
+      try{
+        const r = await fetch("/settings?ts=" + Date.now(), {cache:"no-store"});
+        const j = await r.json();
+      try{
+        const mt = (j && j.settings && j.settings.min_trade_usd != null) ? j.settings.min_trade_usd : (j && j.min_trade_usd != null ? j.min_trade_usd : 0);
+        window.__ez_minTradeUsd = Number(mt) || 0;
+      }catch(_e){}
+
+        if(j && j.ok && j.settings){
+          const s = j.settings;
+          try{
+            if(selIntelProfile){
+              const ip = (s.intel_profile || "balanced");
+              selIntelProfile.value = String(ip).toLowerCase();
+            }
+          }catch(_e){}
+
+          inpPct.value = ((Number(s.reco_percent) || 0.05) * 100).toFixed(1);
+          inpFeePct.value = ((Number(s.fee_buffer_pct) || 0.0) * 100).toFixed(1);
+          inpFeeUsd.value = (Number(s.fee_buffer_usd) || 0).toFixed(2);
+        }
+      }catch(e){}
+    }
+
+    async function saveSettings(){
+      try{
+        const rp = Math.max(0.1, Math.min(25, Number(inpPct.value || 5))) / 100.0;
+        const fp = Math.max(0, Math.min(10, Number(inpFeePct.value || 0))) / 100.0;
+        const fu = Math.max(0, Math.min(1000, Number(inpFeeUsd.value || 0)));
+        const r = await fetch("/settings", {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify({reco_mode:"percent", reco_percent: rp, fee_buffer_pct: fp, fee_buffer_usd: fu, intel_profile: (selIntelProfile ? String(selIntelProfile.value||"balanced").toLowerCase() : "balanced")})
+        });
+        const j = await r.json().catch(()=> ({}));
+        if(r.status === 200 && j && j.ok){
+          setMsg("ok", "Settings saved ✓");
+          if(chkAnnounce.checked && !window.__ez_suppress_announce) speak("EZTrader. Settings saved.");
+          await fetchSignal();
+        }else{
+          setMsg("bad", "Settings save failed");
+          if(chkAnnounce.checked && !window.__ez_suppress_announce) speak("EZTrader. Settings save failed.");
+        }
+      }catch(e){
+        setMsg("bad", "Settings save failed");
+      }
+    }
+
+    
+  // --- RESTORE: fetchSignal() using /reco ---
+  
+  // --- BEST TIME GAUGE LOGIC ---
+  let __ez_last_price = null;
+  let __ez_last_action = null;
+  let __ez_stable_ticks = 0;
+  let __ez_last_score = null;
+
+  function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+
+  function computeBestTimeScore(sig, recoUsd){
+    let s = 35;
+
+    const a = String((sig && sig.action) || "HOLD").toUpperCase();
+    const price = (sig && sig.price != null) ? Number(sig.price) : null;
+
+    // If not actionable, keep it low
+    if(a !== "BUY" && a !== "SELL"){
+      return 10;
+    }
+
+    // recommended amount exists => more confident
+    const ru = Number(recoUsd || 0);
+    if(isFinite(ru) && ru > 0){
+      s += 25;
+    }
+
+    // stability: if action holds steady for consecutive ticks, raise score
+    if(__ez_last_action === a){
+      __ez_stable_ticks += 1;
+    }else{
+      __ez_stable_ticks = 0;
+    }
+    __ez_last_action = a;
+    s += clamp(__ez_stable_ticks * 8, 0, 24);
+
+    // price momentum: small boost if price moved in favor since last tick
+    if(__ez_last_price !== null && price !== null && isFinite(price)){
+      const dp = price - __ez_last_price;
+      if(a === "BUY" && dp > 0) s += 8;
+      else if(a === "SELL" && dp < 0) s += 8;
+      else s -= 4;
+    }
+
+    // update last price
+    if(price !== null && isFinite(price)){
+      __ez_last_price = price;
+    }
+
+    return clamp(Math.round(s), 0, 100);
+  }
+
+  function renderBestTime(score){
+    try{
+      // Smooth jumps: EMA-ish blend (70% previous, 30% new)
+      let s = Number(score);
+      if(!isFinite(s)) s = 0;
+      if(__ez_last_score === null){
+        __ez_last_score = s;
+      }else{
+        __ez_last_score = (__ez_last_score * 0.70) + (s * 0.30);
+      }
+      const v = Math.max(0, Math.min(100, Math.round(__ez_last_score)));
+
+      // Color thresholds + label
+      let lbl = "Watch";
+      let grad = "linear-gradient(90deg,#f44336,#ff9800,#4caf50)";
+      if(v < 40){ lbl = "Caution"; grad = "linear-gradient(90deg,#f44336,#f44336)"; }
+      else if(v < 70){ lbl = "Watch"; grad = "linear-gradient(90deg,#ff9800,#ff9800)"; }
+      else { lbl = "Prime"; grad = "linear-gradient(90deg,#4caf50,#4caf50)"; }
+
+      if(bestTimeBar){
+        bestTimeBar.style.width = String(v) + "%";
+        bestTimeBar.style.background = grad;
+      }
+      if(bestTimePct) bestTimePct.textContent = String(v) + "%";
+      if(bestTimeLbl) bestTimeLbl.textContent = lbl;
+    }catch(e){}
+  }
+  // --- END BEST TIME GAUGE LOGIC ---
+
+
+  // --- MARKET INTEL (Fortune-teller Phase 1) ---
+  async function fetchIntel(){
+    try{
+      const j = await fetch("/intel?ts=" + Date.now(), {cache:"no-store"}).then(r=>r.json());
+      if(!j || !j.ok) return;
+      if(intelHeadline) intelHeadline.textContent = j.headline || "—";
+      if(intelSent) intelSent.textContent = j.sentiment || "—";
+      if(intelTrend) intelTrend.textContent = j.trend || "—";
+      try{
+        if(livePriceTxt){
+          const lp = Number(j.lp);
+          window.__ez_live_lp = lp;
+          livePriceTxt.textContent = (isFinite(lp) && lp > 0) ? ("$" + lp.toFixed(2)) : "—";
+        }
+      }catch(e){}
+
+    }catch(e){}
+  }
+  
+  async function fetchIntelProfile(){
+    try{
+      const j = await fetch("/settings?ts=" + Date.now(), {cache:"no-store"}).then(r=>r.json());
+      const ip = (j && j.settings && j.settings.intel_profile) ? String(j.settings.intel_profile) : "balanced";
+      if(intelProfile) intelProfile.textContent = ip;
+    }catch(e){}
+  }
+  // --- TRACKING BALANCES (Manual) ---
+  async function fetchBalances(){
+    try{
+      const j = await fetch("/settings?ts=" + Date.now(), {cache:"no-store"}).then(r=>r.json());
+      const s = (j && j.settings) ? j.settings : {};
+      const cash = Number(s.manual_cash_usd);
+      const btcusd = Number(s.manual_btc_usd);
+      if(balCash) balCash.textContent = (isFinite(cash) ? ("$" + cash.toFixed(2)) : "—");
+      if(balBtcUsd) balBtcUsd.textContent = (isFinite(btcusd) ? ("$" + btcusd.toFixed(2)) : "—");
+    }catch(e){}
+  }
+  // --- END TRACKING BALANCES ---
+
+
+  // --- END MARKET INTEL ---
+
+async function fetchSignal(){
+    try{
+      setPill(true, "Online");
+      const j = await fetch("/reco?ts=" + Date.now(), {cache:"no-store"}).then(r=>r.json());
+      if(!j || !j.ok){
+        setPill(false, "Offline");
+        setMsg("bad", "Reco not ok");
+        btnConfirm.disabled = true;
+        return;
+      }
+
+      // Normalize to the old "sig" shape the UI expects
+      const sig = {
+        action: String(j.action || "HOLD").toUpperCase(),
+        reason: j.reason || "",
+        symbol: j.symbol || "",
+        price: j.price,
+        ts: j.ts || ""
+      };
+      currentSignal = sig;
+      startRepeatIfNeeded(sig);
+
+      const a = sig.action;
+      actionTxt.textContent = a || "HOLD";
+      reasonTxt.textContent = sig.reason ? String(sig.reason) : "—";
+      try{
+        const rs = String(sig.reason || "");
+        if(testModeBadge){
+          testModeBadge.style.display = (rs.indexOf("TEST_") >= 0) ? "inline-block" : "none";
+        }
+      }catch(e){}
+
+      symTxt.textContent = sig.symbol ? String(sig.symbol) : "—";
+            try{
+        const live = Number(window.__ez_live_lp);
+        if(isFinite(live) && live > 0){
+          priceTxt.textContent = live.toFixed(2);
+        }else{
+          priceTxt.textContent = (sig.price != null && isFinite(Number(sig.price))) ? Number(sig.price).toFixed(2) : "—";
+        }
+      }catch(e){
+        priceTxt.textContent = (sig.price != null && isFinite(Number(sig.price))) ? Number(sig.price).toFixed(2) : "—";
+      }
+      try{
+        if(enginePriceTxt){
+          const ep = Number(sig.price);
+          enginePriceTxt.textContent = (isFinite(ep) && ep > 0) ? ("$" + ep.toFixed(2)) : "—";
+        }
+      }catch(e){}
+
+      tsTxt.textContent = sig.ts ? String(sig.ts) : "—";
+
+      // Recommended amount (prefer USD)
+      try{
+        const usd = Number(j.recommended_usd || 0);
+        if(isFinite(usd) && usd > 0){
+          recoOk = true;
+          recoAmt = usd.toFixed(2);
+          recoTxt.textContent = "$" + recoAmt;
+        }else{
+          recoOk = false;
+          recoAmt = "";
+          recoTxt.textContent = "—";
+        }
+      }catch(e){
+        recoOk = false;
+        recoAmt = "";
+        recoTxt.textContent = "—";
+      }
+
+      // Final confirm gating: MUST be BUY/SELL AND have a real recommended amount
+      btnConfirm.disabled = !(chkConfirm.checked && recoOk && (a === "BUY" || a === "SELL"));
+
+      setMsg("", "");
+
+      // update Best Time gauge (final, correct placement)
+      try{
+        const score = computeBestTimeScore(sig, recoAmt);
+        renderBestTime(score);
+      }catch(e){}
+
+    }catch(e){
+      setPill(false, "Offline");
+      btnConfirm.disabled = true;
+      setMsg("bad", "Reco fetch failed — retrying…");
+      setTimeout(fetchSignal, 1200);
+    }
+  }
+  // --- END RESTORE fetchSignal ---
+
+async function diag(){
+      try{
+        const h = await fetch("/health?ts=" + Date.now(), {cache:"no-store"}).then(r=>r.json());
+        console.log("HEALTH", h);
+      }catch(e){
+      }
+    }
+
+
+    btnRefresh.addEventListener("click", fetchSignal);
+  btnConfirm.addEventListener("click", (e) => { e.preventDefault(); doConfirm(); });
+    btnSave.addEventListener("click", (e) => { e.preventDefault(); saveSettings(); });
+
+    if(chkRepeat) chkRepeat.addEventListener("change", ()=>{ if(!chkRepeat.checked) stopRepeat(); else if(currentSignal) startRepeatIfNeeded(currentSignal); });
+    if(chkAnnounce) chkAnnounce.addEventListener("change", ()=>{ if(!chkAnnounce.checked) stopRepeat(); else if(currentSignal) startRepeatIfNeeded(currentSignal); });
+    if(selRepeatSec) selRepeatSec.addEventListener("change", ()=>{ stopRepeat(); if(currentSignal) startRepeatIfNeeded(currentSignal); });
+
+
+  // start
+  fetchSignal();
+  fetchIntel();
+  fetchBalances();
+  fetchIntelProfile();
+  setInterval(fetchSignal, 5000);
+  setInterval(fetchIntel, 10000);
+  setInterval(fetchBalances, 10000);
+  setInterval(fetchIntelProfile, 10000);
+})();
+</script>
+</body>
+</html>

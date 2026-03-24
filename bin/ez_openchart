@@ -1,0 +1,4 @@
+#!/data/data/com.termux/files/usr/bin/bash
+PORT="${EZ_PORT:-18092}"
+termux-open-url "http://127.0.0.1:${PORT}/ui/chart.html?ts=$(date +%s)" >/dev/null 2>&1 || true
+echo "Opened chart ✅"

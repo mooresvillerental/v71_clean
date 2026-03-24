@@ -1,0 +1,9 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -e
+PORT="${EZ_PORT:-18092}"
+python - <<PY
+import urllib.request
+u="http://127.0.0.1:%s/health?ts=1" % PORT
+print("CHECK", u)
+print(urllib.request.urlopen(u, timeout=6).read().decode())
+PY

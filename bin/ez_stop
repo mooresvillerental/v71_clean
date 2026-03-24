@@ -1,0 +1,28 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -e
+PIDFILE="$HOME/v71_clean/.ez_server.pid"
+
+if [ ! -f "$PIDFILE" ]; then
+  echo "No PID file. Server likely not running."
+  exit 0
+fi
+
+PID="$(cat "$PIDFILE" 2>/dev/null || true)"
+if [ -z "$PID" ]; then
+  rm -f "$PIDFILE"
+  echo "PID file empty — cleared."
+  exit 0
+fi
+
+if kill -0 "$PID" 2>/dev/null; then
+  kill "$PID" 2>/dev/null || true
+  sleep 0.4
+  if kill -0 "$PID" 2>/dev/null; then
+    kill -9 "$PID" 2>/dev/null || true
+  fi
+  echo "Stopped ✅ (PID $PID)"
+else
+  echo "PID $PID not running — cleared PID file."
+fi
+
+rm -f "$PIDFILE"

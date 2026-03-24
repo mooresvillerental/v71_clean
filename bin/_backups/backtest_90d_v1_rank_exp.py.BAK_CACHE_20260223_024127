@@ -1,0 +1,810 @@
+# EZ_BINPATH_BOOTSTRAP_V1
+import sys as _sys
+from pathlib import Path as _Path
+
+DEFAULT_DAYS = 90
+DAYS = DEFAULT_DAYS
+_sys.path.insert(0, str(_Path(__file__).resolve().parent))
+
+from risk_engine_v1 import RiskConfig, dd_pct, size_multiplier, should_halt
+import json, time, math, csv, urllib.request, socket
+from data_binanceus_v1 import fetch_ohlc_binanceus
+from pathlib import Path
+from datetime import datetime, timezone
+
+INTERVAL_MIN = 5
+DAYS = 90
+START_CASH = 5000.0  # starting simulated cash (change later if you want)
+TRADE_PCT = 0.30     # 30%
+
+def _apply_fee_slip(price: float, side: str, fee_bps: float, slip_bps: float) -> float:
+    # side: BUY pays up; SELL receives down
+    # bps: 10 = 0.10%
+    m = 1.0 + (fee_bps + slip_bps) / 10000.0
+    if (side or "").upper() == "BUY":
+        return float(price) * m
+    return float(price) / m
+
+
+MIN_TRADE_USD = 100.0
+
+SETTINGS_PATH = Path("/data/data/com.termux/files/home/v71_app_data/settings.json")
+
+PAIR = {
+  "BTC-USD":"XBTUSD","ETH-USD":"ETHUSD","SOL-USD":"SOLUSD","DOGE-USD":"DOGEUSD","XRP-USD":"XRPUSD",
+  "ADA-USD":"ADAUSD","AVAX-USD":"AVAXUSD","LINK-USD":"LINKUSD","DOT-USD":"DOTUSD","LTC-USD":"LTCUSD",
+  "UNI-USD":"UNIUSD","AAVE-USD":"AAVEUSD","BCH-USD":"BCHUSD","ATOM-USD":"ATOMUSD",
+}
+
+
+BINANCEUS_PAIR = {
+  "BTC-USD":"BTCUSDT","ETH-USD":"ETHUSDT","SOL-USD":"SOLUSDT","XRP-USD":"XRPUSDT","DOGE-USD":"DOGEUSDT",
+  "ADA-USD":"ADAUSDT","AVAX-USD":"AVAXUSDT","LINK-USD":"LINKUSDT","DOT-USD":"DOTUSDT","LTC-USD":"LTCUSDT",
+  "UNI-USD":"UNIUSDT","AAVE-USD":"AAVEUSDT","BCH-USD":"BCHUSDT","ATOM-USD":"ATOMUSDT",
+}
+DEFAULT_WATCH = ["BTC-USD","ETH-USD","SOL-USD","XRP-USD","DOGE-USD","ADA-USD","AVAX-USD","LINK-USD","DOT-USD","LTC-USD","UNI-USD","AAVE-USD","BCH-USD","ATOM-USD"]
+
+def load_settings():
+    try:
+        if SETTINGS_PATH.exists():
+            return json.loads(SETTINGS_PATH.read_text("utf-8"))
+    except Exception:
+        pass
+    return {}
+
+def rsi_series(closes, period=14):
+    n = len(closes)
+    out = [None]*n
+    if n < period+2:
+        return out
+    gains = [0.0]*n
+    losses = [0.0]*n
+    for i in range(1, n):
+        d = closes[i]-closes[i-1]
+        if d >= 0:
+            gains[i]=d
+        else:
+            losses[i]=-d
+    avg_gain = sum(gains[1:period+1])/period
+    avg_loss = sum(losses[1:period+1])/period
+    out[period] = 100.0 if avg_loss==0 else (100.0 - (100.0/(1.0+(avg_gain/avg_loss))))
+    for i in range(period+1, n):
+        avg_gain = (avg_gain*(period-1) + gains[i]) / period
+        avg_loss = (avg_loss*(period-1) + losses[i]) / period
+        out[i] = 100.0 if avg_loss==0 else (100.0 - (100.0/(1.0+(avg_gain/avg_loss))))
+    return out
+
+
+def ema_series(closes, n=50):
+    n = int(n)
+    if n <= 1:
+        return [float(x) if x is not None else None for x in closes]
+    k = 2.0 / (n + 1.0)
+    out = []
+    e = None
+    for x in closes:
+        if x is None:
+            out.append(None)
+            continue
+        x = float(x)
+        if e is None:
+            e = x
+        else:
+            e = (x * k) + (e * (1.0 - k))
+        out.append(e)
+    return out
+
+
+def vol_mult_series(closes, window_bars=96, target_pct=0.40, *, min_mult=0.35, max_mult=1.60):
+    """
+    Rolling volatility sizing multiplier based on stdev of 5m returns.
+    - target_pct is interpreted as percent per bar: 0.40 => 0.40% => 0.004
+    Returns list[float] multipliers aligned to closes.
+    """
+    import math
+    n = len(closes)
+    out = [1.0] * n
+    w = max(2, int(window_bars))
+    tp = float(target_pct)
+    if tp > 0.2:
+        tp = tp / 100.0
+    tp = max(1e-8, tp)
+
+    rets = [0.0] * n
+    prev = None
+    for i in range(n):
+        c = closes[i]
+        if c is None:
+            rets[i] = 0.0
+            continue
+        c = float(c)
+        if prev is None or prev <= 0:
+            rets[i] = 0.0
+        else:
+            rets[i] = (c / prev) - 1.0
+        prev = c
+
+    sumx = 0.0
+    sumsq = 0.0
+    count = 0
+    for i in range(n):
+        x = float(rets[i])
+        sumx += x
+        sumsq += x * x
+        count += 1
+        if count > w:
+            old = float(rets[i - w])
+            sumx -= old
+            sumsq -= old * old
+            count -= 1
+        if count >= w:
+            mean = sumx / count
+            var = (sumsq / count) - (mean * mean)
+            if var < 0.0:
+                var = 0.0
+            vol = math.sqrt(var)
+            if vol > 1e-12:
+                mult = tp / vol
+            else:
+                mult = max_mult
+            if mult < min_mult:
+                mult = min_mult
+            elif mult > max_mult:
+                mult = max_mult
+            out[i] = float(mult)
+        else:
+            out[i] = 1.0
+    return out
+
+def build_signals(times, closes, lo=30.0, hi=70.0, *, trend_filter=True, ema_len=50):
+    """
+    RSI cross signals with optional EMA trend filter gate (BUY only).
+    - BUY when RSI crosses down through lo (prev>=lo and r<lo)
+      If trend_filter ON: require price >= EMA(ema_len) at the signal bar.
+    - SELL when RSI crosses up through hi (prev<=hi and r>hi) (no trend gate).
+    Returns list of tuples: (t, side, price, rsi)
+    """
+    rsis = rsi_series(closes, 14)
+    ema = ema_series(closes, int(ema_len)) if trend_filter else None
+
+    sigs = []  # (t, side, price, rsi)
+    prev = None
+
+    for i in range(len(closes)):
+        r = rsis[i]
+        if r is None:
+            continue
+
+        if prev is not None:
+            if prev >= lo and r < lo:
+                if trend_filter:
+                    e = ema[i] if (ema is not None and i < len(ema)) else None
+                    px = closes[i]
+                    if e is None or px is None or float(px) < float(e):
+                        prev = r
+                        continue
+                sigs.append((times[i], "BUY", closes[i], float(r)))
+
+            elif prev <= hi and r > hi:
+                sigs.append((times[i], "SELL", closes[i], float(r)))
+
+        prev = r
+
+    return sigs
+
+
+def fetch_ohlc(pair, interval_min, since_ts, *, max_calls=200):
+    """
+    Kraken OHLC is capped per response (~720 rows typical). Proper paging uses result["last"].
+    Returns times[], closes[] ascending.
+    """
+    times, closes = [], []
+    since = int(since_ts)
+
+    for _ in range(int(max_calls)):
+        url = f"https://api.kraken.com/0/public/OHLC?pair={pair}&interval={int(interval_min)}&since={int(since)}"
+        raw = None
+        for _try in range(3):
+            try:
+                raw = urllib.request.urlopen(url, timeout=12).read().decode("utf-8", "replace")
+                break
+            except Exception:
+                if _try == 2:
+                    # give up on paging this symbol; return what we have
+                    return times, closes
+                time.sleep(0.6)
+        j = json.loads(raw) if raw else {}
+        res = (j.get("result") or {})
+
+        ohlc = None
+        for k, v in res.items():
+            if k == "last":
+                continue
+            if isinstance(v, list):
+                ohlc = v
+                break
+
+        if not ohlc:
+            break
+
+        added = 0
+        last_candle_ts = None
+
+        for row in ohlc:
+            try:
+                t = int(row[0])
+                c = float(row[4])
+            except Exception:
+                continue
+
+            last_candle_ts = t
+
+            # de-dupe while keeping ascending order
+            if (not times) or (t > times[-1]):
+                times.append(t)
+                closes.append(c)
+                added += 1
+
+        # If we didn't add anything new, we are likely stuck paging the same window
+        if added == 0:
+            break
+
+        # Kraken paging token: res["last"] (string/int). Must advance.
+        # Advance using Kraken paging token: result["last"]
+        last_token = int(res.get("last") or 0)
+
+        # DEBUG: show first pages for BTC only
+        if pair == "XBTUSD" and _ < 8:
+            print(f"DEBUG pager page={_+1} interval={interval_min} since={since} got={len(ohlc)} added={added} last_token={last_token} last_ts={(times[-1] if times else None)}")
+
+        # Kraken recommends using 'last' as next since
+        next_since = last_token if last_token > 0 else (int(times[-1]) + 1)
+
+        # Fallback if token doesn't advance (avoid infinite loop)
+        if next_since <= since:
+            next_since = int(times[-1]) + 1
+
+        if next_since <= since:
+            break
+
+        since = next_since
+    return times, closes
+
+def fmt_ts(t):
+    return datetime.fromtimestamp(int(t), tz=timezone.utc).strftime("%Y-%m-%d %H:%M")
+
+def main():
+    # EZ_RSI_ARGS_V1
+    # EZ_CLI_V2 (real --help + strict unknown-flag errors)
+    import argparse
+    _p = argparse.ArgumentParser(
+        description='EZTrader Backtest (90d, 5m)'
+    )
+    _p.add_argument('--rsi-buy', type=float, default=30.0, help='RSI buy threshold (default 30)')
+    _p.add_argument('--rsi-sell', type=float, default=70.0, help='RSI sell threshold (default 70)')
+    _p.add_argument('--fee-bps', type=float, default=0.0, help='Per-side fee in basis points')
+    _p.add_argument('--slip-bps', type=float, default=0.0, help='Per-side slippage in basis points')
+    # EZ_RISK_ENGINE_ARGS_V1
+    _p.add_argument('--dd-cap-pct', type=float, default=30.0, help='Hard max drawdown cap percent (default 30)')
+    _p.add_argument('--soft1-pct', type=float, default=10.0, help='Soft DD tier1 start (default 10)')
+    _p.add_argument('--soft2-pct', type=float, default=20.0, help='Soft DD tier2 start (default 20)')
+    _p.add_argument('--soft3-pct', type=float, default=25.0, help='Soft DD tier3 start (default 25)')
+    _p.add_argument('--m1', type=float, default=0.75, help='Size multiplier in 10–20%%%% DD (default 0.75)')
+    _p.add_argument('--m2', type=float, default=0.50, help='Size multiplier in 20–25%%%% DD (default 0.50)')
+    _p.add_argument('--m3', type=float, default=0.25, help='Size multiplier in 25–cap%%%% DD (default 0.25)')
+
+    _p.add_argument('--trade-pct', type=float, default=TRADE_PCT, help='Position size as fraction of cash (default 0.30)')
+    _p.add_argument('--days', type=int, default=90, help='Backtest lookback days')
+    _p.add_argument('--offset-days', type=int, default=0, help='Shift backtest window back by N days (0 = end at now)')
+    _p.add_argument('--ema-len', type=int, default=50, help='EMA length for trend filter (default 50)')
+    _p.add_argument('--no-trend-filter', action='store_true', help='Disable EMA trend filter gate (BUY only)')
+
+    _p.add_argument("--data-source", default="kraken", choices=["kraken","binanceus"], help="Candle source: kraken or binanceus")
+    _p.add_argument("--cooldown-bars", type=int, default=12, help="Per-symbol cooldown after SELL (bars, 5m bars)")
+    _p.add_argument("--cooldown-loss-bars", type=int, default=24, help="Per-symbol cooldown after LOSING SELL (bars, 5m bars)")
+    # WR_GATE_V1 (default-off): gate BUYs if recent winrate is weak
+    _p.add_argument("--wr-gate", action="store_true", help="Enable rolling winrate gate (global, SELL outcomes)")
+    _p.add_argument("--wr-lookback-days", type=int, default=30, help="Winrate lookback window in days (default 30)")
+    _p.add_argument("--wr-min-trades", type=int, default=30, help="Minimum SELL trades required before gating (default 30)")
+    _p.add_argument("--wr-min", type=float, default=55.0, help="Minimum winrate percent required to allow new BUYs (default 55.0)")
+    _p.add_argument("--macro-mode", action="store_true", help="Gate BUY entries by BTC 1D close vs EMA (default off)")
+    _p.add_argument("--macro-ema-len", type=int, default=200, help="EMA length for macro gate (default 200)")
+    _p.add_argument("--macro-symbol", type=str, default="BTC-USD", help="Symbol used for macro gate (default BTC-USD)")
+    _p.add_argument("--vol-mode", action="store_true", help="Enable volatility-adjusted position sizing")
+    _p.add_argument("--vol-window", type=int, default=96, help="Vol lookback window in bars (5m bars; default 96 ~= 8h)")
+    _p.add_argument("--vol-target-pct", type=float, default=0.40, help="Target vol per bar as PERCENT (0.40 = 0.40%%). Used as target/realized for sizing")
+    _p.add_argument("--vol-min-mult", type=float, default=0.35, help="Min volatility sizing multiplier")
+    _p.add_argument("--vol-max-mult", type=float, default=1.60, help="Max volatility sizing multiplier")
+    _p.add_argument("--symbol-rank-mode", action="store_true", help="Enable per-symbol rank-based sizing (default-off).")
+    _p.add_argument("--rank-lookback-days", type=int, default=30, help="Lookback window (days) for per-symbol stats used for rank sizing.")
+    _p.add_argument("--rank-min-trades", type=int, default=30, help="Minimum SELL trades in lookback before applying rank sizing for a symbol.")
+    _p.add_argument("--rank-min-mult", type=float, default=0.60, help="Minimum rank multiplier applied to BUY sizing.")
+    _p.add_argument("--rank-max-mult", type=float, default=1.40, help="Maximum rank multiplier applied to BUY sizing.")
+    # EXP_GATE_V1 (default-off): per-symbol exponential PnL gate for BUY sizing
+    _p.add_argument("--exp-gate", action="store_true", help="Enable per-symbol exponential PnL gate (default off).")
+    _p.add_argument("--exp-factor", type=float, default=0.97, help="Exponential decay factor for per-symbol PnL score (default 0.97).")
+    _p.add_argument("--exp-min-mult", type=float, default=0.30, help="Minimum sizing multiplier when exp score is negative (default 0.30).")
+    _p.add_argument("--exp-min-trades", type=int, default=30, help="Minimum SELL trades before exp gate applies for a symbol (default 30).")
+
+    _a = _p.parse_args()
+    # WR_GATE_V1
+    wr_gate = bool(getattr(_a, "wr_gate", False))
+    wr_lookback_days = int(getattr(_a, "wr_lookback_days", 30))
+    wr_min_trades = int(getattr(_a, "wr_min_trades", 30))
+    wr_min = float(getattr(_a, "wr_min", 55.0))
+    rsi_buy = float(_a.rsi_buy)
+    macro_mode = bool(getattr(_a, 'macro_mode', False))
+    macro_ema_len = int(getattr(_a, 'macro_ema_len', 200))
+    macro_symbol = str(getattr(_a, 'macro_symbol', 'BTC-USD')).strip().upper() or 'BTC-USD'
+    rsi_sell = float(_a.rsi_sell)
+    fee_bps = float(_a.fee_bps)
+    slip_bps = float(_a.slip_bps)
+    vol_mode = bool(getattr(_a, "vol_mode", False))
+    vol_window = int(getattr(_a, "vol_window", 96) or 96)
+    vol_target_pct = float(getattr(_a, "vol_target_pct", 0.40) or 0.40)
+    vol_min_mult = float(getattr(_a, "vol_min_mult", 0.35) or 0.35)
+    vol_max_mult = float(getattr(_a, "vol_max_mult", 1.60) or 1.60)
+    symbol_rank_mode = bool(getattr(_a, "symbol_rank_mode", False))
+    rank_lookback_days = int(getattr(_a, "rank_lookback_days", 30) or 30)
+    rank_min_trades = int(getattr(_a, "rank_min_trades", 30) or 30)
+    rank_min_mult = float(getattr(_a, "rank_min_mult", 0.60) or 0.60)
+    rank_max_mult = float(getattr(_a, "rank_max_mult", 1.40) or 1.40)
+    exp_gate = bool(getattr(_a, "exp_gate", False))
+    exp_factor = float(getattr(_a, "exp_factor", 0.97) or 0.97)
+    exp_min_mult = float(getattr(_a, "exp_min_mult", 0.30) or 0.30)
+    exp_min_trades = int(getattr(_a, "exp_min_trades", 30) or 30)
+
+    days = int(getattr(_a, 'days', DEFAULT_DAYS))
+    global DAYS
+    DAYS = days
+    # EZ_RISK_ENGINE_CFG_V1
+    risk_cfg = RiskConfig(
+        dd_cap_pct=float(getattr(_a, 'dd_cap_pct', 30.0)),
+        soft1_pct=float(getattr(_a, 'soft1_pct', 10.0)),
+        soft2_pct=float(getattr(_a, 'soft2_pct', 20.0)),
+        soft3_pct=float(getattr(_a, 'soft3_pct', 25.0)),
+        m1=float(getattr(_a, 'm1', 0.75)),
+        m2=float(getattr(_a, 'm2', 0.50)),
+        m3=float(getattr(_a, 'm3', 0.25)),
+        min_equity=None,
+    )
+    trade_pct = float(getattr(_a, 'trade_pct', TRADE_PCT))
+    cooldown_bars = int(getattr(_a, 'cooldown_bars', 12) or 0)
+    cooldown_loss_bars = int(getattr(_a, 'cooldown_loss_bars', 24) or 0)
+    bar_sec = 300  # 5m bars
+
+    data_source = str(getattr(_a, 'data_source', 'kraken') or 'kraken').strip().lower()
+
+    ema_len = int(getattr(_a, 'ema_len', 50))
+    trend_filter = (not getattr(_a, 'no_trend_filter', False))
+
+    st = load_settings()
+    watch = []
+    try:
+        watch = list(st.get("portfolio_symbols") or [])
+    except Exception:
+        watch = []
+    # normalize + filter
+    norm = []
+    seen = set()
+    for s in (watch or DEFAULT_WATCH):
+        s = (s or "").strip().upper()
+        if s in ("BTCUSD","XBTUSD","XBT-USD"): s="BTC-USD"
+        if s in ("ETHUSD",): s="ETH-USD"
+        if s in ("XRPUSD",): s="XRP-USD"
+        if s and s in PAIR and s not in seen:
+            seen.add(s); norm.append(s)
+    watch = norm[:15]  # keep it safe for phone
+
+    pool_cap = float(st.get("tactical_pool_usd") or 5000.0)
+
+    now = int(time.time())
+    offset_days = int(getattr(_a, 'offset_days', 0) or 0)
+    end_now = now - (offset_days * 24 * 3600)
+    now = end_now
+
+    # Choose an OHLC interval that fits ~DAYS into Kraken's ~720 row practical cap
+    # Kraken supported intervals we care about: 5,15,30,60,240,1440 (min)
+    import math
+    allowed = [5, 15, 30, 60, 240, 1440]
+    want = int(math.ceil(DAYS * 1440 / 720))  # minutes
+    interval_min = next((x for x in allowed if x >= want), allowed[-1])
+
+    since = now - DAYS*24*3600
+
+
+
+    # --- interval selection ---
+    # Kraken OHLC often caps around ~720 rows per response.
+    # For long lookbacks, daily candles are required to cover the span.
+    selected_interval = INTERVAL_MIN
+    if DAYS >= 650:
+        selected_interval = 1440  # 1D candles for ~2y lookbacks
+    elif DAYS >= 250:
+        selected_interval = 240   # 4h candles for ~1y lookbacks
+
+    # Auto interval selection for long lookbacks (keeps paging reasonable)
+    interval_min = INTERVAL_MIN
+    if DAYS > 365:
+        interval_min = 240   # 4h
+    elif DAYS > 180:
+        interval_min = 60    # 1h
+    elif DAYS > 60:
+        interval_min = 30    # 30m
+    elif DAYS > 21:
+        interval_min = 15    # 15m
+    else:
+        interval_min = 5     # 5m
+
+    expected = int((DAYS * 24 * 60) / max(1, interval_min))
+    max_calls = min(60, int(math.ceil(expected / 700.0)) + 3)
+    if data_source == 'binanceus':
+        # BinanceUS fetcher is 5m-only; force 5m math so paging covers full lookback.
+        interval_min = 5
+        selected_interval = 5
+        expected = int((DAYS * 24 * 60) / 5)
+        max_calls = max(max_calls, int(math.ceil(expected / 900.0)) + 10)
+
+    data = {}
+    data = {}
+    for sym in watch:
+        pair = PAIR[sym]
+        try:
+            if data_source == 'binanceus':
+                bsym = BINANCEUS_PAIR.get(sym)
+                if not bsym:
+                    raise ValueError(f"No BINANCEUS_PAIR mapping for {sym}")
+                times, closes = fetch_ohlc_binanceus(bsym, 5, since, max_calls=max_calls)
+            else:
+                times, closes = fetch_ohlc(pair, selected_interval, since, max_calls=max_calls)
+        except Exception as e:
+            print(f"WARN fetch_ohlc failed for {sym}: {e}")
+            continue
+        if sym == watch[0]:
+            _ival = 5 if data_source == 'binanceus' else selected_interval
+            _exp = int((DAYS*24*60)/max(1,_ival))
+            print(f"DEBUG candles {sym}: {len(times)} interval={_ival}m expected~{_exp} since={since} now={now} DAYS={DAYS} max_calls={max_calls} src={data_source}")
+        if len(times) < 50:
+            continue
+        vol_by_time = None
+        if vol_mode:
+            try:
+                _mults = vol_mult_series(closes, window_bars=vol_window, target_pct=vol_target_pct, min_mult=vol_min_mult, max_mult=vol_max_mult)
+                vol_by_time = {times[i]: _mults[i] for i in range(min(len(times), len(_mults)))}
+            except Exception as e:
+                # keep going; don't kill the run
+                print("WARN vol build failed for %s: %s" % (sym, e))
+                vol_by_time = None
+
+        sigs = build_signals(times, closes, float(rsi_buy), float(rsi_sell), trend_filter=trend_filter, ema_len=ema_len)
+        data[sym] = {"times": times, "closes": closes, "sigs": sigs, "vol_by_time": vol_by_time}
+
+    if not data:
+        print("No candle data returned. Try again later.")
+        return 2
+
+    # Build merged event list of BUY/SELL signals
+    events = []  # (t, sym, side, price, rsi, confidence)
+    for sym, d in data.items():
+        for (t, side, price, rsi) in d["sigs"]:
+            conf = 0.0
+            if side=="BUY":
+                conf = max(0.0, float(rsi_buy) - rsi)   # deeper oversold => higher   # deeper oversold => higher
+            elif side=="SELL":
+                conf = max(0.0, rsi - float(rsi_sell))  # more overbought => higher   # more overbought => higher
+            events.append((t, sym, side, price, rsi, conf))
+    events.sort(key=lambda x: x[0])
+
+    # --- MACRO_GUARD_V1 (default-off): gate BUYs by macro symbol 1D close vs EMA ---
+    macro_ok_days = None  # list of (day_bucket, ok_bool)
+    def _ema_series(vals, n):
+        if not vals or n <= 1:
+            return list(vals)
+        k = 2.0 / (n + 1.0)
+        out = []
+        e = None
+        for v in vals:
+            e = v if e is None else (v * k + e * (1.0 - k))
+            out.append(e)
+        return out
+
+        def _build_macro_ok():
+            nonlocal macro_ok_days
+            if not macro_mode:
+                macro_ok_days = None
+                return
+            d = data.get(macro_symbol)
+            if not d:
+                macro_ok_days = None
+                return
+            times = d.get('times') or []
+            closes = d.get('closes') or []
+            if len(times) < 300 or len(closes) != len(times):
+                macro_ok_days = None
+                return
+            # compress to daily closes (take last close per day bucket)
+            day_close = {}
+            for t, c in zip(times, closes):
+                b = int(t) // 86400
+                day_close[b] = float(c)
+            days = sorted(day_close.keys())
+            dcl = [day_close[b] for b in days]
+            ema = _ema_series(dcl, int(macro_ema_len))
+            macro_ok_days = [(days[i], (dcl[i] >= ema[i])) for i in range(len(days))]
+
+        def macro_ok_at(t):
+            # True if macro gate is OFF or if insufficient macro data
+            if not macro_mode or not macro_ok_days:
+                return True
+            b = int(t) // 86400
+            # scan from end (fast enough on phone)
+            for bb, ok in reversed(macro_ok_days):
+                if bb <= b:
+                    return bool(ok)
+            return True
+
+        _build_macro_ok()
+
+
+    cash = float(START_CASH)
+    pos_sym = None
+    pos_qty = 0.0
+    # --- SYMBOL_RANK_V1 (default-off): track per-symbol SELL outcomes in rolling lookback ---
+    rank_lookback_secs = max(1, int(rank_lookback_days) * 86400)
+    # rank_hist[sym] = list of tuples (t, pnl)
+    rank_hist = {}
+    # EXP_GATE_V1 state
+    exp_score_by_sym = {}   # sym -> float score
+    exp_trades_by_sym = {}  # sym -> int SELL count
+
+    rank_cache = {}  # optional per-t cache (kept simple)
+    def _clamp(x, lo, hi):
+        return lo if x < lo else (hi if x > hi else x)
+    def _prune(sym, now_t):
+        h = rank_hist.get(sym)
+        if not h:
+            return
+        cut = now_t - rank_lookback_secs
+        # prune from front (lists are small-ish)
+        i = 0
+        for (tt, _pnl) in h:
+            if tt >= cut:
+                break
+            i += 1
+        if i:
+            del h[:i]
+    def _rank_mult(sym, now_t):
+        if not symbol_rank_mode:
+            return 1.0
+
+    # EXP_GATE_V1 helper
+    def _exp_mult(sym):
+        if not exp_gate:
+            return 1.0
+        tcount = int(exp_trades_by_sym.get(sym, 0))
+        if tcount < int(exp_min_trades):
+            return 1.0
+        sc = float(exp_score_by_sym.get(sym, 0.0))
+        # Simple, robust rule: if decayed score is negative, clamp to exp_min_mult; else full size.
+        return float(exp_min_mult) if sc < 0.0 else 1.0
+        _prune(sym, now_t)
+        h = rank_hist.get(sym) or []
+        if len(h) < rank_min_trades:
+            return 1.0
+        wins = sum(1 for (_t, _pnl) in h if _pnl >= 0)
+        wr = wins / max(1, len(h))  # 0..1
+        # map winrate around 50% to multiplier, clamp to [rank_min_mult, rank_max_mult]
+        # wr=0.50 -> 1.0; wr=1.00 -> rank_max_mult; wr=0.00 -> rank_min_mult
+        if wr >= 0.50:
+            mult = 1.0 + (wr - 0.50) / 0.50 * (rank_max_mult - 1.0)
+        else:
+            mult = 1.0 - (0.50 - wr) / 0.50 * (1.0 - rank_min_mult)
+        return float(_clamp(mult, rank_min_mult, rank_max_mult))
+    entry = None
+
+    trades = []
+    equity = []
+    peak = cash
+    max_dd = 0.0
+
+
+    # WR_GATE_STATE_V1 (global, based on SELL outcomes)
+    from collections import deque
+    wr_hist = deque()  # (t, win_bool)
+    def _wr_prune(now_t):
+        if not wr_gate:
+            return
+        cutoff = int(now_t) - int(wr_lookback_days) * 86400
+        while wr_hist and int(wr_hist[0][0]) < cutoff:
+            wr_hist.popleft()
+    def _wr_ok(now_t):
+        if not wr_gate:
+            return True
+        _wr_prune(now_t)
+        n = len(wr_hist)
+        if n < int(wr_min_trades):
+            return True  # warmup
+        wins = sum(1 for _, w in wr_hist if w)
+        wr = (wins / float(n)) * 100.0
+        return wr >= float(wr_min)
+
+    # Cooldown tracking (per-symbol)
+    last_sell_ts_by_sym = {}    # sym -> last SELL timestamp (sec)
+    last_sell_loss_by_sym = {}  # sym -> whether last SELL was a loss
+
+
+    def mark_equity(t, px=None):
+        nonlocal peak, max_dd
+        eq = cash
+        if pos_sym and px is not None:
+            eq = cash + pos_qty*px
+        equity.append((t, eq))
+        peak = max(peak, eq)
+        dd = (peak - eq)
+        max_dd = max(max_dd, dd)
+
+    # quick price lookup: use last close at/near time
+    def price_at(sym, t):
+        d = data[sym]
+        times = d["times"]; closes = d["closes"]
+        # binary-ish scan from end (good enough on phone)
+        i = len(times)-1
+        while i>0 and times[i] > t:
+            i -= 1
+        return closes[i]
+
+    for (t, sym, side, price, rsi, conf) in events:
+        # keep equity curve updated using held symbol price
+        if pos_sym:
+            mark_equity(t, price_at(pos_sym, t))
+        else:
+            mark_equity(t, None)
+
+        # Risk snapshot at time t (drawdown % from peak equity)
+        if pos_sym:
+            _held_px = price_at(pos_sym, t)
+            _eq_now = cash + pos_qty * _held_px
+        else:
+            _eq_now = cash
+        _peak = peak if peak > 0 else 1.0
+        dd_now_pct = max(0.0, (_peak - _eq_now) / _peak) * 100.0
+
+        if pos_sym is None:
+            if side != "BUY":
+                continue
+            # if multiple buys at same timestamp, take the highest confidence
+            same_t = [e for e in events if e[0]==t and e[2]=="BUY"]
+            best = max(same_t, key=lambda x: x[5])
+            if best[1] != sym:
+                continue
+
+
+            # WR_GATE_CHECK_V1 (default-off)
+            if not _wr_ok(t):
+                continue
+
+            # COOLDOWN_GUARD_V1 (per-symbol)
+            if cooldown_bars > 0:
+                _last = last_sell_ts_by_sym.get(sym)
+                if _last is not None:
+                    _was_loss = bool(last_sell_loss_by_sym.get(sym, False))
+                    _bars = cooldown_loss_bars if (_was_loss and cooldown_loss_bars > 0) else cooldown_bars
+                    if (t - int(_last)) < int(_bars) * int(bar_sec):
+                        continue
+
+            # sizing (risk-adjusted)
+            _halt, _halt_reason = should_halt(risk_cfg, peak, _eq_now)
+            if _halt:
+                continue
+            try:
+                mult = float(size_multiplier(risk_cfg, dd_now_pct))
+            except Exception:
+                mult = 1.0
+            vol_mult = 1.0
+            if vol_mode:
+                try:
+                    vol_mult = float((data.get(sym, {}).get('vol_by_time') or {}).get(t, 1.0))
+                except Exception:
+                    vol_mult = 1.0
+            rank_mult = 1.0
+            if symbol_rank_mode:
+                rank_mult = _rank_mult(sym, t)
+            exp_mult = _exp_mult(sym)
+            usd = max(MIN_TRADE_USD, cash*trade_pct*mult*vol_mult*rank_mult*exp_mult)
+            usd = min(usd, pool_cap, cash)
+            if usd < MIN_TRADE_USD:
+                continue
+            exec_price = _apply_fee_slip(price, "BUY", fee_bps, slip_bps)
+            qty = usd / exec_price
+            pos_sym = sym
+            pos_qty = qty
+            cash -= usd
+            entry = exec_price
+            trades.append((t, sym, "BUY", exec_price, qty, usd, rsi))
+        else:
+            # only sell if sell signal for held symbol
+            if sym != pos_sym or side != "SELL":
+                continue
+            exec_price = _apply_fee_slip(price, "SELL", fee_bps, slip_bps)
+            usd = pos_qty * exec_price
+            cash += usd
+            pnl = (exec_price - entry) * pos_qty if entry is not None else 0.0
+            # EXP_GATE_V1 update (per-symbol exponential score)
+            if exp_gate:
+                try:
+                    prev = float(exp_score_by_sym.get(sym, 0.0))
+                    exp_score_by_sym[sym] = prev * float(exp_factor) + float(pnl)
+                    exp_trades_by_sym[sym] = int(exp_trades_by_sym.get(sym, 0)) + 1
+                except Exception:
+                    pass
+
+            if symbol_rank_mode:
+                h = rank_hist.setdefault(sym, [])
+                h.append((t, float(pnl)))
+                _prune(sym, t)
+            # WR_GATE_RECORD_V1 (default-off)
+            if wr_gate:
+                try:
+                    wr_hist.append((int(t), float(pnl) >= 0.0))
+                    _wr_prune(t)
+                except Exception:
+                    pass
+            # update per-symbol cooldown state
+            try:
+                last_sell_ts_by_sym[pos_sym] = int(t)
+                last_sell_loss_by_sym[pos_sym] = (float(pnl) < 0.0)
+            except Exception:
+                pass
+
+            trades.append((t, sym, "SELL", exec_price, pos_qty, usd, rsi, pnl))
+            pos_sym = None
+            pos_qty = 0.0
+            entry = None
+
+    # final mark
+    t_end = events[-1][0]
+    if pos_sym:
+        mark_equity(t_end, price_at(pos_sym, t_end))
+    else:
+        mark_equity(t_end, None)
+
+    out_dir = Path("backtests")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    trades_csv = out_dir / f"trades_90d_{stamp}.csv"
+    equity_csv = out_dir / f"equity_90d_{stamp}.csv"
+
+    with trades_csv.open("w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["utc_time","symbol","side","price","qty","usd","rsi","pnl_usd"])
+        for tr in trades:
+            if tr[2]=="BUY":
+                (t,s,side,px,qty,usd,rsi) = tr
+                w.writerow([fmt_ts(t),s,side,px,qty,usd,rsi,""])
+            else:
+                (t,s,side,px,qty,usd,rsi,pnl) = tr
+                w.writerow([fmt_ts(t),s,side,px,qty,usd,rsi,pnl])
+
+    with equity_csv.open("w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["utc_time","equity_usd"])
+        for (t,eq) in equity:
+            w.writerow([fmt_ts(t), eq])
+
+    sells = [t for t in trades if t[2]=="SELL"]
+    wins = [t for t in sells if (len(t)>=8 and t[7] > 0)]
+    winrate = (len(wins)/len(sells)*100.0) if sells else 0.0
+
+    final_eq = equity[-1][1] if equity else cash
+    print(f"=== EZTrader Backtest ({days}d, 5m, LOCKED_UNTIL_EXIT) ===")
+    print("symbols_used:", len(data), data.keys())
+    print("start_cash:", START_CASH)
+    print("final_equity:", round(final_eq,2))
+    print("trades_total:", len(trades), "sells:", len(sells), "winrate%:", round(winrate,1))
+    print("max_drawdown_usd:", round(max_dd,2))
+    print("saved:", trades_csv)
+    print("saved:", equity_csv)
+    return 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())

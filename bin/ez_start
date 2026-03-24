@@ -1,0 +1,48 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -e
+cd ~/v71_clean
+
+PORT="${EZ_PORT:-18092}"
+HOST="127.0.0.1"
+PIDFILE="$HOME/v71_clean/.ez_server.pid"
+LOGFILE="$HOME/ez_web.log"
+
+# If PID exists and process is alive, do nothing
+if [ -f "$PIDFILE" ]; then
+  PID="$(cat "$PIDFILE" 2>/dev/null || true)"
+  if [ -n "$PID" ] && kill -0 "$PID" 2>/dev/null; then
+    echo "Server already running (PID $PID) on port $PORT"
+    termux-open-url "http://${HOST}:${PORT}/ui/chart.html?ts=$(date +%s)" >/dev/null 2>&1 || true
+    exit 0
+  fi
+fi
+
+# Kill any stray server on that module (safe)
+pkill -f "python -m app.server" 2>/dev/null || true
+
+# Start unbuffered so logs flush
+: > "$LOGFILE"
+( PYTHONUNBUFFERED=1 V70_PORT="$PORT" PYTHONPATH=. nohup python -u -m app.server >>"$LOGFILE" 2>&1 & echo $! > "$PIDFILE" ) >/dev/null 2>&1
+
+# Wait for health (max ~6s)
+ok="0"
+for i in 1 2 3 4 5 6 7 8 9 10 11 12; do
+  if python - <<PY >/dev/null 2>&1
+import urllib.request
+urllib.request.urlopen("http://${HOST}:${PORT}/health?ts=1", timeout=1.2).read()
+PY
+  then
+    ok="1"
+    break
+  fi
+  sleep 0.5
+done
+
+PID="$(cat "$PIDFILE" 2>/dev/null || true)"
+if [ "$ok" = "1" ]; then
+  echo "READY ✅ http://${HOST}:${PORT} (PID ${PID:-?})"
+  termux-open-url "http://${HOST}:${PORT}/ui/chart.html?ts=$(date +%s)" >/dev/null 2>&1 || true
+else
+  echo "NOT READY ❌ (PID ${PID:-?})  — show logs with: ezlog1"
+  exit 1
+fi

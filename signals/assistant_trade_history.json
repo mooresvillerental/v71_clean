@@ -1,0 +1,16 @@
+[
+  {
+    "symbol": "BTC-USD",
+    "action": "BUY",
+    "price": 69902.1,
+    "timestamp": 1773213334,
+    "before_cash_usd": 1002.0,
+    "before_qty": 0.01158,
+    "before_avg_price": 94068.0,
+    "size_usd": 150.0,
+    "filled_qty": 0.002145858278935826,
+    "after_cash_usd": 852.0,
+    "after_qty": 0.013725858278935826,
+    "after_avg_price": 90289.97785164982
+  }
+]

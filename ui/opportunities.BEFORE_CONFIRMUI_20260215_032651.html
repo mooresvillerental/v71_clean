@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EZTrader - Opportunities</title>
+  <style>
+    :root{--bg:#0b0f1a;--panel:#0f1626;--line:#1e2433;--text:#cbd5e1;--muted:#94a3b8;--accent:#2dd4bf;--btn:#121a2c;}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+    .topbar{display:flex;align-items:center;gap:10px;padding:12px 12px 10px;position:sticky;top:0;background:linear-gradient(to bottom, rgba(11,15,26,.98), rgba(11,15,26,.86));border-bottom:1px solid rgba(30,36,51,.8);z-index:10;}
+    .brand{font-weight:800;letter-spacing:.3px}
+    .pill{opacity:.7}
+    select,button{background:var(--btn);color:var(--text);border:1px solid rgba(148,163,184,.25);border-radius:10px;padding:10px 12px;font-size:14px;}
+    button{cursor:pointer}
+    button:active{transform:translateY(1px)}
+    .spacer{flex:1}
+    .mini{font-size:12px;color:var(--muted);opacity:.9}
+    .wrap{padding:12px}
+    .card{background:rgba(15,22,38,.85);border:1px solid rgba(148,163,184,.18);border-radius:16px;padding:12px;margin:10px 0;}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .k{color:var(--muted);font-size:12px}
+    .v{font-weight:800}
+    pre{white-space:pre-wrap;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;font-size:12px;color:rgba(148,163,184,.95);opacity:.95}
+    a{color:var(--text);text-decoration:none;opacity:.85}
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="brand">EZTrader</div>
+    <div class="pill">Trade</div>
+    <div class="pill">|</div>
+    <div>Opportunities</div>
+
+    <select id="interval">
+      <option value="1">1m</option>
+      <option value="5" selected>5m</option>
+      <option value="15">15m</option>
+      <option value="60">1h</option>
+    </select>
+
+    <select id="limit">
+      <option value="5">Top 5</option>
+      <option value="10" selected>Top 10</option>
+      <option value="15">Top 15</option>
+    </select>
+
+    <button id="reload">Reload</button>
+    <button id="back">Back</button>
+
+    <div class="spacer"></div>
+    <div class="mini" id="mini">-</div>
+  </div>
+
+  <div class="wrap" id="list"></div>
+  <pre id="dbg"></pre>
+
+<script>
+(function(){
+  const list = document.getElementById("list");
+  const dbg  = document.getElementById("dbg");
+  const mini = document.getElementById("mini");
+  const intervalSel = document.getElementById("interval");
+  const limitSel = document.getElementById("limit");
+
+  function log(m){ dbg.textContent += m + "\n"; }
+
+  async function jget(url, timeoutMs=20000){
+    const ctl = new AbortController();
+    const t = setTimeout(()=>ctl.abort(), timeoutMs);
+    try{
+      const r = await fetch(url, {signal: ctl.signal, cache:"no-store"});
+      return await r.json();
+    } finally { clearTimeout(t); }
+  }
+
+  function card(o){
+    const el = document.createElement("div");
+    el.className = "card";
+    el.innerHTML = `
+      <div class="row">
+        <div class="v">${o.symbol}</div>
+        <div class="k">${o.action}</div>
+        <div class="k">RSI</div><div class="v">${o.rsi ?? "-"}</div>
+        <div class="k">Price</div><div class="v">${o.price ?? "-"}</div>
+      </div>
+      <div class="k" style="margin-top:6px">${o.reason ?? ""}</div>
+      <div class="row" style="margin-top:10px">
+        <div class="k">Rec USD</div><div class="v">${o.recommended_usd ?? "-"}</div>
+        <div class="k">Rec Qty</div><div class="v">${o.recommended_qty ?? "-"}</div>
+        <div class="k">Hold Qty</div><div class="v">${o.holding_qty ?? "-"}</div>
+        <div class="k">Est USD</div><div class="v">${o.est_value_usd ?? "-"}</div>
+      </div>
+    `;
+    return el;
+  }
+
+  async function load(){
+    const iv = intervalSel.value;
+    const lim = limitSel.value;
+    mini.textContent = "loading...";
+    list.innerHTML = "";
+    try{
+      const j = await jget(`/opportunities?interval=${encodeURIComponent(iv)}&limit=${encodeURIComponent(lim)}&ts=${Date.now()}`, 25000);
+      const top = (j && j.top) ? j.top : [];
+      mini.textContent = `ready (${top.length})`;
+      log("Loaded ✅ count=" + top.length);
+      top.forEach(o => list.appendChild(card(o)));
+    }catch(e){
+      mini.textContent = "error";
+      log("ERROR: " + (e && (e.message||e)));
+    }
+  }
+
+  document.getElementById("reload").addEventListener("click", load);
+  intervalSel.addEventListener("change", load);
+  limitSel.addEventListener("change", load);
+  document.getElementById("back").addEventListener("click", () => location.href = "/ui/chart.html?ts=" + Date.now());
+
+  load();
+})();
+</script>
+</body>
+</html>

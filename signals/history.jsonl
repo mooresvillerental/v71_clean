@@ -1,0 +1,403 @@
+{"symbol": "BTC-USD", "action": "BUY", "price": 47624.91, "rsi": 53.2, "raw": "BUY BTC-USD | price $47624.91 | RSI 53.2 | suggest $150.00 (~0.00314961 BTC)", "timestamp": 1772909849}
+{"symbol": "BTC-USD", "action": "SELL", "price": 47643.47, "rsi": 71.4, "raw": "SELL BTC-USD | price $47643.47 | RSI 71.4 | suggest ALL (~0.00314961 BTC -> est $150.06)", "timestamp": 1772909865}
+{"symbol": "BTC-USD", "action": "BUY", "price": 48334.63, "rsi": 53.4, "raw": "BUY BTC-USD | price $48334.63 | RSI 53.4 | suggest $150.00 (~0.00310336 BTC)", "timestamp": 1772909882}
+{"symbol": "BTC-USD", "action": "BUY", "price": 48067.49, "rsi": 51.8, "raw": "BUY BTC-USD | price $48067.49 | RSI 51.8 | suggest $150.00 (~0.00312061 BTC)", "timestamp": 1772909896}
+{"symbol": "BTC-USD", "action": "BUY", "price": 48211.54, "rsi": 54.4, "raw": "BUY BTC-USD | price $48211.54 | RSI 54.4 | suggest $150.00 (~0.00311129 BTC)", "timestamp": 1772909911}
+{"symbol": "BTC-USD", "action": "BUY", "price": 49095.85, "rsi": 54.7, "raw": "BUY BTC-USD | price $49095.85 | RSI 54.7 | suggest $150.00 (~0.00305525 BTC)", "timestamp": 1772909925}
+{"symbol": "BTC-USD", "action": "BUY", "price": 48967.55, "rsi": 55.6, "raw": "BUY BTC-USD | price $48967.55 | RSI 55.6 | suggest $150.00 (~0.00306325 BTC)", "timestamp": 1772909939}
+{"symbol": "BTC-USD", "action": "BUY", "price": 48943.2, "rsi": 54.8, "raw": "BUY BTC-USD | price $48943.20 | RSI 54.8 | suggest $150.00 (~0.00306478 BTC)", "timestamp": 1772909954}
+{"symbol": "BTC-USD", "action": "BUY", "price": 48890.95, "rsi": 48.4, "raw": "BUY BTC-USD | price $48890.95 | RSI 48.4 | suggest $150.00 (~0.00306805 BTC)", "timestamp": 1772909969}
+{"symbol": "BTC-USD", "action": "BUY", "price": 49463.54, "rsi": 63.0, "raw": "BUY BTC-USD | price $49463.54 | RSI 63.0 | suggest $150.00 (~0.00303254 BTC)", "timestamp": 1772909984}
+{"symbol": "BTC-USD", "action": "BUY", "price": 49759.26, "rsi": 55.1, "raw": "BUY BTC-USD | price $49759.26 | RSI 55.1 | suggest $150.00 (~0.00301451 BTC)", "timestamp": 1772909999}
+{"symbol": "BTC-USD", "action": "BUY", "price": 49868.12, "rsi": 54.8, "raw": "BUY BTC-USD | price $49868.12 | RSI 54.8 | suggest $150.00 (~0.00300793 BTC)", "timestamp": 1772910014}
+{"symbol": "BTC-USD", "action": "BUY", "price": 50818.71, "rsi": 58.8, "raw": "BUY BTC-USD | price $50818.71 | RSI 58.8 | suggest $150.00 (~0.00295167 BTC)", "timestamp": 1772910028}
+{"symbol": "BTC-USD", "action": "BUY", "price": 50398.68, "rsi": 47.4, "raw": "BUY BTC-USD | price $50398.68 | RSI 47.4 | suggest $150.00 (~0.00297627 BTC)", "timestamp": 1772910043}
+{"symbol": "BTC-USD", "action": "BUY", "price": 50848.39, "rsi": 61.0, "raw": "BUY BTC-USD | price $50848.39 | RSI 61.0 | suggest $150.00 (~0.00294995 BTC)", "timestamp": 1772910057}
+{"symbol": "BTC-USD", "action": "BUY", "price": 50916.52, "rsi": 60.5, "raw": "BUY BTC-USD | price $50916.52 | RSI 60.5 | suggest $150.00 (~0.00294600 BTC)", "timestamp": 1772910072}
+{"symbol": "BTC-USD", "action": "BUY", "price": 51217.32, "rsi": 50.6, "raw": "BUY BTC-USD | price $51217.32 | RSI 50.6 | suggest $150.00 (~0.00292870 BTC)", "timestamp": 1772910086}
+{"symbol": "BTC-USD", "action": "BUY", "price": 51558.63, "rsi": 54.7, "raw": "BUY BTC-USD | price $51558.63 | RSI 54.7 | suggest $150.00 (~0.00290931 BTC)", "timestamp": 1772910101}
+{"symbol": "BTC-USD", "action": "BUY", "price": 51341.96, "rsi": 50.8, "raw": "BUY BTC-USD | price $51341.96 | RSI 50.8 | suggest $150.00 (~0.00292159 BTC)", "timestamp": 1772910116}
+{"symbol": "BTC-USD", "action": "BUY", "price": 51018.93, "rsi": 45.5, "raw": "BUY BTC-USD | price $51018.93 | RSI 45.5 | suggest $150.00 (~0.00294009 BTC)", "timestamp": 1772910131}
+{"symbol": "BTC-USD", "action": "BUY", "price": 51218.9, "rsi": 47.9, "raw": "BUY BTC-USD | price $51218.90 | RSI 47.9 | suggest $150.00 (~0.00292861 BTC)", "timestamp": 1772910145}
+{"symbol": "BTC-USD", "action": "BUY", "price": 50335.53, "rsi": 50.1, "raw": "BUY BTC-USD | price $50335.53 | RSI 50.1 | suggest $150.00 (~0.00298000 BTC)", "timestamp": 1772910160}
+{"symbol": "BTC-USD", "action": "BUY", "price": 50223.57, "rsi": 45.4, "raw": "BUY BTC-USD | price $50223.57 | RSI 45.4 | suggest $150.00 (~0.00298665 BTC)", "timestamp": 1772910175}
+{"symbol": "BTC-USD", "action": "BUY", "price": 50446.17, "rsi": 56.2, "raw": "BUY BTC-USD | price $50446.17 | RSI 56.2 | suggest $150.00 (~0.00297347 BTC)", "timestamp": 1772910189}
+{"symbol": "BTC-USD", "action": "BUY", "price": 50627.69, "rsi": 57.3, "raw": "BUY BTC-USD | price $50627.69 | RSI 57.3 | suggest $150.00 (~0.00296281 BTC)", "timestamp": 1772910205}
+{"symbol": "BTC-USD", "action": "BUY", "price": 52567.2, "rsi": 60.2, "raw": "BUY BTC-USD | price $52567.20 | RSI 60.2 | suggest $150.00 (~0.00285349 BTC)", "timestamp": 1772910220}
+{"symbol": "BTC-USD", "action": "BUY", "price": 52572.95, "rsi": 47.5, "raw": "BUY BTC-USD | price $52572.95 | RSI 47.5 | suggest $150.00 (~0.00285318 BTC)", "timestamp": 1772910235}
+{"symbol": "BTC-USD", "action": "BUY", "price": 53030.68, "rsi": 56.4, "raw": "BUY BTC-USD | price $53030.68 | RSI 56.4 | suggest $150.00 (~0.00282855 BTC)", "timestamp": 1772910250}
+{"symbol": "BTC-USD", "action": "BUY", "price": 52259.49, "rsi": 59.0, "raw": "BUY BTC-USD | price $52259.49 | RSI 59.0 | suggest $150.00 (~0.00287029 BTC)", "timestamp": 1772910264}
+{"symbol": "BTC-USD", "action": "BUY", "price": 52435.4, "rsi": 52.6, "raw": "BUY BTC-USD | price $52435.40 | RSI 52.6 | suggest $150.00 (~0.00286066 BTC)", "timestamp": 1772910279}
+{"symbol": "BTC-USD", "action": "BUY", "price": 52348.36, "rsi": 53.6, "raw": "BUY BTC-USD | price $52348.36 | RSI 53.6 | suggest $150.00 (~0.00286542 BTC)", "timestamp": 1772910293}
+{"symbol": "BTC-USD", "action": "BUY", "price": 53679.56, "rsi": 64.4, "raw": "BUY BTC-USD | price $53679.56 | RSI 64.4 | suggest $150.00 (~0.00279436 BTC)", "timestamp": 1772910308}
+{"symbol": "BTC-USD", "action": "BUY", "price": 52610.24, "rsi": 45.1, "raw": "BUY BTC-USD | price $52610.24 | RSI 45.1 | suggest $150.00 (~0.00285116 BTC)", "timestamp": 1772910323}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "raw": "BUY BTC-USD | price $54439.23 | RSI 45.3 | suggest $150.00 (~0.00275537 BTC)", "timestamp": 1772910337}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955148}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955153}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955158}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955163}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955168}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955173}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955178}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955183}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955188}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955193}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955198}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955203}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955208}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955213}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955218}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955223}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955228}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955233}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955238}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955243}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955248}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955253}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955258}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955263}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955268}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955273}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955278}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955283}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955288}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955293}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955298}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955303}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955308}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955313}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955318}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955323}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955328}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955333}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955338}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955343}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955348}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955353}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955358}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955363}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955368}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955373}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955378}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955383}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955388}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955393}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955398}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955403}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955408}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955413}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955418}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955423}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955428}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955433}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955438}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955443}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955448}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955453}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955457}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955458}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955462}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955463}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955467}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955468}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955472}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955473}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955477}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955478}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955482}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955483}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955487}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955488}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955492}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955493}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955497}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955498}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955502}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955503}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955507}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955508}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955512}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955513}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955517}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955518}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955522}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955523}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955527}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955528}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955532}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955533}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955537}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955538}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955542}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955543}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955547}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955548}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955552}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955553}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955557}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955558}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955562}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955563}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955567}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955568}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955572}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955573}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955577}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955578}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955582}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955583}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955587}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955588}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955592}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955593}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955597}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955598}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955602}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955603}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955607}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955608}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955612}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955613}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955617}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955618}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955622}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955623}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955627}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955628}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955632}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955633}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955637}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955638}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955642}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955643}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955647}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955648}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955652}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955653}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955657}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955658}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955662}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955663}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955667}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955668}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955672}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955673}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955677}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955678}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955682}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955683}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955687}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955688}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955692}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955693}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955697}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955698}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955702}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955703}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955707}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955708}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955712}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955713}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955717}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955718}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955722}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955723}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955727}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955728}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955732}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955733}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955737}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955738}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955742}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955743}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955747}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955748}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955752}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955753}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955757}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955758}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955762}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955763}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955767}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955768}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955772}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955773}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955777}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955778}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955782}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955783}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955787}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955788}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955792}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955793}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955797}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955798}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955802}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955803}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955807}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955808}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955812}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955813}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955817}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955818}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955822}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955823}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955827}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955828}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955832}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955833}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955837}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955838}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955842}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955843}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955847}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955848}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955852}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955853}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955857}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955858}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955862}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955863}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955867}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955868}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955872}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955873}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955877}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955878}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955882}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955883}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955887}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955888}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955892}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955893}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955897}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955898}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955902}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955903}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955907}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955908}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955912}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955913}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955917}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955918}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955922}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955923}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955927}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955928}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955932}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955933}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955937}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955938}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955942}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955943}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955947}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955948}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955952}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955953}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955957}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955958}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955962}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955963}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955967}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955968}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955972}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955973}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955977}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955978}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955982}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955983}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955987}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955988}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955992}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955993}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955997}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772955998}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772956002}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772956003}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772956007}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772956008}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772956012}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772956017}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772956022}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772956027}
+{"symbol": "BTC-USD", "action": "BUY", "price": 54439.23, "rsi": 45.3, "confidence": 63, "risk_level": "Medium", "trend": "Bullish", "suggested_trade_usd": 150, "timestamp": 1772956032}

@@ -22,7 +22,7 @@
 <body>
   <div class="wrap">
     <h2 style="margin:0 0 8px 0">EZTrade • Balances Dashboard</h2>
-    <div class="sub">This page shows the *authoritative* server balances from <code>/balances</code> and the last UI confirm from <code>/last_confirm</code>.</div>
+    <div class="sub">This page shows the live server balances from <code>/portfolio</code> and lets you update the manual portfolio values.</div>
 
     <div class="btns">
       <a class="btn" href="/?v=main">Open EZTrade UI</a>
@@ -56,6 +56,18 @@
     <div class="sub" id="status">Status: …</div>
   </div>
 
+
+  <div class="card" style="margin-top:14px;">
+    <div class="row" style="display:grid;gap:10px;">
+      <label>Cash USD</label>
+      <input id="cashEdit" type="number" step="0.01" style="padding:10px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;">
+      <label>BTC Qty</label>
+      <input id="btcEdit" type="number" step="0.00000001" style="padding:10px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;">
+      <button id="saveBalBtn" style="padding:12px 14px;border-radius:10px;border:0;background:#2563eb;color:#fff;font-weight:700;">Save Balances</button>
+      <div id="saveMsg" class="sub"></div>
+    </div>
+  </div>
+
 <script>
 (function(){
   const $ = (id)=>document.getElementById(id);
@@ -70,12 +82,15 @@
 
   async function tick(){
     try{
-      const b = await fetch("/balances?t="+Date.now(), {cache:"no-store"}).then(r=>r.json());
-      if (!b || !b.ok || !b.balances) throw new Error("balances not ok");
-      $("cash").textContent = fmtUSD(b.balances.cash_usd);
-      $("btc").textContent  = fmtBTC(b.balances.btc);
-      $("cashSub").textContent = "cash_usd: " + b.balances.cash_usd;
-      $("btcSub").textContent  = "btc: " + b.balances.btc;
+      const b = await fetch("/portfolio?t="+Date.now(), {cache:"no-store"}).then(r=>r.json());
+      if (!b || !b.ok) throw new Error("portfolio not ok");
+      const btcQty = ((b.holdings_qty||{})["BTC-USD"]) || 0;
+      $("cash").textContent = fmtUSD(b.cash_usd);
+      $("btc").textContent  = fmtBTC(btcQty);
+      $("cashSub").textContent = "cash_usd: " + b.cash_usd;
+      $("btcSub").textContent  = "btc: " + btcQty;
+      if ($("cashEdit") && document.activeElement !== $("cashEdit")) $("cashEdit").value = Number(b.cash_usd || 0);
+      if ($("btcEdit") && document.activeElement !== $("btcEdit")) $("btcEdit").value = Number(btcQty || 0);
 
       const lc = await fetch("/last_confirm?t="+Date.now(), {cache:"no-store"}).then(r=>r.json()).catch(()=>null);
       if (lc && lc.ok && lc.ts){
@@ -94,6 +109,41 @@
 
   setInterval(tick, 1000);
   tick();
+
+  async function saveBalances(){
+    try{
+      const cash = Number(($("cashEdit")||{}).value || 0);
+      const btc = Number(($("btcEdit")||{}).value || 0);
+
+      const payload = {
+        manual_cash_usd: cash,
+        manual_holdings_qty: { "BTC-USD": btc }
+      };
+
+      const r = await fetch("/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const j = await r.json().catch(()=>null);
+      if(!j || !j.ok) throw new Error((j && j.error) ? j.error : "save failed");
+
+      if ($("saveMsg")) $("saveMsg").innerHTML = '<span class="ok">Saved.</span>';
+      setTimeout(tick, 300);
+    }catch(e){
+      if ($("saveMsg")) $("saveMsg").innerHTML = '<span class="bad">Save failed:</span> ' + String(e);
+    }
+  }
+
+  const _saveBtn = $("saveBalBtn");
+  if (_saveBtn) {
+    _saveBtn.onclick = function(){
+      if ($("saveMsg")) $("saveMsg").innerHTML = 'Saving...';
+      saveBalances();
+    };
+  }
+
 })();
 </script>
 
@@ -132,11 +182,12 @@
 
   async function tick(){
     try{
-      const r = await fetch("/balances?t="+Date.now(), {cache:"no-store"});
+      const r = await fetch("/portfolio?t="+Date.now(), {cache:"no-store"});
       const j = await r.json().catch(()=>null);
-      if(!j || !j.ok || !j.balances) return;
-      if(cashEl) cashEl.textContent = fmtUSD(j.balances.cash_usd);
-      if(btcEl) btcEl.textContent = fmtBTC(j.balances.btc);
+      if(!j || !j.ok) return;
+      const btcQty = ((j.holdings_qty||{})["BTC-USD"]) || 0;
+      if(cashEl) cashEl.textContent = fmtUSD(j.cash_usd);
+      if(btcEl) btcEl.textContent = fmtBTC(btcQty);
     }catch(e){}
   }
   setInterval(tick, 1500);

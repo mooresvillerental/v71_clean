@@ -1,0 +1,30 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+
+<!-- E -->
+<rect x="7" y="10" width="4" height="20" fill="#F2F4F8"/>
+<rect x="7" y="10" width="12" height="4" fill="#F2F4F8"/>
+<rect x="7" y="18" width="10" height="4" fill="#F2F4F8"/>
+<rect x="7" y="26" width="12" height="4" fill="#F2F4F8"/>
+
+<!-- Z -->
+<rect x="22" y="10" width="12" height="4" fill="#F2F4F8"/>
+<rect x="22" y="26" width="12" height="4" fill="#F2F4F8"/>
+
+<!-- Arrow -->
+<line x1="23" y1="28" x2="38" y2="9"
+stroke="#D4A017"
+stroke-width="3"
+stroke-linecap="round"/>
+
+<!-- Arrow head -->
+<line x1="38" y1="9" x2="34" y2="10"
+stroke="#D4A017"
+stroke-width="3"
+stroke-linecap="round"/>
+
+<line x1="38" y1="9" x2="37" y2="15"
+stroke="#D4A017"
+stroke-width="3"
+stroke-linecap="round"/>
+
+</svg>

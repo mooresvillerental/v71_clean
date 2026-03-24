@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>V70 — First-Time Setup</title>
+  <style>
+    :root{
+      --bg0:#05070d; --bg1:#071225; --card:rgba(255,255,255,.05);
+      --line:rgba(255,255,255,.10); --muted:#9fb3d9; --text:#edf3ff;
+      --a:#7c4dff; --b:#2be7ff; --g:#33ff99; --y:#ffd166; --r:#ff5d5d;
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --glowA: 0 0 22px rgba(124,77,255,.35);
+      --glowB: 0 0 22px rgba(43,231,255,.25);
+      --glowG: 0 0 22px rgba(51,255,153,.22);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; color:var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(124,77,255,.20), transparent 55%),
+        radial-gradient(1000px 500px at 80% 15%, rgba(43,231,255,.18), transparent 55%),
+        radial-gradient(900px 500px at 50% 80%, rgba(51,255,153,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      min-height:100vh;
+    }
+    .wrap{max-width:860px; margin:0 auto; padding:26px 16px 40px;}
+    .top{
+      display:flex; justify-content:space-between; align-items:flex-start; gap:14px;
+      margin-bottom:14px;
+    }
+    h1{margin:0; font-size:28px; letter-spacing:.2px}
+    .sub{color:var(--muted); font-size:14px; margin-top:6px}
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      border:1px solid var(--line); background:rgba(255,255,255,.04);
+      padding:8px 12px; border-radius:999px; box-shadow: var(--glowA);
+      user-select:none;
+    }
+    .dot{width:10px;height:10px;border-radius:50%;background:var(--y); box-shadow:0 0 0 3px rgba(255,209,102,.18);}
+    .card{
+      border:1px solid var(--line); background:var(--card); border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .bar{
+      padding:14px 14px 12px;
+      display:flex; justify-content:space-between; align-items:center; gap:12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(90deg, rgba(124,77,255,.12), rgba(43,231,255,.10));
+    }
+    .progress{height:10px; flex:1; border-radius:999px; background:rgba(255,255,255,.06); overflow:hidden}
+    .progress > div{height:100%; width:0%; background:linear-gradient(90deg, var(--a), var(--b), var(--g)); box-shadow: var(--glowB); transition: width .25s ease;}
+    .stepText{font-weight:800; letter-spacing:.2px; font-size:13px; color:var(--muted); white_toggle:nowrap;}
+    .content{padding:18px 14px 16px;}
+    .q{font-size:18px; font-weight:850; margin:0 0 10px;}
+    .hint{color:var(--muted); font-size:13px; margin:0 0 14px; line-height:1.35}
+    .grid{display:grid; grid-template-columns:1fr; gap:12px;}
+    @media(min-width:720px){ .grid.two{grid-template-columns:1fr 1fr;} }
+    .field{
+      border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18);
+      border-radius:14px; padding:12px; box-shadow: 0 0 0 rgba(0,0,0,0);
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    .field:focus-within{
+      border-color: rgba(43,231,255,.35);
+      box-shadow: var(--glowB);
+      transform: translateY(-1px);
+    }
+    label{display:block; font-size:12px; color:var(--muted); margin-bottom:6px; font-weight:800; letter-spacing:.2px}
+    input, select{
+      width:100%; padding:12px 12px;
+      border-radius:12px; border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:var(--text); font-weight:800;
+      outline:none;
+    }
+    .opts{display:grid; gap:10px}
+    .opt{
+      display:flex; gap:12px; align-items:flex-start;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      border-radius:14px; padding:12px;
+      cursor:pointer; transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    .opt:hover{transform:translateY(-1px); border-color: rgba(124,77,255,.30); box-shadow: var(--glowA);}
+    .opt input{width:auto; margin-top:2px}
+    .opt b{display:block}
+    .opt span{display:block; color:var(--muted); font-size:12px; margin-top:2px; line-height:1.35}
+    .actions{
+      display:flex; gap:10px; justify-content:space-between; align-items:center; flex-wrap:wrap;
+      padding:14px; border-top:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.12);
+    }
+    button{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      padding:12px 14px; border-radius:14px;
+      font-weight:900; letter-spacing:.2px;
+      cursor:pointer;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    button:active{transform:translateY(1px)}
+    .primary{
+      background:linear-gradient(90deg, rgba(124,77,255,.35), rgba(43,231,255,.25));
+      border-color: rgba(43,231,255,.35);
+      box-shadow: var(--glowA);
+    }
+    .primary:hover{box-shadow: var(--glowA), var(--glowB);}
+    .danger{border-color: rgba(255,93,93,.25); box-shadow: 0 0 18px rgba(255,93,93,.18);}
+    .small{font-size:12px; color:var(--muted);}
+    .toast{
+      margin-top:12px; padding:10px 12px; border-radius:14px;
+      border:1px solid rgba(51,255,153,.22);
+      background:rgba(51,255,153,.10);
+      color:#d7ffe9; font-weight:800;
+      display:none;
+    }
+    .warn{
+      border-color: rgba(255,209,102,.28);
+      background: rgba(255,209,102,.10);
+      color:#fff0c2;
+    }
+    code{color:#cfe4ff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <h1>First-Time Setup</h1>
+        <div class="sub">Personalize your experience so the app can protect your decisions and aim toward your long-term goal.</div>
+      </div>
+      <div class="pill">
+        <span class="dot" id="dot"></span>
+        <span id="statusText">NOT SAVED</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="bar">
+        <div class="progress"><div id="pbar"></div></div>
+        <div class="stepText" id="stepText">Step 1/7</div>
+      </div>
+
+      <div class="content">
+        <div class="q" id="q">…</div>
+        <div class="hint" id="hint">…</div>
+        <div id="body"></div>
+        <div class="toast" id="toast"></div>
+      </div>
+
+      <div class="actions">
+        <div class="small" id="foot">You can change these later in Settings.</div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <button id="backBtn">Back</button>
+          <button class="primary" id="nextBtn">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="small" style="margin-top:12px;">
+      Tip: This setup writes to <code>~/v70_app_data/profile.json</code> and controls suggestions, guardrails, and defaults.
+    </div>
+  </div>
+
+<script>
+(() => {
+  const el = (id) => document.getElementById(id);
+  const q = el("q"), hint = el("hint"), body = el("body");
+  const backBtn = el("backBtn"), nextBtn = el("nextBtn");
+  const pbar = el("pbar"), stepText = el("stepText");
+  const toast = el("toast"), statusText = el("statusText"), dot = el("dot");
+
+  const state = {
+    step: 0,
+    profile: {
+      created_at: null,
+      experience: "beginner",
+      goal: "steady_growth",
+      target_usd: null,
+      platform: "Kraken",
+      assets: ["BTC-USD"],
+      balances: { cash_usd: 0, holdings: { "BTC-USD": 0 } },
+      guards: { max_signal_age_sec: 120, delta_guard_usd: 500 },
+      billing: { trial_days: 3, plan: "pro_monthly", card_on_file: false }
+    }
+  };
+
+  const steps = [
+    {
+      title: "Welcome",
+      hint: "This app helps you act confidently on good signals and prevents bad confirms. It does not auto-trade by default.",
+      render: () => {
+        body.innerHTML = `
+          <div class="field">
+            <label>What should we call you?</label>
+            <input id="name" placeholder="Optional (ex: Benny)" />
+          </div>
+          <div class="small" style="margin-top:10px;">
+            You’ll be able to adjust everything later. Setup takes ~2 minutes.
+          </div>
+        `;
+      },
+      collect: () => {
+        const name = (document.getElementById("name").value || "").trim();
+        if (name) state.profile.display_name = name;
+      }
+    },
+    {
+      title: "Experience level",
+      hint: "We tailor explanations, defaults, and guard strictness to your experience.",
+      render: () => {
+        const v = state.profile.experience;
+        body.innerHTML = `
+          <div class="opts">
+            ${opt("exp","beginner","Beginner","Simple explanations, stronger defaults.", v)}
+            ${opt("exp","intermediate","Intermediate","Balanced guidance + controls.", v)}
+            ${opt("exp","advanced","Advanced","Compact UI, power controls.", v)}
+          </div>
+        `;
+      },
+      collect: () => state.profile.experience = pick("exp","beginner")
+    },
+    {
+      title: "Long-term goal",
+      hint: "This impacts suggestions (size, warnings) and how we measure progress.",
+      render: () => {
+        const g = state.profile.goal;
+        body.innerHTML = `
+          <div class="opts">
+            ${opt("goal","capital_preservation","Capital preservation","Protect downside first.", g)}
+            ${opt("goal","steady_growth","Steady growth","Consistent, controlled compounding.", g)}
+            ${opt("goal","aggressive_growth","Aggressive growth","Higher risk tolerance (more warnings).", g)}
+            ${opt("goal","learn","Learning / simulation","Practice and validate signals.", g)}
+          </div>
+          <div class="grid two" style="margin-top:12px;">
+            <div class="field">
+              <label>Target account size (optional)</label>
+              <input id="target" inputmode="decimal" placeholder="ex: 25000" value="${state.profile.target_usd ?? ""}" />
+            </div>
+          </div>
+        `;
+      },
+      collect: () => {
+        state.profile.goal = pick("goal","steady_growth");
+        const t = Number((document.getElementById("target").value || "").trim());
+        state.profile.target_usd = Number.isFinite(t) && t > 0 ? t : null;
+      }
+    },
+    {
+      title: "Trading platform",
+      hint: "This affects fee estimates, market sourcing, and future API integrations.",
+      render: () => {
+        const p = state.profile.platform;
+        body.innerHTML = `
+          <div class="opts">
+            ${opt("plat","Kraken","Kraken (recommended)","Best fit for our safety-first workflow.", p)}
+            ${opt("plat","Coinbase","Coinbase","Good for beginner onboarding.", p)}
+            ${opt("plat","Binance","Binance","We can support it later.", p)}
+            ${opt("plat","Manual","Manual only","No API integration — you confirm manually.", p)}
+          </div>
+        `;
+      },
+      collect: () => state.profile.platform = pick("plat","Kraken")
+    },
+    {
+      title: "Assets to monitor",
+      hint: "Choose what the app should track and alert on. Keep it simple to start.",
+      render: () => {
+        const a = new Set(state.profile.assets || []);
+        body.innerHTML = `
+          <div class="field">
+            <label>Popular</label>
+            <div class="opts">
+              ${chk("asset","BTC-USD","BTC-USD","Bitcoin (USD)", a.has("BTC-USD"))}
+              ${chk("asset","ETH-USD","ETH-USD","Ethereum (USD)", a.has("ETH-USD"))}
+              ${chk("asset","SOL-USD","SOL-USD","Solana (USD)", a.has("SOL-USD"))}
+            </div>
+          </div>
+          <div class="field">
+            <label>Add custom symbol (optional)</label>
+            <input id="custom" placeholder="ex: AVAX-USD" />
+            <div class="small" style="margin-top:8px;">Use the same format as your signals, ex: <code>BTC-USD</code>.</div>
+          </div>
+        `;
+      },
+      collect: () => {
+        const picks = Array.from(document.querySelectorAll('input[name="asset"]:checked')).map(x=>x.value);
+        const custom = (document.getElementById("custom").value || "").trim().toUpperCase();
+        if (custom && !picks.includes(custom)) picks.push(custom);
+        state.profile.assets = picks.length ? picks : ["BTC-USD"];
+        // Ensure holdings map exists for each asset
+        state.profile.balances.holdings = state.profile.balances.holdings || {};
+        for (const sym of state.profile.assets) {
+          if (state.profile.balances.holdings[sym] == null) state.profile.balances.holdings[sym] = 0;
+        }
+      }
+    },
+    {
+      title: "Starting balances",
+      hint: "Used for suggestions and safe confirmations. You can update balances any time.",
+      render: () => {
+        const cash = state.profile.balances.cash_usd ?? 0;
+        const first = state.profile.assets?.[0] || "BTC-USD";
+        const hold = state.profile.balances.holdings?.[first] ?? 0;
+        body.innerHTML = `
+          <div class="grid two">
+            <div class="field">
+              <label>Cash (USD)</label>
+              <input id="cash" inputmode="decimal" value="${cash}" />
+            </div>
+            <div class="field">
+              <label>${first} holdings</label>
+              <input id="hold" inputmode="decimal" value="${hold}" />
+            </div>
+          </div>
+          <div class="small" style="margin-top:10px;">
+            We’ll use these to suggest BUY/SELL amounts and prevent invalid confirms.
+          </div>
+        `;
+      },
+      collect: () => {
+        const first = state.profile.assets?.[0] || "BTC-USD";
+        const cash = Number((document.getElementById("cash").value || "0").trim());
+        const hold = Number((document.getElementById("hold").value || "0").trim());
+        state.profile.balances.cash_usd = Number.isFinite(cash) ? cash : 0;
+        state.profile.balances.holdings[first] = Number.isFinite(hold) ? hold : 0;
+      }
+    },
+    {
+      title: "Trial & billing",
+      hint: "We’ll wire Stripe in Phase 2. For now, this step stores intent and shows the message users will see.",
+      render: () => {
+        body.innerHTML = `
+          <div class="field">
+            <label>Free trial</label>
+            <div class="small">
+              ✅ 3-day free trial<br/>
+              ✅ After 3 days, monthly subscription charges the card on file (cancel anytime).<br/>
+              <br/>
+              <b>Note:</b> Billing is UI-only right now. We’ll connect Stripe next.
+            </div>
+          </div>
+          <div class="opts" style="margin-top:12px;">
+            ${chk("card","yes","I understand billing after trial","(Stripe integration will be added next)", !!state.profile.billing.card_on_file)}
+          </div>
+        `;
+      },
+      collect: () => {
+        const ok = !!document.querySelector('input[name="card"][value="yes"]:checked');
+        state.profile.billing.card_on_file = ok;
+      }
+    }
+  ];
+
+  function opt(name, value, title, desc, checkedValue){
+    const checked = (checkedValue === value) ? "checked" : "";
+    return `
+      <label class="opt">
+        <input type="radio" name="${name}" value="${value}" ${checked}/>
+        <div>
+          <b>${title}</b>
+          <span>${desc}</span>
+        </div>
+      </label>
+    `;
+  }
+  function chk(name, value, title, desc, checked){
+    return `
+      <label class="opt">
+        <input type="checkbox" name="${name}" value="${value}" ${checked ? "checked" : ""}/>
+        <div>
+          <b>${title}</b>
+          <span>${desc}</span>
+        </div>
+      </label>
+    `;
+  }
+  function pick(name, fallback){
+    const n = document.querySelector(`input[name="${name}"]:checked`);
+    return n ? n.value : fallback;
+  }
+
+  function setSaved(ok, msg){
+    dot.style.background = ok ? "var(--g)" : "var(--y)";
+    dot.style.boxShadow = ok ? "0 0 0 3px rgba(51,255,153,.18)" : "0 0 0 3px rgba(255,209,102,.18)";
+    statusText.textContent = msg || (ok ? "SAVED" : "NOT SAVED");
+  }
+
+  function setStep(i){
+    state.step = Math.max(0, Math.min(steps.length-1, i));
+    const s = steps[state.step];
+    q.textContent = s.title;
+    hint.textContent = s.hint;
+    s.render();
+    backBtn.disabled = state.step === 0;
+    nextBtn.textContent = (state.step === steps.length-1) ? "Save & Finish" : "Next";
+    stepText.textContent = `Step ${state.step+1}/${steps.length}`;
+    pbar.style.width = `${Math.round(((state.step+1)/steps.length)*100)}%`;
+  }
+
+  async function loadProfile(){
+    try {
+      const r = await fetch("/profile", { cache:"no-store" });
+      if (!r.ok) return null;
+      const j = await r.json();
+      return j && j.profile ? j.profile : null;
+    } catch { return null; }
+  }
+
+  async function saveProfile(){
+    try {
+      state.profile.created_at = state.profile.created_at || new Date().toISOString();
+      const r = await fetch("/profile", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({ profile: state.profile })
+      });
+      const j = await r.json().catch(()=>null);
+      if (!r.ok) throw new Error((j && j.error) ? j.error : `HTTP ${r.status}`);
+      setSaved(true, "SAVED");
+      toast.className = "toast";
+      toast.style.display = "block";
+      toast.textContent = "Saved ✅ Redirecting to the main app…";
+      setTimeout(()=>{ window.location.href = "/?v=setup_done"; }, 700);
+    } catch (e) {
+      setSaved(false, "NOT SAVED");
+      toast.className = "toast warn";
+      toast.style.display = "block";
+      toast.textContent = "Save failed: " + String(e).slice(0,180);
+    }
+  }
+
+  backBtn.addEventListener("click", () => setStep(state.step - 1));
+  nextBtn.addEventListener("click", async () => {
+    toast.style.display = "none";
+    steps[state.step].collect();
+    if (state.step === steps.length - 1) return saveProfile();
+    setStep(state.step + 1);
+  });
+
+  (async () => {
+    const existing = await loadProfile();
+    if (existing) state.profile = { ...state.profile, ...existing };
+    setStep(0);
+  })();
+})();
+</script>
+</body>
+</html>

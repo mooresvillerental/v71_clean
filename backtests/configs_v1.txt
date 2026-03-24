@@ -1,0 +1,5 @@
+# label|args...
+BASE_38_60_FIXED|--rsi-buy 38 --rsi-sell 60 --trade-pct 0.50 --no-trend-filter
+DYN_38_60|--rsi-buy 38 --rsi-sell 60 --trade-pct 0.50 --trade-pct-dyn --trade-pct-lo 0.30 --trade-pct-switch-dd 5 --no-trend-filter
+MACRO_DYN_38_60|--rsi-buy 38 --rsi-sell 60 --trade-pct 0.50 --trade-pct-dyn --trade-pct-lo 0.30 --trade-pct-switch-dd 5 --macro-mode --macro-ema-len 200 --macro-symbol BTC-USD --no-trend-filter
+REGIME_42_62|--rsi-buy 42 --rsi-sell 62 --trade-pct 0.35 --regime-mode --regime-symbol BTC-USD --regime-ema-len 200 --no-trend-filter

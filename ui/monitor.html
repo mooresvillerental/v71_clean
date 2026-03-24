@@ -1,283 +1,331 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>V70 Host — Signal Monitor</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: #0f1115;
-      color: #eaeaea;
-    }
-
-    .card {
-      max-width: 720px;
-      margin: auto;
-      background: #161a22;
-      border-radius: 14px;
-      padding: 20px;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
-    }
-
-    h1 {
-      margin-top: 0;
-      font-size: 22px;
-    }
-
-    .row {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .row:last-child {
-      border-bottom: none;
-    }
-
-    .label {
-      opacity: 0.7;
-    }
-
-    .value {
-      font-weight: 600;
-    }
-
-    .status {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .online {
-      background: #1e7f43;
-      color: #d9ffe9;
-    }
-
-    .offline {
-      background: #7f1e1e;
-      color: #ffd9d9;
-    }
-
-    .buy {
-      color: #2eea8f;
-      font-size: 28px;
-      font-weight: 800;
-    }
-
-    .sell {
-      color: #ff6b6b;
-      font-size: 28px;
-      font-weight: 800;
-    }
-
-    .hold {
-      color: #f2c94c;
-      font-size: 28px;
-      font-weight: 800;
-    }
-
-    button {
-      margin-top: 16px;
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      background: #2a6df4;
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    .meta {
-      margin-top: 12px;
-      font-size: 12px;
-      opacity: 0.7;
-      text-align: center;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EZTrader AI — Shadow Testing</title>
+<style>
+:root{
+  --bg:#0b1220;
+  --panel:#121a2b;
+  --panel2:#0f1726;
+  --text:#eef3ff;
+  --muted:rgba(238,243,255,.65);
+  --line:rgba(255,255,255,.08);
+  --green:#22c55e;
+  --red:#ef4444;
+  --blue:#3b82f6;
+  --chip:#182235;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+.wrap{max-width:960px;margin:auto;padding:16px 12px 100px}
+h1{font-size:22px;margin:0 0 6px}
+.sub{font-size:12px;color:var(--muted);margin-bottom:16px}
+.grid{display:grid;gap:12px}
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+}
+.card h3{margin:0 0 10px 0;font-size:16px}
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:7px 0;
+  border-bottom:1px solid var(--line);
+}
+.row:last-child{border-bottom:none}
+.label{opacity:.72}
+.value{font-weight:700;text-align:right}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+}
+.ok{background:#1e7f43;color:#d9ffe9}
+.warn{background:#7f1e1e;color:#ffd9d9}
+.list{display:grid;gap:8px}
+.item{
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px 12px;
+}
+.item-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:6px}
+.item-title{font-weight:800}
+.muted{color:var(--muted)}
+.kpi{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.box{
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+}
+.box .k{font-size:12px;color:var(--muted);margin-bottom:6px}
+.box .v{font-size:22px;font-weight:900}
+.prob-wrap{
+  margin-top:10px;
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+}
+.bar{
+  height:12px;
+  background:#0a1020;
+  border:1px solid var(--line);
+  border-radius:999px;
+  overflow:hidden;
+  margin-top:8px;
+}
+.fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#2563eb,#22c55e);
+}
+@media (min-width:900px){
+  .grid.two{grid-template-columns:1fr 1fr}
+}
+</style>
 </head>
-
 <body>
-  <div class="card">
-    <h1>V70 Host — Signal Monitor</h1>
+<div class="wrap">
+  <h1>Shadow Testing</h1>
+  <div class="sub">Internal diagnostics and learning layer. Shadow trades do NOT affect live signals.</div>
 
-    <div class="row">
-      <div class="label">Server</div>
-      <div id="serverStatus" class="status offline">OFFLINE</div>
-    </div>
+  <div class="grid two">
+    <section class="card">
+      <h3>Latest Signal</h3>
+      <div class="row"><div class="label">Symbol</div><div id="sym" class="value">—</div></div>
+      <div class="row"><div class="label">Action</div><div id="action" class="value">—</div></div>
+      <div class="row"><div class="label">Live Price</div><div id="live" class="value">—</div></div>
+      <div class="row"><div class="label">Signal Price</div><div id="price" class="value">—</div></div>
+      <div class="row"><div class="label">Timestamp</div><div id="ts" class="value">—</div></div>
+      <div class="row"><div class="label">Reason</div><div id="reason" class="value">—</div></div>
+    </section>
 
-    <div class="row">
-      <div class="label">Platform</div>
-      <div id="platform" class="value">—</div>
-    </div>
+    <section class="card">
+      <h3>Feed Health</h3>
+      <div class="row"><div class="label">Status</div><div id="health" class="value">—</div></div>
+      <div class="row"><div class="label">Signal Age</div><div id="age" class="value">—</div></div>
 
-    <div class="row">
-      <div class="label">Primary Symbol</div>
-      <div id="primarySymbol" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Paper Enforced</div>
-      <div id="paperMode" class="value">—</div>
-    </div>
-
-    <hr style="margin:16px 0; border:0; border-top:1px solid rgba(255,255,255,0.08);" />
-
-    <div id="action" class="hold">—</div>
-
-    <div class="row">
-      <div class="label">Symbol</div>
-      <div id="symbol" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Price</div>
-      <div id="price" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Reason</div>
-      <div id="reason" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Timestamp</div>
-      <div id="ts" class="value">—</div>
-    </div>
-
-    <button onclick="refresh()">Refresh now</button>
-
-    <div id="meta" class="meta">—</div>
+      <div class="prob-wrap">
+        <div class="muted">Trade Probability Meter</div>
+        <div class="row" style="border-bottom:none;padding-bottom:0">
+          <div class="label">Probability</div><div id="probPct" class="value">—</div>
+        </div>
+        <div class="bar"><div id="probFill" class="fill"></div></div>
+        <div class="row" style="border-bottom:none;padding-top:8px">
+          <div class="label">State</div><div id="probState" class="value">—</div>
+        </div>
+      </div>
+    </section>
   </div>
 
+  <section class="card">
+    <h3>Shadow Performance</h3>
+    <div class="kpi">
+      <div class="box"><div class="k">Closed Trades</div><div id="closed" class="v">—</div></div>
+      <div class="box"><div class="k">Open Trades</div><div id="open" class="v">—</div></div>
+      <div class="box"><div class="k">Blocked Trades</div><div id="blocked" class="v">—</div></div>
+      <div class="box"><div class="k">Win Rate</div><div id="win" class="v">—</div></div>
+      <div class="box"><div class="k">Wins</div><div id="wins" class="v">—</div></div>
+      <div class="box"><div class="k">Losses</div><div id="losses" class="v">—</div></div>
+      <div class="box"><div class="k">Average P/L</div><div id="avgpl" class="v">—</div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Last Closed Shadow</h3>
+    <div class="row"><div class="label">Symbol</div><div id="lc_sym" class="value">—</div></div>
+    <div class="row"><div class="label">Action</div><div id="lc_action" class="value">—</div></div>
+    <div class="row"><div class="label">Strategy</div><div id="lc_strategy" class="value">—</div></div>
+    <div class="row"><div class="label">Regime</div><div id="lc_regime" class="value">—</div></div>
+    <div class="row"><div class="label">Entry</div><div id="lc_entry" class="value">—</div></div>
+    <div class="row"><div class="label">Exit</div><div id="lc_exit" class="value">—</div></div>
+    <div class="row"><div class="label">P/L %</div><div id="lc_pl" class="value">—</div></div>
+    <div class="row"><div class="label">Outcome</div><div id="lc_outcome" class="value">—</div></div>
+  </section>
+
+  <section class="card">
+    <h3>Strategy Intelligence</h3>
+    <div id="strategyList" class="list"><div class="muted">Loading…</div></div>
+  </section>
+</div>
+
 <script>
-const POLL_MS = 5000;
+function el(id){ return document.getElementById(id); }
 
-function el(id) {
-  return document.getElementById(id);
+function money(v){
+  const n = Number(v);
+  return isFinite(n) ? "$" + n.toLocaleString(undefined,{maximumFractionDigits:2}) : "—";
 }
 
-function setAction(text) {
-  const a = el("action");
-  a.textContent = text || "—";
-  a.className = text === "BUY" ? "buy" :
-                text === "SELL" ? "sell" : "hold";
+function fmtPct(v, digits=2){
+  const n = Number(v);
+  return isFinite(n) ? n.toFixed(digits) + "%" : "—";
 }
 
-async function refresh() {
-  const now = new Date().toLocaleString();
-
-  try {
-    const status = await fetch("/api/status").then(r => r.json());
-    el("serverStatus").textContent = "ONLINE";
-    el("serverStatus").className = "status online";
-    el("platform").textContent = status.platform || "—";
-    el("primarySymbol").textContent = status.primary_symbol || "—";
-    el("paperMode").textContent = String(status.paper_enforced);
-  } catch {
-    el("serverStatus").textContent = "OFFLINE";
-    el("serverStatus").className = "status offline";
+function parseTs(ts){
+  if (ts == null) return null;
+  if (typeof ts === "number") {
+    return new Date(ts < 1e12 ? ts * 1000 : ts);
   }
-
-  try {
-    const sig = await fetch("/api/signal/latest").then(r => r.json());
-
-    if (sig.status === "SIGNAL") {
-      setAction(sig.action);
-      el("symbol").textContent = sig.symbol || "—";
-      el("price").textContent = sig.price ?? "—";
-      el("reason").textContent = sig.reason || "—";
-      el("ts").textContent = sig.ts || "—";
-    } else {
-      setAction("HOLD");
-    }
-
-    el("meta").textContent = `Last update: ${now} (Auto-refresh: ON, ${POLL_MS/1000}s)`;
-  } catch {
-    el("meta").textContent = `Could not reach API (${now})`;
-  }
+  const n = Number(ts);
+  if (isFinite(n)) return new Date(n < 1e12 ? n * 1000 : n);
+  const d = new Date(ts);
+  return isFinite(d.getTime()) ? d : null;
 }
 
-refresh();
-setInterval(refresh, POLL_MS);
-</script>
+function ageInfo(ts){
+  const d = parseTs(ts);
+  if (!d) return { text:"—", live:false };
+  const diff = Math.max(0, Math.floor((Date.now() - d.getTime()) / 1000));
+  let text = "—";
+  if (diff < 60) text = diff + "s";
+  else if (diff < 3600) text = Math.floor(diff/60) + "m";
+  else if (diff < 86400) text = Math.floor(diff/3600) + "h";
+  else text = Math.floor(diff/86400) + "d";
+  return { text, live: diff <= 600 };
+}
 
-<script id="EZ_CONFIRM_BIND_V2">
-(function(){
-  async function postConfirm(action){
-    const r = await fetch("/confirm", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: String(action||"").toUpperCase() })
-    });
-    let j = null;
-    try { j = await r.json(); } catch(e) {}
-    if(!r.ok){
-      const msg = (j && (j.error || j.detail)) ? (j.error || j.detail) : ("HTTP " + r.status);
-      throw new Error(msg);
-    }
+function probFromSignal(sig, stats){
+  const conf = Number(sig && sig.confidence);
+  if (isFinite(conf)) return Math.max(10, Math.min(80, conf));
+  if (stats && Number(stats.closed_trades) > 5) {
+    return Math.max(20, Math.min(75, Number(stats.win_rate) || 0));
+  }
+  return 35;
+}
+
+function probState(p){
+  if (p >= 70) return "Strong Setup";
+  if (p >= 50) return "Developing";
+  if (p >= 30) return "Weak";
+  return "No Edge";
+}
+
+function strategyName(s){
+  const x = String(s || "");
+  if (!x) return "—";
+  return x.replaceAll("_", " ");
+}
+
+async function loadShadowStats(){
+  try{
+    const j = await fetch("/shadow-stats", {cache:"no-store"}).then(r=>r.json());
+    if (!j || !j.ok) return null;
+    el("closed").textContent = j.closed_trades ?? "—";
+    el("open").textContent = j.open_trades ?? "—";
+    el("blocked").textContent = j.blocked_trades ?? "—";
+    el("win").textContent = fmtPct(j.win_rate);
+    el("wins").textContent = j.wins ?? "—";
+    el("losses").textContent = j.losses ?? "—";
+    el("avgpl").textContent = fmtPct(j.avg_pl_pct, 4);
     return j;
+  }catch(e){
+    return null;
   }
+}
 
-  async function getSignal(){
-    const r = await fetch("/signal", { cache: "no-store" });
-    const j = await r.json();
-    return (j && j.signal) ? j.signal : null;
-  }
+async function loadSignalAndHealth(stats){
+  try{
+    const raw = await fetch("/signal", {cache:"no-store"}).then(r=>r.json());
+    const s = raw && raw.signal ? raw.signal : {};
 
-  function findConfirmButton(){
-    // Prefer: button containing text CONFIRM
-    const buttons = Array.from(document.querySelectorAll("button"));
-    return buttons.find(b => (b.textContent||"").trim().toUpperCase() === "CONFIRM") || null;
-  }
+    el("sym").textContent = s.symbol || "—";
+    el("action").textContent = (s.action === "NONE") ? "HOLD" : (s.action || "—");
+    el("live").textContent = money(s.engine_price ?? s.price);
+    el("price").textContent = money(s.price);
+    el("reason").textContent = s.reason || "—";
 
-  function setToast(msg){
-    // Minimal, no "loading" pill. If there is already a status element, use it; else alert.
-    const el = document.querySelector("[data-ez-status]") || null;
-    if(el){ el.textContent = msg; return; }
-    // fall back quietly
-    console.log(msg);
-  }
+    const d = parseTs(s.ts);
+    el("ts").textContent = d ? d.toLocaleString() : (s.ts || "—");
 
-  window.addEventListener("DOMContentLoaded", () => {
-    const btn = findConfirmButton();
-    if(!btn){
-      console.log("EZ_CONFIRM_BIND_V2: confirm button not found");
+    const age = ageInfo(s.ts);
+    el("health").textContent = age.live ? "LIVE" : "STALE";
+    el("health").className = "value badge " + (age.live ? "ok" : "warn");
+    el("age").textContent = age.text;
+
+    const p = probFromSignal(s, stats);
+    el("probPct").textContent = Math.round(p) + "%";
+    el("probFill").style.width = Math.round(p) + "%";
+    el("probState").textContent = probState(p);
+  }catch(e){}
+}
+
+async function loadLastClosed(){
+  try{
+    const j = await fetch("/shadow-last-closed", {cache:"no-store"}).then(r=>r.json());
+    const t = j && j.trade ? j.trade : {};
+    el("lc_sym").textContent = t.symbol || "—";
+    el("lc_action").textContent = t.action || "—";
+    el("lc_strategy").textContent = strategyName(t.winning_strategy || t.strategy);
+    el("lc_regime").textContent = t.regime || "—";
+    el("lc_entry").textContent = money(t.entry_price);
+    el("lc_exit").textContent = money(t.exit_price);
+    el("lc_pl").textContent = fmtPct(t.pnl_pct, 4);
+    el("lc_outcome").textContent = t.outcome || "—";
+  }catch(e){}
+}
+
+async function loadStrategies(){
+  try{
+    const j = await fetch("/strategy-stats", {cache:"no-store"}).then(r=>r.json());
+    const rows = (j && j.strategies ? j.strategies : [])
+      .filter(r => r.strategy && r.strategy !== "NONE")
+      .slice(0, 6);
+
+    const box = el("strategyList");
+    if (!rows.length){
+      box.innerHTML = '<div class="muted">No strategy stats yet.</div>';
       return;
     }
 
-    // Hard-bind click
-    btn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      btn.disabled = true;
-      try{
-        const sig = await getSignal();
-        const action = sig && sig.action ? sig.action : "";
-        if(action !== "BUY" && action !== "SELL"){
-          throw new Error("No BUY/SELL signal to confirm");
-        }
-        const out = await postConfirm(action);
-        setToast("Confirmed: " + action);
-        // optional tiny feedback (no annoying loop)
-        try { if(window.termuxTtsSpeak){ window.termuxTtsSpeak("Confirmed " + action); } } catch(e){}
-        console.log("CONFIRMED:", out);
-      }catch(err){
-        setToast("Confirm failed");
-        alert("Confirm failed: " + (err && err.message ? err.message : err));
-      }finally{
-        btn.disabled = false;
-      }
-    }, { passive: false });
-  });
-})();
-</script>
+    box.innerHTML = "";
+    rows.forEach(r => {
+      const d = document.createElement("div");
+      d.className = "item";
+      d.innerHTML = `
+        <div class="item-top">
+          <div class="item-title">${strategyName(r.strategy)} (${r.timeframe})</div>
+          <div class="badge ok">${Number(r.win_pct).toFixed(1)}%</div>
+        </div>
+        <div class="muted">Samples: ${r.samples} • Wins: ${r.wins} • Avg Move: ${Number(r.avg_move_pct).toFixed(4)}%</div>
+      `;
+      box.appendChild(d);
+    });
+  }catch(e){
+    el("strategyList").innerHTML = '<div class="muted">Unable to load strategy stats.</div>';
+  }
+}
 
+async function boot(){
+  const stats = await loadShadowStats();
+  await Promise.all([
+    loadSignalAndHealth(stats),
+    loadLastClosed(),
+    loadStrategies()
+  ]);
+}
+
+boot();
+setInterval(boot, 5000);
+</script>
 </body>
 </html>

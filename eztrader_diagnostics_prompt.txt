@@ -1,0 +1,43 @@
+Please analyze the EZTrader signal stream and report the following statistics from the last 24 hours (or as much history as available).
+
+Diagnostics only. Do NOT change any logic, thresholds, filters, or trading behavior.
+
+For all generated signals calculate:
+
+1. Total signals generated
+2. Number of signals where confidence >= 60%
+3. Number of signals where confidence >= 70%
+4. Number of signals where confidence >= 80%
+5. Number of signals that resulted in a BUY or SELL recommendation
+6. Number of signals blocked by filters (quality, regime, eligibility, etc.)
+
+Also report:
+
+- Average confidence score
+- Highest confidence score observed
+- Lowest confidence score observed
+
+Then print the report in this exact format:
+
+Signal Frequency Report
+
+Total Signals:
+Signals >=60%:
+Signals >=70%:
+Signals >=80%:
+BUY/SELL Signals:
+Blocked Signals:
+
+Average Confidence:
+Highest Confidence:
+Lowest Confidence:
+
+Then answer these diagnostic questions:
+
+1. Are confidence scores mostly below the trading threshold?
+2. Are trades primarily being blocked by regime detection?
+3. Are filters too restrictive for the current BTC market environment?
+4. Based on current behavior, estimate expected trade frequency per day.
+
+Important:
+Diagnostics only. Do NOT modify the trading engine, thresholds, filters, scoring system, or strategy logic.

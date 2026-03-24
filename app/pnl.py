@@ -113,6 +113,19 @@ def wait_for_engine_update(pre_mtime: float, timeout_sec: float = 8.0, home: Opt
         time.sleep(0.25)
     return None
 
+
+def trade_log_path(home: Optional[Path] = None) -> Path:
+    h = Path.home() if home is None else home
+    return h / "v71_clean" / "signals" / "trade_history.jsonl"
+
+
+def append_trade_log(row: Dict[str, Any], home: Optional[Path] = None) -> None:
+    p = trade_log_path(home)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    with p.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
 def update_after_confirm(
     symbol: str,
     action: str,
@@ -135,6 +148,25 @@ def update_after_confirm(
     pnl = read_json(pf, {}) or {}
     pnl = apply_delta(pnl, symbol, action, price, delta_cash, delta_qty, fee_rate=fee_rate)
     write_json(pf, pnl)
+
+    trade_row = {
+        "timestamp": int(time.time()),
+        "symbol": symbol,
+        "action": action,
+        "price": float(price),
+        "pre_cash": round(pre_cash, 2),
+        "post_cash": round(post_cash, 2),
+        "delta_cash": round(delta_cash, 2),
+        "pre_qty": round(pre_qty, 12),
+        "post_qty": round(post_qty, 12),
+        "delta_qty": round(delta_qty, 12),
+        "fee_rate": float(fee_rate),
+        "pnl_path": str(pf),
+    }
+    try:
+        append_trade_log(trade_row, home=home)
+    except Exception:
+        pass
 
     return {
         "ok": True,

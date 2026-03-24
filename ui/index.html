@@ -2,282 +2,436 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>V70 Host — Signal Monitor</title>
+  <title>EZTrader AI — Live App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: #0f1115;
-      color: #eaeaea;
+    :root{
+      --bg:#0b1220;
+      --panel:#121a2b;
+      --panel2:#0f1726;
+      --text:#eef3ff;
+      --muted:rgba(238,243,255,.68);
+      --line:rgba(255,255,255,.08);
+      --blue:#3b82f6;
+      --green:#22c55e;
+      --red:#ef4444;
+      --gold:#f2c94c;
+      --chip:#182235;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#09111d 0%, #0b1220 100%);
+      color:var(--text);
+      font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      word-break:break-word;
+    }
+    
+    .wrap{max-width:1100px;margin:0 auto;padding:18px 14px 110px}
+    .bottom-nav{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:1000;
+      padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+      background:rgba(5,10,18,.92);
+      backdrop-filter:blur(10px);
+      border-top:1px solid var(--line);
+    }
+    .bottom-nav-inner{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:8px;
+    }
+    .nav-btn,.nav-btn:visited{
+      min-height:54px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:var(--chip);
+      color:var(--text);
+      text-decoration:none;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:4px;
+      font-size:11px;
+      font-weight:700;
+      text-align:center;
+      line-height:1.1;
+      padding:6px 4px;
+    }
+    .nav-btn.active{
+      background:linear-gradient(180deg,#2563eb,#1d4ed8);
+      border-color:rgba(96,165,250,.35);
+    }
+    .nav-ico{
+      font-size:16px;
+      line-height:1;
+    }
+    @media (min-width: 861px){
+      .bottom-nav{
+        left:50%;
+        right:auto;
+        transform:translateX(-50%);
+        width:min(760px, calc(100vw - 24px));
+        bottom:14px;
+        border:1px solid var(--line);
+        border-radius:20px;
+      }
+      .wrap{padding-bottom:130px}
     }
 
-    .card {
-      max-width: 720px;
-      margin: auto;
-      background: #161a22;
-      border-radius: 14px;
-      padding: 20px;
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
+    .notice{color:var(--muted);font-size:12px;margin-bottom:12px}
+    .hero{
+      background:linear-gradient(180deg,rgba(59,130,246,.10),rgba(59,130,246,.03));
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:18px;
+      margin-bottom:16px;
+      box-shadow:0 10px 30px rgba(0,0,0,.24);
     }
-
-    h1 {
-      margin-top: 0;
-      font-size: 22px;
+    .hero-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;
+      font-weight:900;font-size:22px;color:white;background:linear-gradient(135deg,#2563eb,#60a5fa);
+      box-shadow:0 8px 20px rgba(37,99,235,.35);flex:0 0 auto;
     }
-
-    .row {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+    h1{margin:0;font-size:28px;line-height:1.1}
+    .sub{color:var(--muted);margin-top:4px;font-size:14px}
+    .updated{color:var(--muted);font-size:13px;margin-top:8px}
+    .hero-kicker{margin-top:14px;font-size:18px;font-weight:800}
+    .hero-copy{color:var(--muted);margin-top:6px;max-width:760px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .btn,.btn:visited{
+      text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-height:42px;
+      padding:0 14px;border-radius:12px;border:1px solid var(--line);color:var(--text);
+      background:var(--chip);font-weight:700;white-space:nowrap;word-break:normal;overflow-wrap:normal;
     }
-
-    .row:last-child {
-      border-bottom: none;
+    .btn.primary{background:linear-gradient(180deg,#2563eb,#1d4ed8)}
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+    .stack{display:grid;gap:16px}
+    .panel{
+      background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px;
+      box-shadow:0 10px 28px rgba(0,0,0,.18);
     }
-
-    .label {
-      opacity: 0.7;
+    .panel h2{margin:0 0 12px 0;font-size:18px}
+    .kicker{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+    .badge{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:800}
+    .online{background:rgba(34,197,94,.18);color:#b7f7c9}
+    .offline{background:rgba(239,68,68,.18);color:#ffc1c1}
+    .action{font-size:40px;font-weight:900;line-height:1;margin:8px 0 14px}
+    .buy{color:var(--green)}
+    .sell{color:var(--red)}
+    .hold{color:var(--gold)}
+    .kv{
+      display:grid;grid-template-columns:1fr auto;gap:10px;padding:8px 0;
+      border-bottom:1px solid var(--line);
     }
-
-    .value {
-      font-weight: 600;
+    .kv:last-child{border-bottom:none}
+    .k{color:var(--muted)}
+    .v{font-weight:700;text-align:right}
+    .chart-wrap{margin-top:10px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#0a1020}
+    .chart-toolbar{
+      display:flex;justify-content:space-between;align-items:center;gap:10px;
+      padding:10px 12px;border-bottom:1px solid var(--line);background:#0d1525;
     }
-
-    .status {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .online {
-      background: #1e7f43;
-      color: #d9ffe9;
-    }
-
-    .offline {
-      background: #7f1e1e;
-      color: #ffd9d9;
-    }
-
-    .buy {
-      color: #2eea8f;
-      font-size: 28px;
-      font-weight: 800;
-    }
-
-    .sell {
-      color: #ff6b6b;
-      font-size: 28px;
-      font-weight: 800;
-    }
-
-    .hold {
-      color: #f2c94c;
-      font-size: 28px;
-      font-weight: 800;
-    }
-
-    button {
-      margin-top: 16px;
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      background: #2a6df4;
-      color: white;
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    .meta {
-      margin-top: 12px;
-      font-size: 12px;
-      opacity: 0.7;
-      text-align: center;
+    iframe{width:100%;height:420px;border:0;display:block;background:#0a1020}
+    .mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .mini{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:14px}
+    .mini .label{color:var(--muted);font-size:12px;margin-bottom:6px}
+    .mini .value{font-size:24px;font-weight:900}
+    .muted{color:var(--muted)}
+    .list{display:grid;gap:10px;margin-top:10px}
+    .item{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:12px}
+    .item .top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:6px}
+    .pill{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;background:var(--chip)}
+    .footer-meta{margin-top:12px;text-align:center;font-size:12px;color:var(--muted)}
+    @media (max-width:860px){
+      .grid{grid-template-columns:1fr}
+      iframe{height:340px}
+      h1{font-size:24px}
+      .action{font-size:34px}
     }
   </style>
 </head>
-
 <body>
-  <div class="card">
-    <h1>V70 Host — Signal Monitor</h1>
+  <div class="wrap">
+    <div class="notice">Independent platform. Not affiliated with any previous company using similar naming.</div>
 
-    <div class="row">
-      <div class="label">Server</div>
-      <div id="serverStatus" class="status offline">OFFLINE</div>
+    <section class="hero">
+      <div class="hero-top">
+        <div class="brand">
+          <div class="logo">EZ</div>
+          <div>
+            <h1>EZTrader AI</h1>
+            <div class="sub">Live AI Trading Engine</div>
+            <div id="updated" class="updated">Updated —</div>
+          </div>
+        </div>
+        <div id="serverStatus" class="badge offline">OFFLINE</div>
+      </div>
+
+      <div class="hero-kicker">Real-Time AI Trading Signals — No Guessing. No Hype.</div>
+      <div class="hero-copy">Live market analysis, transparent signal output, disciplined trade logic, and a cleaner app experience built around the engine you are marketing.</div>
+
+      <div class="hero-actions">
+        <button class="btn primary" onclick="refreshAll()">Refresh now</button>
+        <a class="btn" href="/ui/chart.html">Open full chart</a>
+        <a class="btn" href="http://127.0.0.1:8091/" target="_blank" rel="noopener">Open website</a>
+      </div>
+    </section>
+
+    <div class="grid">
+      <div class="stack">
+        <section class="panel">
+          <div class="kicker">Live Chart</div>
+          <h2>BTC-USD Market View</h2>
+          <div class="chart-wrap">
+            <div class="chart-toolbar">
+              <div>
+                <div style="font-weight:800">Live candlestick chart</div>
+                <div class="muted" style="font-size:12px">Local chart page using your own OHLC data</div>
+              </div>
+              <a class="btn" href="/ui/chart.html">Expand</a>
+            </div>
+            <iframe src="/ui/chart.html?embed=1" title="EZTrader AI Chart"></iframe>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="kicker">Latest Signal</div>
+          <h2>Current Engine Decision</h2>
+          <div id="action" class="action hold">—</div>
+          <div class="kv"><div class="k">Symbol</div><div id="symbol" class="v">—</div></div>
+          <div class="kv"><div class="k">Live Price</div><div id="livePrice" class="v">—</div></div>
+          <div class="kv"><div class="k">Signal Price</div><div id="price" class="v">—</div></div>
+          <div class="kv"><div class="k">RSI</div><div id="rsi" class="v">—</div></div>
+          <div class="kv"><div class="k">Confidence</div><div id="confidence" class="v">—</div></div>
+          <div class="kv"><div class="k">Strategy</div><div id="strategy" class="v">—</div></div>
+          <div class="kv"><div class="k">Regime</div><div id="regime" class="v">—</div></div>
+          <div class="kv"><div class="k">Trend</div><div id="trend" class="v">—</div></div>
+          <div class="kv"><div class="k">Trade Status</div><div id="tradeStatus" class="v">—</div></div>
+          <div class="kv"><div class="k">Signal Age</div><div id="ts" class="v">—</div></div>
+        </section>
+
+        <section class="panel">
+          <div class="kicker">Recent Activity</div>
+          <h2>Recent Executed Trades</h2>
+          <div id="trade_history" class="list">
+            <div class="item"><div class="muted">Loading trades…</div></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="stack">
+        <section class="panel">
+          <div class="kicker">Engine Status</div>
+          <h2>System Snapshot</h2>
+          <div class="kv"><div class="k">Platform</div><div id="platform" class="v">—</div></div>
+          <div class="kv"><div class="k">Primary Symbol</div><div id="primarySymbol" class="v">—</div></div>
+          <div class="kv"><div class="k">App Mode</div><div id="paperMode" class="v">—</div></div>
+        </section>
+
+        <section class="panel">
+          <div class="kicker">Portfolio</div>
+          <h2>Live Portfolio</h2>
+          <div class="mini-grid">
+            <div class="mini">
+              <div class="label">Portfolio Value</div>
+              <div id="pf_value" class="value">—</div>
+            </div>
+            <div class="mini">
+              <div class="label">Cash Balance</div>
+              <div id="pf_cash" class="value">—</div>
+            </div>
+            <div class="mini">
+              <div class="label">BTC Holdings</div>
+              <div id="pf_qty" class="value" style="font-size:20px">—</div>
+            </div>
+            <div class="mini">
+              <div class="label">Unrealized P/L</div>
+              <div id="pf_upl" class="value">—</div>
+            </div>
+          </div>
+          <div class="kv" style="margin-top:12px"><div class="k">Average Entry Price</div><div id="pf_avg" class="v">—</div></div>
+          <div class="kv"><div class="k">Current BTC Price</div><div id="pf_price" class="v">—</div></div>
+        </section>
+
+        <section class="panel">
+          <div class="kicker">App Positioning</div>
+          <h2>Why This Matters</h2>
+          <div class="muted">
+            EZTrader AI does not force trades. It evaluates market conditions continuously and only becomes actionable when a valid setup appears.
+          </div>
+        </section>
+      </div>
     </div>
 
-    <div class="row">
-      <div class="label">Platform</div>
-      <div id="platform" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Primary Symbol</div>
-      <div id="primarySymbol" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Paper Enforced</div>
-      <div id="paperMode" class="value">—</div>
-    </div>
-
-    <hr style="margin:16px 0; border:0; border-top:1px solid rgba(255,255,255,0.08);" />
-
-    <div id="action" class="hold">—</div>
-
-    <div class="row">
-      <div class="label">Symbol</div>
-      <div id="symbol" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Price</div>
-      <div id="price" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Reason</div>
-      <div id="reason" class="value">—</div>
-    </div>
-
-    <div class="row">
-      <div class="label">Timestamp</div>
-      <div id="ts" class="value">—</div>
-    </div>
-
-    <button onclick="refresh()">Refresh now</button>
-
-    <div id="meta" class="meta">—</div>
+    <div id="meta" class="footer-meta">—</div>
   </div>
 
-<script>
-const POLL_MS = 5000;
 
-function el(id) {
-  return document.getElementById(id);
-}
+    <nav class="bottom-nav" aria-label="Primary">
+      <div class="bottom-nav-inner">
+        <a class="nav-btn active" href="/">
+          <div class="nav-ico">⌂</div>
+          <div>Home</div>
+        </a>
+        <a class="nav-btn" href="/ui/chart.html">
+          <div class="nav-ico">📈</div>
+          <div>Chart</div>
+        </a>
+        <a class="nav-btn" href="/ui/monitor.html">
+          <div class="nav-ico">🧪</div>
+          <div>Shadow</div>
+        </a>
+        <a class="nav-btn" href="/ui/bal.html">
+          <div class="nav-ico">💼</div>
+          <div>Balances</div>
+        </a>
+        <a class="nav-btn" href="/trade">
+          <div class="nav-ico">⚙</div>
+          <div>Trade</div>
+        </a>
+      </div>
+    </nav>
 
-function setAction(text) {
-  const a = el("action");
-  a.textContent = text || "—";
-  a.className = text === "BUY" ? "buy" :
-                text === "SELL" ? "sell" : "hold";
-}
 
-async function refresh() {
-  const now = new Date().toLocaleString();
+  <script>
+    const POLL_MS = 5000;
 
-  try {
-    const status = await fetch("/health").then(r => r.json());
-    el("serverStatus").textContent = "ONLINE";
-    el("serverStatus").className = "status online";
-    el("platform").textContent = status.platform || "—";
-    el("primarySymbol").textContent = status.primary_symbol || "—";
-    el("paperMode").textContent = String(status.paper_enforced);
-  } catch {
-    el("serverStatus").textContent = "OFFLINE";
-    el("serverStatus").className = "status offline";
-  }
+    function el(id){ return document.getElementById(id); }
 
-  try {
-    const sig = await fetch("/signal").then(r => r.json());
-
-    if (sig.status === "SIGNAL") {
-      setAction(sig.action);
-      el("symbol").textContent = sig.symbol || "—";
-      el("price").textContent = sig.price ?? "—";
-      el("reason").textContent = sig.reason || "—";
-      el("ts").textContent = sig.ts || "—";
-    } else {
-      setAction("HOLD");
+    function money(v){
+      const n = Number(v);
+      if (!isFinite(n)) return "—";
+      return "$" + n.toLocaleString(undefined, { maximumFractionDigits: 2 });
     }
 
-    el("meta").textContent = `Last update: ${now} (Auto-refresh: ON, ${POLL_MS/1000}s)`;
-  } catch {
-    el("meta").textContent = `Could not reach API (${now})`;
-  }
-}
-
-refresh();
-setInterval(refresh, POLL_MS);
-</script>
-
-<script id="EZ_CONFIRM_BIND_V2">
-(function(){
-  async function postConfirm(action){
-    const r = await fetch("/confirm", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: String(action||"").toUpperCase() })
-    });
-    let j = null;
-    try { j = await r.json(); } catch(e) {}
-    if(!r.ok){
-      const msg = (j && (j.error || j.detail)) ? (j.error || j.detail) : ("HTTP " + r.status);
-      throw new Error(msg);
-    }
-    return j;
-  }
-
-  async function getSignal(){
-    const r = await fetch("/signal", { cache: "no-store" });
-    const j = await r.json();
-    return (j && j.signal) ? j.signal : null;
-  }
-
-  function findConfirmButton(){
-    // Prefer: button containing text CONFIRM
-    const buttons = Array.from(document.querySelectorAll("button"));
-    return buttons.find(b => (b.textContent||"").trim().toUpperCase() === "CONFIRM") || null;
-  }
-
-  function setToast(msg){
-    // Minimal, no "loading" pill. If there is already a status element, use it; else alert.
-    const el = document.querySelector("[data-ez-status]") || null;
-    if(el){ el.textContent = msg; return; }
-    // fall back quietly
-    console.log(msg);
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    const btn = findConfirmButton();
-    if(!btn){
-      console.log("EZ_CONFIRM_BIND_V2: confirm button not found");
-      return;
+    function ageText(ts){
+      if (!ts) return "—";
+      const n = Number(ts);
+      if (!isFinite(n)) return String(ts);
+      const diff = Math.max(0, Math.floor(Date.now()/1000 - n));
+      if (diff < 60) return diff + "s ago";
+      if (diff < 3600) return Math.floor(diff/60) + "m ago";
+      if (diff < 86400) return Math.floor(diff/3600) + "h ago";
+      return Math.floor(diff/86400) + "d ago";
     }
 
-    // Hard-bind click
-    btn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      btn.disabled = true;
+    function setAction(text){
+      const a = el("action");
+      const t = String(text || "HOLD").toUpperCase();
+      a.textContent = (t === "NONE") ? "HOLD" : t;
+      a.className = "action " + ((t === "BUY") ? "buy" : (t === "SELL") ? "sell" : "hold");
+    }
+
+    async function loadHealth(){
       try{
-        const sig = await getSignal();
-        const action = sig && sig.action ? sig.action : "";
-        if(action !== "BUY" && action !== "SELL"){
-          throw new Error("No BUY/SELL signal to confirm");
-        }
-        const out = await postConfirm(action);
-        setToast("Confirmed: " + action);
-        // optional tiny feedback (no annoying loop)
-        try { if(window.termuxTtsSpeak){ window.termuxTtsSpeak("Confirmed " + action); } } catch(e){}
-        console.log("CONFIRMED:", out);
-      }catch(err){
-        setToast("Confirm failed");
-        alert("Confirm failed: " + (err && err.message ? err.message : err));
-      }finally{
-        btn.disabled = false;
-      }
-    }, { passive: false });
-  });
-})();
-</script>
+        const status = await fetch("/health", {cache:"no-store"}).then(r => r.json());
+        el("serverStatus").textContent = "ONLINE";
+        el("serverStatus").className = "badge online";
+        el("primarySymbol").textContent = status.primary_symbol || "BTC-USD";
+        el("paperMode").textContent = "Signal Only";
 
+        try{
+          const p = await fetch("/portfolio", {cache:"no-store"}).then(r => r.json());
+          const src = String((p && p.source) || "").trim();
+          if (src) {
+            el("platform").textContent = src.replaceAll("_", " ").replace(/\b\w/g, c => c.toUpperCase());
+          } else {
+            el("platform").textContent = "—";
+          }
+        }catch(e){
+          el("platform").textContent = "—";
+        }
+      }catch(e){
+        el("serverStatus").textContent = "OFFLINE";
+        el("serverStatus").className = "badge offline";
+      }
+    }
+
+    async function loadSignal(){
+      const raw = await fetch("/signal", {cache:"no-store"}).then(r => r.json());
+      const sig = raw && raw.signal ? raw.signal : {};
+      const action = sig.action || "HOLD";
+      setAction(action);
+      el("symbol").textContent = sig.symbol || "BTC-USD";
+      el("livePrice").textContent = money(sig.engine_price ?? sig.price);
+      el("price").textContent = money(sig.price);
+      el("rsi").textContent = "—";
+      el("confidence").textContent = "—";
+      el("strategy").textContent = "—";
+      el("regime").textContent = "—";
+      el("trend").textContent = "—";
+      if (!sig.strategy || sig.strategy === "UNKNOWN" || sig.strategy === "NO_SIGNAL") {
+  el("tradeStatus").textContent = "No valid trade setup";
+} else {
+  el("tradeStatus").textContent = sig.reason || "Eligible";
+}
+      el("ts").textContent = ageText(sig.ts);
+    }
+
+    async function loadPortfolio(){
+      try{
+        const p = await fetch("/portfolio", {cache:"no-store"}).then(r => r.json());
+        const sym = "BTC-USD";
+        const qty = p.holdings_qty && p.holdings_qty[sym];
+        const price = p.prices && p.prices[sym];
+        el("pf_value").textContent = money(p.total_usd);
+        el("pf_cash").textContent = money(p.cash_usd);
+        el("pf_qty").textContent = (qty != null) ? Number(qty).toFixed(6) : "—";
+        el("pf_avg").textContent = "—";
+        el("pf_price").textContent = money(price);
+        el("pf_upl").textContent = "—";
+        el("pf_upl").style.color = "";
+      }catch(e){}
+    }
+
+    async function loadTrades(){
+      try{
+        const trades = await fetch("/api/recent-trades", {cache:"no-store"}).then(r => r.json());
+        const box = el("trade_history");
+        box.innerHTML = "";
+        const rows = Array.isArray(trades) ? [...trades].reverse().slice(0,6) : [];
+        if (!rows.length){
+          box.innerHTML = '<div class="item"><div class="muted">No recent trades yet.</div></div>';
+          return;
+        }
+        rows.forEach(t => {
+          const d = document.createElement("div");
+          d.className = "item";
+          const action = (t.action === "NONE") ? "No Trade" : (t.action || "—");
+          const stamp = t.timestamp ? new Date(t.timestamp * 1000).toLocaleString() : "—";
+          d.innerHTML = `
+            <div class="top">
+              <div style="font-weight:800">${t.symbol || "BTC-USD"}</div>
+              <div class="pill">${action}</div>
+            </div>
+            <div class="muted">Price: ${money(t.price)}</div>
+            <div class="muted">Size: ${money(t.size_usd)}</div>
+            <div class="muted">Filled Qty: ${Number(t.filled_qty || 0).toFixed(6)}</div>
+            <div class="muted">${stamp}</div>
+          `;
+          box.appendChild(d);
+        });
+      }catch(e){}
+    }
+
+    async function refreshAll(){
+      const now = new Date().toLocaleString();
+      await Promise.allSettled([loadHealth(), loadSignal(), loadPortfolio(), loadTrades()]);
+      el("updated").textContent = "Updated " + now;
+      el("meta").textContent = "Last update: " + now + " (Auto-refresh: ON, 5s)";
+    }
+
+    refreshAll();
+    setInterval(refreshAll, POLL_MS);
+  </script>
 </body>
 </html>

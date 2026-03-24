@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EZTrader — Market</title>
+  <style>
+    :root{
+      --bg:#0b0f1a;
+      --panel:#0f1626;
+      --line:#1e2433;
+      --text:#cbd5e1;
+      --muted:#94a3b8;
+      --accent:#2dd4bf;
+      --buy:#22c55e;
+      --sell:#ef4444;
+      --btn:#121a2c;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+    .topbar{
+      display:flex;align-items:center;gap:10px;
+      padding:12px 12px 10px;
+      position:sticky;top:0;background:linear-gradient(to bottom, rgba(11,15,26,.98), rgba(11,15,26,.86));
+      border-bottom:1px solid rgba(30,36,51,.8);
+      z-index:10;
+    }
+    .brand{font-weight:800;letter-spacing:.3px}
+    .pill{opacity:.7}
+    select,button{
+      background:var(--btn); color:var(--text);
+      border:1px solid rgba(148,163,184,.25);
+      border-radius:10px;
+      padding:10px 12px;
+      font-size:14px;
+    }
+    button{cursor:pointer}
+    button:active{transform:translateY(1px)}
+    .spacer{flex:1}
+    .mini{font-size:12px;color:var(--muted);opacity:.9}
+    .wrap{padding:12px}
+    .card{
+      background:rgba(15,22,38,.85);
+      border:1px solid rgba(148,163,184,.18);
+      border-radius:16px;
+      padding:12px;
+      margin-bottom:12px;
+    }
+    .row{
+      display:flex;align-items:center;gap:10px;
+      padding:10px 10px;
+      border-radius:12px;
+      border:1px solid rgba(148,163,184,.12);
+      background:rgba(11,15,26,.35);
+      margin:8px 0;
+    }
+    .sym{font-weight:800;min-width:86px}
+    .badge{
+      font-weight:800;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.18);
+      font-size:12px;
+      min-width:62px;
+      text-align:center;
+    }
+    .BUY{color:var(--buy); border-color:rgba(34,197,94,.35)}
+    .SELL{color:var(--sell); border-color:rgba(239,68,68,.35)}
+    .HOLD{color:var(--muted)}
+    .kv{color:var(--muted);font-size:12px}
+    .reason{color:var(--text);opacity:.9;font-size:12px;flex:1}
+    .tap{opacity:.65;font-size:12px}
+    #dbg{white-space:pre-wrap;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;font-size:12px;color:rgba(148,163,184,.95);padding:8px 2px;opacity:.95}
+    a{color:var(--text);text-decoration:none;opacity:.9}
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="brand">EZTrader</div>
+    <div class="pill">Trade</div>
+    <div class="pill">|</div>
+    <div>Market</div>
+
+    <select id="interval">
+      <option value="1">1m</option>
+      <option value="5" selected>5m</option>
+      <option value="15">15m</option>
+      <option value="60">1h</option>
+    </select>
+
+    <select id="limit">
+      <option value="5">Top 5</option>
+      <option value="10" selected>Top 10</option>
+      <option value="15">Top 15</option>
+      <option value="25">Top 25</option>
+    </select>
+
+    <button id="reload">Reload</button>
+
+    <div class="spacer"></div>
+    <div class="mini" id="mini">—</div>
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="kv">This page ranks symbols by strongest actionable RSI signal (BUY/SELL) and shows the reason.</div>
+      <div class="kv" style="margin-top:6px">Tap a row to open the chart for that symbol.</div>
+    </div>
+
+    <div class="card" id="list"></div>
+    <div id="dbg"></div>
+  </div>
+
+<script>
+(function(){
+  const dbgEl = document.getElementById("dbg");
+  const listEl = document.getElementById("list");
+  const miniEl = document.getElementById("mini");
+  const intervalEl = document.getElementById("interval");
+  const limitEl = document.getElementById("limit");
+  const reloadBtn = document.getElementById("reload");
+
+  function log(m){
+    dbgEl.textContent += m + "\n";
+  }
+  function fmt(n){
+    if (n === null || n === undefined) return "—";
+    const x = Number(n);
+    if (!isFinite(x)) return String(n);
+    if (Math.abs(x) >= 1000) return x.toLocaleString(undefined, {maximumFractionDigits: 2});
+    return x.toLocaleString(undefined, {maximumFractionDigits: 6});
+  }
+
+  function rowHTML(o){
+    const action = (o.action || "HOLD").toUpperCase();
+    const badgeCls = action;
+    const rsi = (o.rsi === null || o.rsi === undefined) ? "—" : Number(o.rsi).toFixed(2);
+    const price = fmt(o.price);
+    const score = fmt(o.score);
+    const reason = o.reason || "";
+    const sym = o.symbol || "—";
+
+    return `
+      <div class="row" data-sym="${sym}">
+        <div class="sym">${sym}</div>
+        <div class="badge ${badgeCls}">${action}</div>
+        <div class="kv">RSI ${rsi}</div>
+        <div class="kv">Score ${score}</div>
+        <div class="kv">Price ${price}</div>
+        <div class="reason">${reason}</div>
+        <div class="tap">tap →</div>
+      </div>
+    `;
+  }
+
+  async function load(){
+    const interval = intervalEl.value || "5";
+    const limit = limitEl.value || "10";
+    const url = `/opportunities?interval=${encodeURIComponent(interval)}&limit=${encodeURIComponent(limit)}&ts=${Date.now()}`;
+
+    miniEl.textContent = "loading…";
+    try{
+      const r = await fetch(url, {cache:"no-store"});
+      const j = await r.json();
+      if (!j || !j.ok){
+        listEl.innerHTML = `<div class="kv">Failed to load opportunities.</div>`;
+        miniEl.textContent = "error";
+        log("opportunities not ok: " + JSON.stringify(j));
+        return;
+      }
+      const top = j.top || [];
+      miniEl.textContent = `ok • interval=${j.interval} • count=${j.count} • ${new Date().toLocaleTimeString()}`;
+
+      if (!top.length){
+        listEl.innerHTML = `<div class="kv">No symbols returned.</div>`;
+        return;
+      }
+
+      listEl.innerHTML = top.map(rowHTML).join("");
+
+      // tap row -> open chart
+      document.querySelectorAll(".row").forEach(el=>{
+        el.addEventListener("click", ()=>{
+          const sym = el.getAttribute("data-sym") || "BTC-USD";
+          const i = intervalEl.value || "5";
+          window.location.href = `/ui/chart.html?symbol=${encodeURIComponent(sym)}&interval=${encodeURIComponent(i)}&ts=${Date.now()}`;
+        });
+      });
+
+    }catch(e){
+      miniEl.textContent = "error";
+      listEl.innerHTML = `<div class="kv">Error: ${String(e)}</div>`;
+      log("fetch error: " + String(e));
+    }
+  }
+
+  reloadBtn.addEventListener("click", load);
+  intervalEl.addEventListener("change", load);
+  limitEl.addEventListener("change", load);
+
+  // auto-refresh every 10s
+  load();
+  setInterval(load, 10000);
+})();
+</script>
+</body>
+</html>

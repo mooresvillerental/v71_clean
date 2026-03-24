@@ -1,0 +1,8 @@
+nohup: ignoring input
+🛑 Stopping old server (if any)...
+🚀 Starting EZTrader...
+{"ok": true, "engine_state_path": "/data/data/com.termux/files/home/v69_app_data/state.json", "engine_state_readable": true, "app_state_path": "/data/data/com.termux/files/home/v70_app_data/state.json", "app_state_readable": true, "confirm_path": "/data/data/com.termux/files/home/v70_app_data/confirm.json"}
+
+✅ EZTrader is LIVE
+👉 OPEN THIS: http://127.0.0.1:8080/trade?ts=1769350995
+

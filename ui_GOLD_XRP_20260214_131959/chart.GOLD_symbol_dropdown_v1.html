@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EZTrader — Chart</title>
+  <style>
+    :root{
+      --bg:#0b0f1a;
+      --panel:#0f1626;
+      --line:#1e2433;
+      --text:#cbd5e1;
+      --muted:#94a3b8;
+      --accent:#2dd4bf;
+      --btn:#121a2c;
+    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+    .topbar{
+      display:flex;align-items:center;gap:10px;
+      padding:12px 12px 10px;
+      position:sticky;top:0;background:linear-gradient(to bottom, rgba(11,15,26,.98), rgba(11,15,26,.86));
+      border-bottom:1px solid rgba(30,36,51,.8);
+      z-index:10;
+    }
+    .brand{font-weight:800;letter-spacing:.3px}
+    .pill{opacity:.7}
+    select,button{
+      background:var(--btn); color:var(--text);
+      border:1px solid rgba(148,163,184,.25);
+      border-radius:10px;
+      padding:10px 12px;
+      font-size:14px;
+    }
+    button{cursor:pointer}
+    button:active{transform:translateY(1px)}
+    .spacer{flex:1}
+    .mini{font-size:12px;color:var(--muted);opacity:.9}
+    #chartWrap{
+      position:relative;
+      padding:12px;
+    }
+    #chart{
+      height:72vh;
+      border:2px solid var(--accent);
+      border-radius:22px;
+      background:var(--bg);
+      overflow:hidden;
+    }
+    #wm{
+      position:absolute;
+      left:26px;
+      top:26px;
+      font-weight:900;
+      font-size:28px;
+      letter-spacing:.6px;
+      color:rgba(203,213,225,.18);
+      text-shadow:0 1px 0 rgba(0,0,0,.35);
+      pointer-events:none;
+      user-select:none;
+    }
+    #statusRow{
+      display:flex;gap:10px;flex-wrap:wrap;
+      padding:0 12px 12px;
+    }
+    .chip{
+      background:rgba(15,22,38,.8);
+      border:1px solid rgba(148,163,184,.18);
+      border-radius:999px;
+      padding:8px 10px;
+      font-size:12px;
+      color:var(--muted);
+    }
+    #dbg{
+      white-space:pre-wrap;
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:12px;
+      color:rgba(148,163,184,.95);
+      padding:10px 12px 20px;
+      opacity:.95;
+    }
+    a{color:var(--text);text-decoration:none;opacity:.85}
+    a:active{opacity:1}
+  </style>
+
+  <!-- Lightweight Charts (NOT TradingView widget) -->
+  <script src="/ui/lightweight-charts.v4.standalone.production.js"></script>
+</head>
+
+<body>
+<div class="topbar">
+    <div class="brand">EZTrader</div>
+    <div class="pill">Trade</div>
+    <div class="pill">|</div>
+    <div>Chart</div>
+
+    
+      <select id="symbol">
+        <option value="BTC-USD" selected>BTC-USD</option>
+        <option value="ETH-USD">ETH-USD</option>
+        <option value="SOL-USD">SOL-USD</option>
+        <option value="DOGE-USD">DOGE-USD</option>
+      </select>
+
+      <select id="interval">
+      <option value="1">1m</option>
+      <option value="5" selected>5m</option>
+      <option value="15">15m</option>
+      <option value="60">1h</option>
+    </select>
+
+    <button id="reload">Reload</button>
+    <button id="live">Live</button>
+
+    <div class="spacer"></div>
+    <div class="mini" id="mini">—</div>
+  </div>
+
+  <div id="chartWrap">
+    <div id="wm">EZTRADER</div>
+    <div id="chart"></div>
+  </div>
+
+  <div id="statusRow">
+    <div class="chip" id="c_bars">bars=—</div>
+    <div class="chip" id="c_last">last=—</div>
+    <div class="chip" id="c_sig">signals=—</div>
+  </div>
+
+  <div id="dbg"></div>
+<script>
+(function(){
+  const dbgEl = document.getElementById("dbg");
+  
+  // EZ_SYMBOL_DROPDOWN_WIRE_V1
+  const symbolSel = document.getElementById("symbol");
+  function getSymbol(){
+    try{
+      const u = new URL(location.href);
+      const q = (u.searchParams.get("symbol") || "").toUpperCase().trim();
+      if (q) return q;
+    }catch(e){}
+    try{
+      const ls = (localStorage.getItem("ez_symbol") || "").toUpperCase().trim();
+      if (ls) return ls;
+    }catch(e){}
+    return "BTC-USD";
+  }
+  function setSymbolUI(sym){
+    if (!symbolSel) return;
+    const want = (sym || "BTC-USD").toUpperCase().trim();
+    let found = false
+    for (const opt of symbolSel.options){
+      if ((opt.value||"").toUpperCase() === want){ symbolSel.value = opt.value; found = true; break; }
+    }
+    if (!found){ symbolSel.value = "BTC-USD"; }
+  }
+function log(m){
+    dbgEl.textContent += m + "\n";
+    
+  }
+
+  if (!window.LightweightCharts){
+    log("ERROR: LightweightCharts not loaded");
+    return;
+  }
+
+  const container = document.getElementById("chart");
+  
+    // init symbol dropdown from URL/localStorage
+    try{
+      if (symbolSel){
+        setSymbolUI(getSymbol());
+        symbolSel.addEventListener("change", () => {
+          try{ localStorage.setItem("ez_symbol", symbolSel.value); }catch(e){}
+          try{ loadOHLC(); loadSignals(); }catch(e){}
+        });
+      }
+    }catch(e){}
+const chart = LightweightCharts.createChart(container, {
+    layout: { background: { color: "#0b0f1a" }, textColor: "#cbd5e1" },
+    grid: { vertLines: { color: "#1e2433" }, horzLines: { color: "#1e2433" } },
+    rightPriceScale: { borderColor: "#334155", visible:true },
+    timeScale: { borderColor: "#334155", timeVisible:true, secondsVisible:false },
+    crosshair: { mode: 1 },
+    width: container.clientWidth,
+    height: container.clientHeight,
+  });
+
+  // Keep responsive
+  new ResizeObserver(() => {
+    try{
+      chart.applyOptions({ width: container.clientWidth, height: container.clientHeight });
+    }catch(e){}
+  }).observe(container);
+
+  const candleSeries = chart.addCandlestickSeries({
+    upColor: "#22c55e",
+    downColor: "#ef4444",
+    borderUpColor: "#22c55e",
+    borderDownColor: "#ef4444",
+    wickUpColor: "#22c55e",
+    wickDownColor: "#ef4444",
+  });
+
+  log("Chart init ✅");
+  log("Candlestick series ✅");
+    
+log("Marker API check:");
+log("typeof candleSeries.setMarkers = " + typeof candleSeries.setMarkers);
+log("typeof chart.addSeriesMarkers = " + typeof chart.addSeriesMarkers);
+
+
+  const intervalSel = document.getElementById("interval");
+  const btnReload = document.getElementById("reload");
+  const btnLive = document.getElementById("live");
+
+  const cBars = document.getElementById("c_bars");
+  const cLast = document.getElementById("c_last");
+  const cSig  = document.getElementById("c_sig");
+  const mini  = document.getElementById("mini");
+
+  function fmt(n){
+    try{
+      return (+n).toLocaleString(undefined,{maximumFractionDigits:2});
+    }catch(e){ return String(n); }
+  }
+
+  async function jget(url, timeoutMs=20000){
+    const ctl = new AbortController();
+    const t = setTimeout(()=>ctl.abort(), timeoutMs);
+    try{
+      const r = await fetch(url, {signal: ctl.signal, cache:"no-store"});
+      return await r.json();
+    } finally {
+      clearTimeout(t);
+    }
+  }
+
+  async function loadOHLC(){
+    const iv = intervalSel.value;
+    mini.textContent = "loading OHLC…";
+    const j = await jget("/ohlc?interval="+encodeURIComponent(iv)+"&symbol="+encodeURIComponent((symbolSel&&symbolSel.value)||"BTC-USD")+"&ts="+Date.now(), 25000);
+    const candles = (j && j.candles) ? j.candles : [];
+    window.__candles = candles;
+      candleSeries.setData(candles);
+    try{ chart.timeScale().fitContent(); }catch(e){}
+    cBars.textContent = "bars=" + candles.length;
+    if (candles.length){
+      cLast.textContent = "last=" + fmt(candles[candles.length-1].close);
+    }
+    mini.textContent = "bars="+candles.length+" · "+iv+"m";
+    log("OHLC loaded ✅ bars=" + candles.length);
+    return candles;
+  }
+
+  function toMarker(s){
+    const side = (s.side||"").toUpperCase();
+    const isBuy = side === "BUY";
+    
+return {
+  time: Number(s.time),
+  position: isBuy ? "belowBar" : "aboveBar",
+  color: isBuy ? "#22c55e" : "#ef4444",
+  shape: isBuy ? "arrowUp" : "arrowDown",
+  text: side + " rsi " + (s.rsi!=null ? (+s.rsi).toFixed(1) : "?")
+};
+
+  }
+
+  async function loadSignals(){
+      const iv = intervalSel.value;
+      mini.textContent = "loading signals…";
+      try{
+        const j = await jget("/signals?interval="+encodeURIComponent(iv)+"&symbol="+encodeURIComponent((symbolSel&&symbolSel.value)||"BTC-USD")+"&ts="+Date.now(), 25000);
+        const sig = (j && j.signals) ? j.signals : [];
+        const ivMin = Number(intervalSel && intervalSel.value ? intervalSel.value : 5);
+      const step = Math.max(60, Math.floor(ivMin*60)); // seconds (>=60)
+      const markers = sig.map(s0 => {
+        const side = (s0.side||"").toUpperCase();
+        const isBuy = side === "BUY";
+        const tRaw = Number(s0.time);
+        const t = Math.floor(tRaw / step) * step;
+        return {
+          time: t,
+          position: isBuy ? "belowBar" : "aboveBar",
+          color: isBuy ? "#22c55e" : "#ef4444",
+          shape: isBuy ? "arrowUp" : "arrowDown",
+          text: side
+        };
+      });
+
+        // Apply markers properly (v5)
+        if (candleSeries && typeof candleSeries.setMarkers === "function"){
+            candleSeries.setMarkers(markers);
+            log("Markers set ✅ count=" + markers.length);
+        }
+cSig.textContent = "signals=" + sig.length;
+        mini.textContent = "signals="+sig.length+" · "+iv+"m";
+        return sig;
+      }catch(e){
+        // Don't break candles; just report count as 0
+        cSig.textContent = "signals=0";
+        mini.textContent = "signals error";
+        return [];
+      }
+    }
+
+
+  async function loadAll(){
+    try{
+      await loadOHLC();
+      await loadSignals();
+      mini.textContent = "ready";
+    }catch(e){
+      mini.textContent = "error";
+      log("ERROR: " + (e && (e.message||e)));
+    }
+  }
+
+  async function liveOnce(){
+    try{
+      mini.textContent = "live…";
+      const j = await jget("/price?ts="+Date.now(), 12000);
+      if (j && j.ok){
+        cLast.textContent = "last=" + fmt(j.price);
+        mini.textContent = "live " + fmt(j.price);
+        log("Live price ✅ " + j.price);
+      } else {
+        mini.textContent = "live error";
+      }
+    }catch(e){
+      mini.textContent = "live error";
+      log("Live error: " + (e && (e.message||e)));
+    }
+  }
+
+  btnReload.addEventListener("click", loadAll);
+  intervalSel.addEventListener("change", loadAll);
+  btnLive.addEventListener("click", liveOnce);
+
+  // First load
+  loadAll();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+EZTrader Trade Executed
+
+BUY BTC-USD
+Price: $69,902.10
+Size: $150.00
+Filled Qty: 0.002146
+Time: 2026-03-11 03:15:34 AM
+
+Generated automatically by EZTrader Live Engine.

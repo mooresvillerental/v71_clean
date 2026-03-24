@@ -1,0 +1,19 @@
+{
+  "symbol": "BTC-USD",
+  "action": "HOLD",
+  "final_action": "HOLD",
+  "confidence": 11,
+  "status": "Engine Online",
+  "price": 69492.7,
+  "strategy": "RSI_MEAN_REVERSION",
+  "preferred_strategy": "RSI_MEAN_REVERSION",
+  "regime": "ADVANCED",
+  "trend": "UP",
+  "risk_level": "Monitoring",
+  "trade_eligible": false,
+  "eligibility_reason": "OK",
+  "quality_blocked": false,
+  "quality_reason": "",
+  "rsi": 57.042369180604155,
+  "suggested_trade_usd": 0
+}

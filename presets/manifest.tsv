@@ -1,0 +1,6 @@
+# name<TAB>description
+balanceddefault, battery-safe, quiet-aware (v1 baseline)
+notify_onlynotify only (no vibration, no speak)
+silentlog only (no notify, no vibrate, no speak)
+hands_freespeak only (eyes-off mode)
+watch_modeactive trading (repeat reminders on)

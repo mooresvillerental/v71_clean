@@ -1,0 +1,540 @@
+=== NOW ===
+Wed Feb 18 11:58:50 EST 2026
+
+=== PWD ===
+/data/data/com.termux/files/home/v71_clean
+
+=== PYTHON PROCESSES ===
+397 python -m http.server 18093
+21170 python bin/backtest_90d_v1.py --days 365 --data-source binanceus --rsi-buy 38 --rsi-sell 60 --trade-pct 0.12 --fee-bps 10 --slip-bps 5 --no-trend-filter --dd-cap-pct 20 --soft1-pct 8 --soft2-pct 14 --soft3-pct 18 --m1 0.70 --m2 0.45 --m3 0.25 --cooldown-bars 6 --cooldown-loss-bars 18
+23479 python -u -m app.server
+
+=== TOP-LEVEL FILES ===
+total 28720
+-rw-------.  1 u0_a549 u0_a549    16465 Feb 10 09:22  in txt or 
+-rw-------.  1 u0_a549 u0_a549    16465 Feb 10 09:22 , time
+-rw-------.  1 u0_a549 u0_a549        0 Feb 18 03:30 --cooldown-bars
+-rw-------.  1 u0_a549 u0_a549        0 Feb 18 03:30 --dd-cap-pct
+-rw-------.  1 u0_a549 u0_a549        0 Feb 16 12:22 --fee-bps
+-rw-------.  1 u0_a549 u0_a549        0 Feb 16 12:22 --m1
+-rw-------.  1 u0_a549 u0_a549        0 Feb 16 12:22 --no-trend-filter
+-rw-------.  1 u0_a549 u0_a549        0 Feb 18 03:30 --rsi-buy
+-rw-------.  1 u0_a549 u0_a549        0 Feb 16 12:22 --soft1-pct
+-rw-------.  1 u0_a549 u0_a549        0 Feb 18 03:30 --trade-pct
+-rw-------.  1 u0_a549 u0_a549        0 Feb 18 03:30 --vol-mode
+drwx------. 20 u0_a549 u0_a549    20480 Feb 18 11:58 .
+drwx------. 32 u0_a549 u0_a549    20480 Feb 18 07:54 ..
+drwx------.  2 u0_a549 u0_a549     3452 Jan 24 00:29 .alerts_state
+-rw-------.  1 u0_a549 u0_a549        6 Feb 15 04:40 .ez_server.pid
+drwx------.  7 u0_a549 u0_a549     3452 Feb 10 03:29 .git
+-rw-------.  1 u0_a549 u0_a549      243 Jan 16 02:04 .gitignore
+drwx------.  5 u0_a549 u0_a549     3452 Jan  5 03:51 .venv
+-rwx------.  1 u0_a549 u0_a549      730 Jan 24 00:55 ALERTS_LOG_ROTATE.sh
+-rwx------.  1 u0_a549 u0_a549     3336 Jan 23 15:25 ALERTS_PRESET.sh
+-rw-------.  1 u0_a549 u0_a549     1764 Jan 24 00:55 ALERTS_README.md
+-rwx------.  1 u0_a549 u0_a549      646 Jan 24 00:29 ALERTS_SET.sh
+-rwx------.  1 u0_a549 u0_a549     1535 Jan 23 11:39 ALERTS_SET.sh.bak_1769186344
+-rwx------.  1 u0_a549 u0_a549     2815 Jan 24 00:29 ALERTS_SHOW.sh
+-rwx------.  1 u0_a549 u0_a549     2635 Jan 23 11:39 ALERTS_SHOW.sh.bak_1769186344
+-rw-------.  1 u0_a549 u0_a549     5180 Jan 24 00:33 ALERTS_WIZARD.bak_unboundX_1769232819
+-rwx------.  1 u0_a549 u0_a549     6075 Jan 24 00:46 ALERTS_WIZARD.sh
+-rwx------.  1 u0_a549 u0_a549     5634 Jan 23 11:39 ALERTS_WIZARD.sh.bak_1769186344
+-rwx------.  1 u0_a549 u0_a549      409 Jan 24 00:29 ALERT_STATUS.sh
+-rwx------.  1 u0_a549 u0_a549     1849 Jan 23 11:39 ALERT_STATUS.sh.bak_1769186344
+-rwx------.  1 u0_a549 u0_a549     2816 Jan 24 01:10 APPLY_PRESET.sh
+-rwx------.  1 u0_a549 u0_a549      908 Jan 24 01:10 APPLY_PRESET.sh.bak_20260124_011007
+-rwx------.  1 u0_a549 u0_a549      465 Jan 17 13:41 DIAG_EZTRADER.sh
+-rw-------.  1 u0_a549 u0_a549 28364261 Jan 29 00:51 EZTRADER_SAVEPOINT_20260129_005152.tar.gz
+-rwx------.  1 u0_a549 u0_a549      571 Jan 24 01:10 LIST_PRESETS.sh
+-rwx------.  1 u0_a549 u0_a549      218 Jan 24 01:10 LIST_PRESETS.sh.bak_20260124_011007
+-rwx------.  1 u0_a549 u0_a549     1700 Jan 23 18:25 NORMALIZE_ALERTS_ENV.sh
+-rwx------.  1 u0_a549 u0_a549     1054 Jan 20 04:56 PRECHECK_UI.sh
+-rwx------.  1 u0_a549 u0_a549      308 Jan 24 00:52 RESET_DEFAULTS.sh
+-rwx------.  1 u0_a549 u0_a549      372 Jan 20 04:55 ROLLBACK_AND_RUN.sh
+-rwx------.  1 u0_a549 u0_a549      191 Jan 17 09:11 RUN_EZTRADER.sh
+-rwx------.  1 u0_a549 u0_a549      312 Jan 17 13:40 RUN_EZTRADER_SAFE.sh
+-rwx------.  1 u0_a549 u0_a549      420 Jan 23 18:24 SAVE_PRESET.sh
+-rwx------.  1 u0_a549 u0_a549      574 Jan 24 00:29 START_ALERTS_BG.sh
+-rwx------.  1 u0_a549 u0_a549      942 Jan 23 11:39 START_ALERTS_BG.sh.bak_1769186344
+-rwx------.  1 u0_a549 u0_a549      413 Jan 24 00:29 STOP_ALERTS_BG.sh
+-rwx------.  1 u0_a549 u0_a549      415 Jan 23 11:39 STOP_ALERTS_BG.sh.bak_1769186344
+-rw-------.  1 u0_a549 u0_a549    16465 Feb 10 09:22 Save" in txt or "btnAlertsReload" in txt or "alertsCard" in txt: score += 3
+-rw-------.  1 u0_a549 u0_a549       54 Jan  6 18:40 V70_BASELINE_LOCK.txt
+-rw-------.  1 u0_a549 u0_a549       55 Jan 17 09:07 V70_BASELINE_LOCK_20260117_090750.txt
+-rw-------.  1 u0_a549 u0_a549       36 Jan  6 04:41 V70_HOST_LOCK.txt
+-rw-------.  1 u0_a549 u0_a549     3304 Jan 21 17:55 WATCH_ALERTS.bak_curl_timeout_1769036146
+-rw-------.  1 u0_a549 u0_a549     3713 Jan 22 03:25 WATCH_ALERTS.bak_debug_always_speak_1769070350
+-rw-------.  1 u0_a549 u0_a549     3693 Jan 22 03:08 WATCH_ALERTS.bak_fix_interpreter_1769069301
+-rw-------.  1 u0_a549 u0_a549     3716 Jan 22 03:08 WATCH_ALERTS.bak_fix_jget_1769069319
+-rw-------.  1 u0_a549 u0_a549     2871 Jan 22 17:56 WATCH_ALERTS.bak_fix_jget_1769122561.sh
+-rw-------.  1 u0_a549 u0_a549     2871 Jan 22 18:00 WATCH_ALERTS.bak_fix_jget_1769122816.sh
+-rw-------.  1 u0_a549 u0_a549     6130 Jan 23 02:35 WATCH_ALERTS.bak_fix_jget_1769153709
+-rw-------.  1 u0_a549 u0_a549     2838 Jan 21 14:15 WATCH_ALERTS.bak_fix_say_1769022952
+-rw-------.  1 u0_a549 u0_a549     3809 Jan 22 03:55 WATCH_ALERTS.bak_fix_unbound_debug_1769072143
+-rw-------.  1 u0_a549 u0_a549     3822 Jan 22 03:59 WATCH_ALERTS.bak_force_debug_tick_1769072341
+-rw-------.  1 u0_a549 u0_a549     3748 Jan 22 17:34 WATCH_ALERTS.bak_harden_logging_1769121288
+-rw-------.  1 u0_a549 u0_a549     6201 Jan 23 02:44 WATCH_ALERTS.bak_keyfix_1769154254.sh
+-rw-------.  1 u0_a549 u0_a549     2670 Jan 22 17:53 WATCH_ALERTS.bak_loopfix_1769122439.sh
+-rw-------.  1 u0_a549 u0_a549     3835 Jan 22 03:27 WATCH_ALERTS.bak_repeat_key_stable_1769070422
+-rw-------.  1 u0_a549 u0_a549     3814 Jan 22 03:55 WATCH_ALERTS.bak_repeat_timer_1769072152
+-rw-------.  1 u0_a549 u0_a549     3822 Jan 22 17:32 WATCH_ALERTS.bak_repeat_while_actionable_1769121174
+-rw-------.  1 u0_a549 u0_a549     3585 Jan 21 18:18 WATCH_ALERTS.bak_shebang_pathfix_1769037521
+-rw-------.  1 u0_a549 u0_a549     2883 Jan 22 18:11 WATCH_ALERTS.bak_vibrate_notify_1769123469
+-rwx------.  1 u0_a549 u0_a549     9278 Jan 24 00:29 WATCH_ALERTS.sh
+-rwx------.  1 u0_a549 u0_a549     6191 Jan 23 11:39 WATCH_ALERTS.sh.bak_1769186344
+-rw-------.  1 u0_a549 u0_a549        0 Feb 11 12:29 _legacy_hits.txt
+drwx------.  2 u0_a549 u0_a549     3452 Jan 11 11:41 _snap_1768149710
+-rw-------.  1 u0_a549 u0_a549      240 Feb 10 03:29 alerts.env
+-rw-------.  1 u0_a549 u0_a549      405 Jan 23 11:39 alerts.env.bak_1769186344
+-rw-------.  1 u0_a549 u0_a549      660 Jan 23 15:42 alerts.env.bak_20260123_154218
+-rw-------.  1 u0_a549 u0_a549      440 Jan 25 06:17 alerts.env.bak_defaults_1769667676
+-rw-------.  1 u0_a549 u0_a549      440 Jan 29 01:21 alerts.env.bak_defaults_1769668002
+-rw-------.  1 u0_a549 u0_a549      501 Jan 23 18:25 alerts.env.bak_norm_20260123_182552
+-rw-------.  1 u0_a549 u0_a549      572 Jan 24 01:03 alerts.env.bak_norm_20260124_010324
+-rw-------.  1 u0_a549 u0_a549      574 Jan 24 01:10 alerts.env.bak_norm_20260124_011025
+-rw-------.  1 u0_a549 u0_a549      749 Jan 24 00:35 alerts.env.bak_preset_balanced_20260124_003512
+-rw-------.  1 u0_a549 u0_a549      498 Jan 24 00:52 alerts.env.bak_preset_balanced_20260124_005232
+-rw-------.  1 u0_a549 u0_a549      798 Jan 24 01:03 alerts.env.bak_preset_balanced_20260124_010322
+-rw-------.  1 u0_a549 u0_a549      808 Jan 23 18:24 alerts.env.bak_preset_notify_only_20260123_182439
+-rw-------.  1 u0_a549 u0_a549      298 Jan 23 18:25 alerts.env.bak_preset_notify_only_20260123_182552
+-rw-------.  1 u0_a549 u0_a549      462 Jan 24 01:10 alerts.env.bak_preset_notify_only_20260124_011025
+-rw-------.  1 u0_a549 u0_a549      811 Jan 23 15:54 alerts.env.bak_reset_20260123_155405
+-rw-------.  1 u0_a549 u0_a549      749 Jan 24 00:35 alerts.env.bak_reset_20260124_003512
+-rw-------.  1 u0_a549 u0_a549      498 Jan 24 00:52 alerts.env.bak_reset_20260124_005232
+-rw-------.  1 u0_a549 u0_a549      798 Jan 24 01:03 alerts.env.bak_reset_20260124_010322
+drwx------.  4 u0_a549 u0_a549    53248 Feb 15 04:38 app
+drwx------.  2 u0_a549 u0_a549    57344 Feb 18 10:29 backtests
+drwx------.  3 u0_a549 u0_a549     3452 Jan 17 20:02 backups_snapshots
+drwx------.  3 u0_a549 u0_a549    20480 Feb 18 07:54 bin
+-rw-------.  1 u0_a549 u0_a549    16465 Feb 10 03:53 commit (no pager) ==="
+-rwx------.  1 u0_a549 u0_a549     1501 Feb 18 11:58 forge_status_snapshot.sh
+-rw-------.  1 u0_a549 u0_a549      501 Feb 18 11:58 forge_status_snapshot.txt
+-rw-------.  1 u0_a549 u0_a549    16465 Feb 10 09:22 h_usd" in txt or "balCash" in txt or "Tracking Balances" in txt: score += 3
+-rw-------.  1 u0_a549 u0_a549    16465 Feb 10 03:52 how current HEAD commit (for reference) ==="
+-rw-------.  1 u0_a549 u0_a549        0 Feb 10 12:05 import
+drwx------.  2 u0_a549 u0_a549    20480 Jan 25 12:51 logs
+-rw-------.  1 u0_a549 u0_a549    16465 Feb 10 09:22 orted([(p.stat().st_mtime, p) for p in Path("ui").glob("trade.html*") if p.is_file()], reverse=True)[:15]
+drwx------.  2 u0_a549 u0_a549     3452 Jan 24 01:10 presets
+-rwx------.  1 u0_a549 u0_a549     1533 Feb 14 02:02 run
+-rwx------.  1 u0_a549 u0_a549      420 Feb 14 01:59 run.bak_20260214_020208
+-rwx------.  1 u0_a549 u0_a549      975 Jan 17 20:25 run_boring.sh
+-rwx------.  1 u0_a549 u0_a549      953 Jan 17 20:25 run_boring.sh.bak_20260117_202542
+-rwx------.  1 u0_a549 u0_a549      789 Feb 11 12:23 run_v71.sh
+-rw-------.  1 u0_a549 u0_a549      860 Feb 11 03:00 server.log
+-rw-------.  1 u0_a549 u0_a549        6 Feb 11 03:00 server.pid
+-rw-------.  1 u0_a549 u0_a549      882 Jan 27 19:02 server_restart.log
+-rwx------.  1 u0_a549 u0_a549      244 Jan 16 01:01 start_server.sh
+-rwx------.  1 u0_a549 u0_a549      613 Jan 17 18:54 status_server.sh
+-rwx------.  1 u0_a549 u0_a549      283 Jan 16 01:01 stop_server.sh
+drwx------.  2 u0_a549 u0_a549     3452 Jan  6 18:32 storage
+drwx------.  2 u0_a549 u0_a549     3452 Feb 17 03:17 tools
+-rw-------.  1 u0_a549 u0_a549    16465 Feb 10 09:22 ts():
+drwx------.  2 u0_a549 u0_a549    57344 Feb 15 05:42 ui
+drwx------.  2 u0_a549 u0_a549    57344 Feb 14 13:19 ui_GOLD_XRP_20260214_131959
+drwx------.  2 u0_a549 u0_a549    57344 Feb 14 09:22 ui_GOLD_dropdowns_before
+drwx------.  2 u0_a549 u0_a549    57344 Feb 14 11:51 ui_GOLD_symbol_dropdown_v1
+drwx------.  2 u0_a549 u0_a549    57344 Feb 14 02:45 ui_GOLD_v1
+drwx------.  2 u0_a549 u0_a549     3452 Jan 18 04:34 v69_app_data
+-rwx------.  1 u0_a549 u0_a549      543 Jan 17 18:56 watch_server.sh
+
+=== BIN FILES ===
+total 1388
+drwx------.  3 u0_a549 u0_a549 20480 Feb 18 07:54 .
+drwx------. 20 u0_a549 u0_a549 20480 Feb 18 11:58 ..
+drwx------.  2 u0_a549 u0_a549  3452 Feb 18 08:02 __pycache__
+-rw-------.  1 u0_a549 u0_a549  3722 Feb 14 18:09 a2_fix_force_opps_fields.py
+-rw-------.  1 u0_a549 u0_a549  9559 Feb 15 07:50 backtest_90d_v1.BEFORE_TURNCONF_20260215_075020.py
+-rw-------.  1 u0_a549 u0_a549 23076 Feb 18 08:02 backtest_90d_v1.py
+-rw-------.  1 u0_a549 u0_a549 23076 Feb 18 07:54 backtest_90d_v1.py.BAK_ATR_20260218_075421
+-rw-------.  1 u0_a549 u0_a549 19782 Feb 18 03:29 backtest_90d_v1.py.BAK_VOL_20260218_032935
+-rw-------.  1 u0_a549 u0_a549 18515 Feb 17 02:37 backtest_90d_v1.py.BROKEN.20260217_023728
+-rw-------.  1 u0_a549 u0_a549 24173 Feb 17 11:33 backtest_90d_v1.py.BROKEN.20260217_113332
+-rw-------.  1 u0_a549 u0_a549 10583 Feb 15 10:54 backtest_90d_v1.py.BROKEN_1771170888
+-rw-------.  1 u0_a549 u0_a549 19782 Feb 18 04:00 backtest_90d_v1.py.FIX_VOL_ERR_20260218_040037
+-rw-------.  1 u0_a549 u0_a549 19885 Feb 17 14:49 backtest_90d_v1.py.PRE_COOLDOWN_BACKUP
+-rw-------.  1 u0_a549 u0_a549 17200 Feb 17 14:50 backtest_90d_v1.py.PRE_COOLDOWN_BACKUP.20260217_145028
+-rw-------.  1 u0_a549 u0_a549 19782 Feb 18 04:09 backtest_90d_v1.py.PRE_VOL_PATCH_20260218_040947
+-rw-------.  1 u0_a549 u0_a549  9559 Feb 15 06:55 backtest_90d_v1.py.bak_1771156538
+-rw-------.  1 u0_a549 u0_a549  9559 Feb 15 06:59 backtest_90d_v1.py.bak_1771156768
+-rw-------.  1 u0_a549 u0_a549 13213 Feb 15 07:00 backtest_90d_v1.py.bak_1771156852
+-rw-------.  1 u0_a549 u0_a549 13284 Feb 15 07:08 backtest_90d_v1.py.bak_1771157306
+-rw-------.  1 u0_a549 u0_a549 13614 Feb 15 07:10 backtest_90d_v1.py.bak_1771157402
+-rw-------.  1 u0_a549 u0_a549 14046 Feb 15 07:11 backtest_90d_v1.py.bak_1771157491
+-rw-------.  1 u0_a549 u0_a549  9559 Feb 15 07:31 backtest_90d_v1.py.bak_1771158675
+-rw-------.  1 u0_a549 u0_a549  9559 Feb 15 07:50 backtest_90d_v1.py.bak_1771159820
+-rw-------.  1 u0_a549 u0_a549  9559 Feb 15 08:17 backtest_90d_v1.py.bak_1771161439
+-rw-------.  1 u0_a549 u0_a549 13609 Feb 16 18:23 backtest_90d_v1.py.bak_addDaysArg_1771284234
+-rw-------.  1 u0_a549 u0_a549 13692 Feb 16 18:28 backtest_90d_v1.py.bak_bannerDays_1771284485
+-rw-------.  1 u0_a549 u0_a549 10022 Feb 16 05:00 backtest_90d_v1.py.bak_buildsignals_1771236012
+-rw-------.  1 u0_a549 u0_a549  9559 Feb 15 10:56 backtest_90d_v1.py.bak_clihelp_1771170988
+-rw-------.  1 u0_a549 u0_a549 13818 Feb 17 00:43 backtest_90d_v1.py.bak_daysDebug_1771306989
+-rw-------.  1 u0_a549 u0_a549 13692 Feb 16 18:25 backtest_90d_v1.py.bak_daysProper_1771284321
+-rw-------.  1 u0_a549 u0_a549  9652 Feb 16 03:58 backtest_90d_v1.py.bak_emaTrendOK_1771232322
+-rw-------.  1 u0_a549 u0_a549  9652 Feb 16 03:21 backtest_90d_v1.py.bak_ematrend_1771230071
+-rw-------.  1 u0_a549 u0_a549 13430 Feb 16 16:41 backtest_90d_v1.py.bak_feeSlipExec_1771278076
+-rw-------.  1 u0_a549 u0_a549 13430 Feb 16 16:42 backtest_90d_v1.py.bak_feeSlipExec_SAFE_1771278160
+-rw-------.  1 u0_a549 u0_a549 15714 Feb 17 00:51 backtest_90d_v1.py.bak_fetchPagerPlus1_1771307512
+-rw-------.  1 u0_a549 u0_a549 13697 Feb 17 00:33 backtest_90d_v1.py.bak_fixBannerAny_1771306436
+-rw-------.  1 u0_a549 u0_a549 13697 Feb 17 00:33 backtest_90d_v1.py.bak_fixBannerDays_1771306395
+-rw-------.  1 u0_a549 u0_a549 13697 Feb 17 00:35 backtest_90d_v1.py.bak_fixBannerLocked_1771306517
+-rw-------.  1 u0_a549 u0_a549 13697 Feb 16 18:24 backtest_90d_v1.py.bak_fixDaysScope_1771284284
+-rw-------.  1 u0_a549 u0_a549 13697 Feb 17 00:31 backtest_90d_v1.py.bak_fixDaysVar_1771306315
+-rw-------.  1 u0_a549 u0_a549 15450 Feb 17 00:54 backtest_90d_v1.py.bak_fixKrakenLast_1771307666
+-rw-------.  1 u0_a549 u0_a549 13208 Feb 16 14:08 backtest_90d_v1.py.bak_fixRiskTupleRegex_1771268895
+-rw-------.  1 u0_a549 u0_a549 13208 Feb 16 14:06 backtest_90d_v1.py.bak_fixRiskTuple_1771268802
+-rw-------.  1 u0_a549 u0_a549  9559 Feb 15 10:51 backtest_90d_v1.py.bak_fixargs_1771170706
+-rw-------.  1 u0_a549 u0_a549 10583 Feb 15 10:53 backtest_90d_v1.py.bak_fixindent_1771170804
+-rw-------.  1 u0_a549 u0_a549  9652 Feb 16 04:57 backtest_90d_v1.py.bak_fixwire_1771235868
+-rw-------.  1 u0_a549 u0_a549 16341 Feb 17 01:12 backtest_90d_v1.py.bak_forceDaily_1771308733
+-rw-------.  1 u0_a549 u0_a549 16756 Feb 17 01:13 backtest_90d_v1.py.bak_forceSelectedInterval_1771308819
+-rw-------.  1 u0_a549 u0_a549 12639 Feb 16 12:17 backtest_90d_v1.py.bak_helpEscAll_1771262239
+-rw-------.  1 u0_a549 u0_a549 12632 Feb 16 12:16 backtest_90d_v1.py.bak_helpPctFix_1771262181
+-rw-------.  1 u0_a549 u0_a549 15998 Feb 17 01:04 backtest_90d_v1.py.bak_intervalFix_1771308274
+-rw-------.  1 u0_a549 u0_a549 13938 Feb 17 00:49 backtest_90d_v1.py.bak_krakenPaging2_1771307372
+-rw-------.  1 u0_a549 u0_a549 13938 Feb 17 00:48 backtest_90d_v1.py.bak_krakenPaging_1771307288
+-rw-------.  1 u0_a549 u0_a549 16761 Feb 17 01:17 backtest_90d_v1.py.bak_netRetry2_1771309056
+-rw-------.  1 u0_a549 u0_a549 16761 Feb 17 01:16 backtest_90d_v1.py.bak_netRetry_1771309009
+-rw-------.  1 u0_a549 u0_a549 15576 Feb 17 00:58 backtest_90d_v1.py.bak_pagerDebugFix_1771307891
+-rw-------.  1 u0_a549 u0_a549 15576 Feb 17 00:59 backtest_90d_v1.py.bak_pagerFix2_1771307974
+-rw-------.  1 u0_a549 u0_a549 15541 Feb 17 00:56 backtest_90d_v1.py.bak_replaceFetchOHLC_1771307760
+-rw-------.  1 u0_a549 u0_a549 13208 Feb 16 14:02 backtest_90d_v1.py.bak_riskSigFix_1771268572
+-rw-------.  1 u0_a549 u0_a549 11198 Feb 16 12:15 backtest_90d_v1.py.bak_riskcfgFIX_1771262126
+-rw-------.  1 u0_a549 u0_a549 11198 Feb 16 12:13 backtest_90d_v1.py.bak_riskcfg_1771262020
+-rw-------.  1 u0_a549 u0_a549 13205 Feb 16 13:51 backtest_90d_v1.py.bak_shouldhalt3_1771267861
+-rw-------.  1 u0_a549 u0_a549 13214 Feb 16 13:55 backtest_90d_v1.py.bak_shouldhaltFix_1771268113
+-rw-------.  1 u0_a549 u0_a549 13214 Feb 16 13:58 backtest_90d_v1.py.bak_shouldhaltFix_1771268316
+-rw-------.  1 u0_a549 u0_a549 13371 Feb 16 16:01 backtest_90d_v1.py.bak_tradepctFix_1771275710
+-rw-------.  1 u0_a549 u0_a549 13248 Feb 16 15:58 backtest_90d_v1.py.bak_tradepct_1771275521
+-rw-------.  1 u0_a549 u0_a549  9652 Feb 16 02:57 backtest_90d_v1.py.bak_trend_1771228677
+-rw-------.  1 u0_a549 u0_a549  9652 Feb 16 03:27 backtest_90d_v1.py.bak_trendargs_1771230473
+-rw-------.  1 u0_a549 u0_a549  9652 Feb 16 04:55 backtest_90d_v1.py.bak_trendfilter_1771235754
+-rw-------.  1 u0_a549 u0_a549  9559 Feb 15 07:40 backtest_90d_v1.py.bak_turn_1771159248
+-rw-------.  1 u0_a549 u0_a549 13697 Feb 17 00:37 backtest_90d_v1.py.bak_wireDays_1771306647
+-rw-------.  1 u0_a549 u0_a549 12642 Feb 16 13:21 backtest_90d_v1.py.bak_wireRisk2_1771266115
+-rw-------.  1 u0_a549 u0_a549 12642 Feb 16 13:13 backtest_90d_v1.py.bak_wireRisk_1771265583
+-rw-------.  1 u0_a549 u0_a549   559 Feb 14 18:24 clean_broken_reco.py
+-rw-------.  1 u0_a549 u0_a549  2064 Feb 17 11:10 data_binanceus_v1.py
+-rwx------.  1 u0_a549 u0_a549   188 Feb 14 02:50 ez_openchart
+-rw-------.  1 u0_a549 u0_a549  2105 Feb 15 04:46 ez_speak_top_opportunity.BAK_20260215_044601.py
+-rw-------.  1 u0_a549 u0_a549  3440 Feb 15 04:48 ez_speak_top_opportunity.BAK_20260215_044845.py
+-rw-------.  1 u0_a549 u0_a549  3774 Feb 15 04:50 ez_speak_top_opportunity.BAK_autoscroll_20260215_045051.py
+-rw-------.  1 u0_a549 u0_a549  3975 Feb 15 04:52 ez_speak_top_opportunity.BROKEN_20260215_045234.py
+-rw-------.  1 u0_a549 u0_a549  3974 Feb 15 04:52 ez_speak_top_opportunity.py
+-rw-------.  1 u0_a549 u0_a549  2020 Feb 15 02:10 ez_speak_top_opportunity.py.bak_20260215_021033
+-rw-------.  1 u0_a549 u0_a549  2400 Feb 15 02:12 ez_speak_top_opportunity.py.bak_20260215_021229
+-rwx------.  1 u0_a549 u0_a549  1393 Feb 14 02:50 ez_start
+-rwx------.  1 u0_a549 u0_a549   235 Feb 14 02:50 ez_status
+-rwx------.  1 u0_a549 u0_a549   593 Feb 14 02:50 ez_stop
+-rw-------.  1 u0_a549 u0_a549  1573 Feb 15 01:53 fix_app_state_path_unbound_v1.py
+-rw-------.  1 u0_a549 u0_a549  1185 Feb 15 06:02 fix_backtest_args_nameerror_v1.py
+-rw-------.  1 u0_a549 u0_a549  7081 Feb 14 13:07 fix_opportunities_indent_v1.py
+-rwx------.  1 u0_a549 u0_a549  4994 Feb 15 10:27 make_equity_trade_html_plotly_v1.py
+-rwx------.  1 u0_a549 u0_a549  6523 Feb 15 07:27 make_equity_trade_html_v1.py
+-rw-------.  1 u0_a549 u0_a549  6168 Feb 15 07:27 make_equity_trade_html_v1.py.bak_1771158431
+-rwx------.  1 u0_a549 u0_a549  2964 Feb 15 07:50 patch_backtest_confirm_turn_v1.py
+-rw-------.  1 u0_a549 u0_a549   990 Feb 15 06:02 patch_backtest_define_rsi_args_v1.py
+-rw-------.  1 u0_a549 u0_a549  2811 Feb 15 06:05 patch_backtest_fees_v1.py
+-rw-------.  1 u0_a549 u0_a549  1354 Feb 15 06:00 patch_backtest_rsi_flags_v1.py
+-rw-------.  1 u0_a549 u0_a549  4145 Feb 14 13:22 patch_balances_route_v1.py
+-rw-------.  1 u0_a549 u0_a549  4527 Feb 14 11:46 patch_chart_symbol_dropdown_v1.py
+-rw-------.  1 u0_a549 u0_a549  7107 Feb 14 13:10 patch_opportunities_dedupe_v1.py
+-rw-------.  1 u0_a549 u0_a549  6007 Feb 14 18:07 patch_opportunities_sizing_A2.py
+-rw-------.  1 u0_a549 u0_a549  7685 Feb 14 11:59 patch_opportunities_v1.py
+-rw-------.  1 u0_a549 u0_a549  3962 Feb 15 04:40 patch_opps_ai_conf_v1.py
+-rw-------.  1 u0_a549 u0_a549  6145 Feb 15 03:26 patch_opps_confirm_ui_v1.py
+-rw-------.  1 u0_a549 u0_a549  1931 Feb 15 01:18 patch_opps_pairs_v1.py
+-rw-------.  1 u0_a549 u0_a549  2888 Feb 14 18:16 patch_opps_reco_v1.py
+-rw-------.  1 u0_a549 u0_a549  3579 Feb 14 18:18 patch_opps_reco_v2.py
+-rw-------.  1 u0_a549 u0_a549  3423 Feb 15 01:56 patch_opps_reco_v3.py
+-rw-------.  1 u0_a549 u0_a549  2738 Feb 15 01:19 patch_opps_skipped_v1.py
+-rw-------.  1 u0_a549 u0_a549  3474 Feb 14 14:05 patch_position_intel_A1.py
+-rw-------.  1 u0_a549 u0_a549  4812 Feb 14 03:21 patch_symbol_v2.py
+-rw-------.  1 u0_a549 u0_a549  5074 Feb 14 03:48 patch_symbol_v2_regex.py
+-rw-------.  1 u0_a549 u0_a549  1357 Feb 15 02:04 patch_tts_phrase_v1.py
+-rw-------.  1 u0_a549 u0_a549  1734 Feb 15 02:10 patch_tts_phrase_v2.py
+-rw-------.  1 u0_a549 u0_a549  1404 Feb 15 02:12 patch_tts_phrase_v3.py
+-rwx------.  1 u0_a549 u0_a549  5768 Feb 15 05:38 plot_backtest_90d_html_v1.py
+-rwx------.  1 u0_a549 u0_a549  5783 Feb 15 05:21 plot_backtest_90d_v1.py
+-rwx------.  1 u0_a549 u0_a549  4854 Feb 15 05:29 plot_backtest_90d_v2.py
+-rwx------.  1 u0_a549 u0_a549  7073 Feb 17 02:25 regime_engine_v1.py
+-rw-------.  1 u0_a549 u0_a549  9405 Feb 14 18:11 rewrite_opportunities_v2.py
+-rw-------.  1 u0_a549 u0_a549  1620 Feb 16 12:13 risk_engine_v1.py
+-rwx------.  1 u0_a549 u0_a549   817 Feb 16 02:58 run_dual_backtest_v1.sh
+
+=== CANDIDATE ENTRYPOINTS (top 30) ===
+./app/main.py
+./app/state_reader.py
+./app/watch_signals.py
+./app/__init__.py
+./app/server.py
+./app/server.v70_LOCKED.py
+./app/server_v70_mode.py
+./app/server.V70_BASELINE_LOCKED.py
+./app/server.bak_staticfix_20260113_120545.py
+./app/server.bak_staticfix_20260113_120604.py
+./app/pnl.py
+./app/status.py
+./app/server.BROKEN_20260215_004610.py
+./app/server.PRE_AB_SIGNALS_20260215_013643.py
+./app/server.PRE_FIX_APPSTATEPATH_20260215_015136.py
+./app/paths.py
+./app/server.PRE_AB_20260215_013403.py
+./app/server.bak_add_signals_1770926976.py
+./app/alerts_engine.py
+./app/server.SNAP_fix_APP_STATE_PATH_20260215_015352.py
+./app/ai_advisor.py
+./app/server.GOLD_XRP_20260214_131959.py
+./app/server.SNAP_opps_reco_20260215_015614.py
+./_snap_1768149710/server.py
+./tools/patch_ui_confirm_v2.py
+./tools/patch_regime_into_backtest_v1.py
+./tools/fix_regime_guard_indent.py
+./tools/patch_regime_wiring_v1_exact.py
+./tools/patch_regime_wiring_safe_v1.py
+./tools/fix_bin_imports_for_regime.py
+
+=== FEATURE SCAN (matches) ===
+./app/watch_signals.py:9:    os.system(f'termux-tts-speak "{text}"')
+./app/watch_signals.py:18:    while True:
+./app/server.py:19:        "poll_sec": 10,
+./app/server.py:57:    if "poll_sec" in payload:
+./app/server.py:58:        try: cur["poll_sec"] = max(2, int(payload["poll_sec"]))
+./app/server.py:278:    neg = ["crash","dump","loss","losses","down","bear","bearish","hack","lawsuit","ban","rejected","rejection","collapse","plunge","negative","sell"]
+./app/server.py:517:    #   - FIRE only when RSI turns back AND price confirms (green/red momentum)
+./app/server.py:809:                "poll_mode",
+./app/server.py:810:                "poll_signal_sec", "poll_reco_sec", "poll_intel_sec", "poll_health_sec",
+./app/server.py:875:    # manual balances (tracking only)
+./app/server.py:893:    # manual position tracking (not connected to broker)
+./app/server.py:985:    # position fields (manual tracking)
+./app/server.py:1146:            # After CONFIRM, sync manual tracking balances to match engine/app_state so UI stays coherent.
+./app/server.py:1150:                _app_state_path = _home / "v69_app_data" / "app_state.json"
+./app/server.py:1172:                # Pull cash + holdings from app_state.json
+./app/server.py:1184:                # Write into v70 settings (manual tracking snapshot)
+./app/server.py:1333:            # Flexible fallbacks for other legacy keys
+./app/server.py:1340:            # Compute fallback if not provided:
+./app/server.py:1373:            # --- MANUAL BALANCES OVERRIDE (tracking only) ---
+./app/server.py:1452:            # --- battery / polling settings (UI polling cadence; beginner-friendly presets) ---
+./app/server.py:1453:            if isinstance(s, dict) and "poll_mode" not in s:
+./app/server.py:1454:                s["poll_mode"] = "balanced"   # balanced | saver | fast
+./app/server.py:1455:            if isinstance(s, dict) and "poll_signal_sec" not in s:
+./app/server.py:1456:                s["poll_signal_sec"] = 5
+./app/server.py:1457:            if isinstance(s, dict) and "poll_reco_sec" not in s:
+./app/server.py:1458:                s["poll_reco_sec"] = 10
+./app/server.py:1459:            if isinstance(s, dict) and "poll_intel_sec" not in s:
+./app/server.py:1460:                s["poll_intel_sec"] = 30
+./app/server.py:1461:            if isinstance(s, dict) and "poll_health_sec" not in s:
+./app/server.py:1462:                s["poll_health_sec"] = 15
+./app/server.py:1464:                s["bg_multiplier"] = 4   # when screen hidden, multiply polling intervals
+./app/server.py:1467:            # --- end battery / polling settings ---
+./app/server.py:1493:            # Watchlist from settings (fallback to DEFAULT_PORTFOLIO_SYMBOLS if present)
+./app/server.py:1864:            cfg["POLL_SEC"]   = i(body.get("poll_sec"),   cfg.get("POLL_SEC", 10))
+./app/server.py:1973:            _app_path = _Path.home() / 'v69_app_data' / 'app_state.json'
+./app/server_v70_mode.py:164:        # fallback
+./app/server.py.bak_market_20260108_023200:71:        return _LAST_PRICE  # fall back to last known, may be None
+./app/server.py.bak_marketprice_20260108_024644:71:        # fall back to last known
+./app/server.py.bak_market_fallback_20260108_025136:50:    Returns float or None (falls back to cached value if available)
+./app/server.py.bak_authoritative_market_20260108_030154:49:    Try Coinbase first, then Binance fallback.
+./app/server.py.bak_authoritative_market_20260108_030154:71:    # --- Binance fallback ---
+./app/server.py.bak_curl_market_20260108_030406:49:    Coinbase -> Binance fallback.
+./app/server.py.bak_curl_market_20260108_030406:71:    # Binance fallback (BTCUSDT is close enough for monitoring)
+./app/server.py.bak_forcecurl_20260108_030658:51:    Coinbase -> Binance fallback.
+./app/server.py.bak_forcecurl_20260108_030658:104:    # Binance fallback (BTCUSDT is close enough for monitoring)
+./app/server.py.bak_signal_market_20260108_030840:52:    Coinbase -> Binance fallback.
+./app/server.py.bak_signal_market_20260108_030840:79:    # Binance fallback
+./app/server.py.bak_signal_market_20260108_030840:137:    # Binance fallback (BTCUSDT is close enough for monitoring)
+./app/server.py.bak_market_debug_20260108_031044:52:    Coinbase -> Binance fallback.
+./app/server.py.bak_market_debug_20260108_031044:79:    # Binance fallback
+./app/server.py.bak_market_debug_20260108_031044:137:    # Binance fallback (BTCUSDT is close enough for monitoring)
+./app/server.py.bak_market_20260108_034106:53:    Coinbase -> Binance fallback.
+./app/server.py.bak_market_20260108_034106:80:    # Binance fallback
+./app/server.py.bak_market_20260108_034106:138:    # Binance fallback (BTCUSDT is close enough for monitoring)
+./app/server.py.bak_age_20260108_141721:74:    # Binance fallback
+./app/server.py.bak_confirm_guard_20260108_142328:87:    # Binance fallback
+./app/server.py.bak_ageguard_20260108_181447:78:    # Binance fallback (BTCUSDT ~ BTCUSD)
+./app/server.py.bak_kraken_20260108_182535:79:    Coinbase -> Binance fallback, cached.
+./app/server.py.bak_kraken_20260108_182535:99:    # Binance fallback
+./app/server.py.bak_balances_20260111_095545:173:            timing_suggested = None
+./app/server.py.bak_balances_20260111_095545:181:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_balances_20260111_095545:183:                    timing_suggested = None
+./app/server.py.bak_balances_20260111_095545:197:                "timing_suggested": timing_suggested,
+./app/server.py.bak_before_fix_20260111_095928:149:                # normalize back into state
+./app/server.py.bak_before_fix_20260111_095928:298:            timing_suggested = None
+./app/server.py.bak_before_fix_20260111_095928:306:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_before_fix_20260111_095928:308:                    timing_suggested = None
+./app/server.py.bak_before_fix_20260111_095928:322:                "timing_suggested": timing_suggested,
+./app/server.py.bak_reset_routes_20260111_101349:173:            timing_suggested = None
+./app/server.py.bak_reset_routes_20260111_101349:181:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_reset_routes_20260111_101349:183:                    timing_suggested = None
+./app/server.py.bak_reset_routes_20260111_101349:197:                "timing_suggested": timing_suggested,
+./app/server.py.bak_routes_1768149396:299:            timing_suggested = None
+./app/server.py.bak_routes_1768149396:307:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_routes_1768149396:309:                    timing_suggested = None
+./app/server.py.bak_routes_1768149396:323:                "timing_suggested": timing_suggested,
+./app/server.py.bak_data_foundation_20260111_105751:173:            timing_suggested = None
+./app/server.py.bak_data_foundation_20260111_105751:181:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_data_foundation_20260111_105751:183:                    timing_suggested = None
+./app/server.py.bak_data_foundation_20260111_105751:197:                "timing_suggested": timing_suggested,
+./app/server.py.bak_history_routes_20260111_111616:173:            timing_suggested = None
+./app/server.py.bak_history_routes_20260111_111616:181:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_history_routes_20260111_111616:183:                    timing_suggested = None
+./app/server.py.bak_history_routes_20260111_111616:197:                "timing_suggested": timing_suggested,
+./app/server.py.bak_histapi_20260111_112359:198:            timing_suggested = None
+./app/server.py.bak_histapi_20260111_112359:206:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_histapi_20260111_112359:208:                    timing_suggested = None
+./app/server.py.bak_histapi_20260111_112359:222:                "timing_suggested": timing_suggested,
+./app/server.py.bak_eztrade_full_20260111_113001:198:            timing_suggested = None
+./app/server.py.bak_eztrade_full_20260111_113001:206:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_eztrade_full_20260111_113001:208:                    timing_suggested = None
+./app/server.py.bak_eztrade_full_20260111_113001:222:                "timing_suggested": timing_suggested,
+./app/server.py.bak_reset_1768162959:299:            timing_suggested = None
+./app/server.py.bak_reset_1768162959:307:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_reset_1768162959:309:                    timing_suggested = None
+./app/server.py.bak_reset_1768162959:323:                "timing_suggested": timing_suggested,
+./app/server.py.bak_confirm_20260111_152716:299:            timing_suggested = None
+./app/server.py.bak_confirm_20260111_152716:307:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_confirm_20260111_152716:309:                    timing_suggested = None
+./app/server.py.bak_confirm_20260111_152716:323:                "timing_suggested": timing_suggested,
+./app/server.py.bak_ez_loadstate_compat_v1_20260111_153139:312:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_ez_loadstate_compat_v1_20260111_153139:384:            timing_suggested = None
+./app/server.py.bak_ez_loadstate_compat_v1_20260111_153139:392:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_ez_loadstate_compat_v1_20260111_153139:394:                    timing_suggested = None
+./app/server.py.bak_ez_loadstate_compat_v1_20260111_153139:408:                "timing_suggested": timing_suggested,
+./app/server.py.bak_statefix_20260111_153455:312:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_statefix_20260111_153455:384:            timing_suggested = None
+./app/server.py.bak_statefix_20260111_153455:392:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_statefix_20260111_153455:394:                    timing_suggested = None
+./app/server.py.bak_statefix_20260111_153455:408:                "timing_suggested": timing_suggested,
+./app/server.py.bak_api_20260111_153741:312:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_api_20260111_153741:384:            timing_suggested = None
+./app/server.py.bak_api_20260111_153741:392:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_api_20260111_153741:394:                    timing_suggested = None
+./app/server.py.bak_api_20260111_153741:408:                "timing_suggested": timing_suggested,
+./app/server.py.bak_loadstatefix_20260111_154359:425:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_loadstatefix_20260111_154359:514:            timing_suggested = None
+./app/server.py.bak_loadstatefix_20260111_154359:522:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_loadstatefix_20260111_154359:524:                    timing_suggested = None
+./app/server.py.bak_loadstatefix_20260111_154359:538:                "timing_suggested": timing_suggested,
+./app/server.py.bak_confirmreply_20260111_154535:425:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_confirmreply_20260111_154535:514:            timing_suggested = None
+./app/server.py.bak_confirmreply_20260111_154535:522:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_confirmreply_20260111_154535:524:                    timing_suggested = None
+./app/server.py.bak_confirmreply_20260111_154535:538:                "timing_suggested": timing_suggested,
+./app/server.py.bak_confirm_hardreset_20260112_030758:425:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_confirm_hardreset_20260112_030758:514:            timing_suggested = None
+./app/server.py.bak_confirm_hardreset_20260112_030758:522:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_confirm_hardreset_20260112_030758:524:                    timing_suggested = None
+./app/server.py.bak_confirm_hardreset_20260112_030758:538:                "timing_suggested": timing_suggested,
+./app/server.py.bak_autobal_20260112_035008:418:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_autobal_20260112_035008:507:            timing_suggested = None
+./app/server.py.bak_autobal_20260112_035008:515:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_autobal_20260112_035008:517:                    timing_suggested = None
+./app/server.py.bak_autobal_20260112_035008:531:                "timing_suggested": timing_suggested,
+./app/server.py.bak_balmath_20260112_091520:86:    # store back
+./app/server.py.bak_balmath_20260112_091520:477:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_balmath_20260112_091520:566:            timing_suggested = None
+./app/server.py.bak_balmath_20260112_091520:574:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_balmath_20260112_091520:576:                    timing_suggested = None
+./app/server.py.bak_balmath_20260112_091520:590:                "timing_suggested": timing_suggested,
+./app/server.py.bak_fix_syntax_20260112_092327:458:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_fix_syntax_20260112_092327:547:            timing_suggested = None
+./app/server.py.bak_fix_syntax_20260112_092327:555:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_fix_syntax_20260112_092327:557:                    timing_suggested = None
+./app/server.py.bak_fix_syntax_20260112_092327:571:                "timing_suggested": timing_suggested,
+./app/server.py.bak_unpackfix_20260112_092717:458:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_unpackfix_20260112_092717:547:            timing_suggested = None
+./app/server.py.bak_unpackfix_20260112_092717:555:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_unpackfix_20260112_092717:557:                    timing_suggested = None
+./app/server.py.bak_unpackfix_20260112_092717:571:                "timing_suggested": timing_suggested,
+./app/server.bak_confirmlock_20260112_163940:459:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.bak_confirmlock_20260112_163940:548:            timing_suggested = None
+./app/server.bak_confirmlock_20260112_163940:556:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.bak_confirmlock_20260112_163940:558:                    timing_suggested = None
+./app/server.bak_confirmlock_20260112_163940:572:                "timing_suggested": timing_suggested,
+./app/server.py.bak_lockfix_20260112_164506:481:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_lockfix_20260112_164506:570:            timing_suggested = None
+./app/server.py.bak_lockfix_20260112_164506:578:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_lockfix_20260112_164506:580:                    timing_suggested = None
+./app/server.py.bak_lockfix_20260112_164506:594:                "timing_suggested": timing_suggested,
+./app/server.py.bak_lastconfirm_20260112_185341:478:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_lastconfirm_20260112_185341:567:            timing_suggested = None
+./app/server.py.bak_lastconfirm_20260112_185341:575:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_lastconfirm_20260112_185341:577:                    timing_suggested = None
+./app/server.py.bak_lastconfirm_20260112_185341:591:                "timing_suggested": timing_suggested,
+./app/server.py.bak_fix_time_and_parse_20260112_185753:486:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_fix_time_and_parse_20260112_185753:589:            timing_suggested = None
+./app/server.py.bak_fix_time_and_parse_20260112_185753:597:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_fix_time_and_parse_20260112_185753:599:                    timing_suggested = None
+./app/server.py.bak_fix_time_and_parse_20260112_185753:613:                "timing_suggested": timing_suggested,
+./app/server.bak_staticfix_20260113_120545.py:499:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.bak_staticfix_20260113_120545.py:602:            timing_suggested = None
+./app/server.bak_staticfix_20260113_120545.py:610:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.bak_staticfix_20260113_120545.py:612:                    timing_suggested = None
+./app/server.bak_staticfix_20260113_120545.py:626:                "timing_suggested": timing_suggested,
+./app/server.bak_staticfix_20260113_120604.py:519:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.bak_staticfix_20260113_120604.py:626:            timing_suggested = None
+./app/server.bak_staticfix_20260113_120604.py:634:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.bak_staticfix_20260113_120604.py:636:                    timing_suggested = None
+./app/server.bak_staticfix_20260113_120604.py:650:                "timing_suggested": timing_suggested,
+./app/server.py.bak_staticui_20260113_121126:519:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_staticui_20260113_121126:626:            timing_suggested = None
+./app/server.py.bak_staticui_20260113_121126:634:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_staticui_20260113_121126:636:                    timing_suggested = None
+./app/server.py.bak_staticui_20260113_121126:650:                "timing_suggested": timing_suggested,
+./app/server.py.bak_force_static_20260113_121353:519:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_force_static_20260113_121353:626:            timing_suggested = None
+./app/server.py.bak_force_static_20260113_121353:634:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_force_static_20260113_121353:636:                    timing_suggested = None
+./app/server.py.bak_force_static_20260113_121353:650:                "timing_suggested": timing_suggested,
+./app/server.py.bak_pendingtrade_20260113_185550:519:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_pendingtrade_20260113_185550:656:            timing_suggested = None
+./app/server.py.bak_pendingtrade_20260113_185550:664:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_pendingtrade_20260113_185550:666:                    timing_suggested = None
+./app/server.py.bak_pendingtrade_20260113_185550:680:                "timing_suggested": timing_suggested,
+./app/server.py.bak_disable_legacy_confirm_20260114_011329:519:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_disable_legacy_confirm_20260114_011329:656:            timing_suggested = None
+./app/server.py.bak_disable_legacy_confirm_20260114_011329:664:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_disable_legacy_confirm_20260114_011329:666:                    timing_suggested = None
+./app/server.py.bak_disable_legacy_confirm_20260114_011329:680:                "timing_suggested": timing_suggested,
+./app/server.py.bak_hardreplace_confirm_20260114_011629:519:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_hardreplace_confirm_20260114_011629:656:            timing_suggested = None
+./app/server.py.bak_hardreplace_confirm_20260114_011629:664:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_hardreplace_confirm_20260114_011629:666:                    timing_suggested = None
+./app/server.py.bak_hardreplace_confirm_20260114_011629:680:                "timing_suggested": timing_suggested,
+./app/server.py.bak_pendingtrade_safe_20260114_012059:519:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_pendingtrade_safe_20260114_012059:656:            timing_suggested = None
+./app/server.py.bak_pendingtrade_safe_20260114_012059:664:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_pendingtrade_safe_20260114_012059:666:                    timing_suggested = None
+./app/server.py.bak_pendingtrade_safe_20260114_012059:680:                "timing_suggested": timing_suggested,
+./app/server.py.bak_demo_signal_20260114_012258:575:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_demo_signal_20260114_012258:712:            timing_suggested = None
+./app/server.py.bak_demo_signal_20260114_012258:720:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_demo_signal_20260114_012258:722:                    timing_suggested = None
+./app/server.py.bak_demo_signal_20260114_012258:767:                "timing_suggested": timing_suggested,
+./app/server.py.bak_fix_urlparse_20260114_012515:575:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_fix_urlparse_20260114_012515:712:            timing_suggested = None
+./app/server.py.bak_fix_urlparse_20260114_012515:720:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_fix_urlparse_20260114_012515:722:                    timing_suggested = None
+./app/server.py.bak_fix_urlparse_20260114_012515:767:                "timing_suggested": timing_suggested,
+./app/server.py.bak_remove_demo_20260114_012758:575:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_remove_demo_20260114_012758:712:            timing_suggested = None
+./app/server.py.bak_remove_demo_20260114_012758:720:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_remove_demo_20260114_012758:722:                    timing_suggested = None
+./app/server.py.bak_remove_demo_20260114_012758:767:                "timing_suggested": timing_suggested,
+./app/server.py.bak_dedup_EZU_20260114_013128:575:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_dedup_EZU_20260114_013128:712:            timing_suggested = None
+./app/server.py.bak_dedup_EZU_20260114_013128:720:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_dedup_EZU_20260114_013128:722:                    timing_suggested = None
+./app/server.py.bak_dedup_EZU_20260114_013128:767:                "timing_suggested": timing_suggested,
+./app/server.py.bak_signal_demoquery_20260114_013244:575:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_signal_demoquery_20260114_013244:712:            timing_suggested = None
+./app/server.py.bak_signal_demoquery_20260114_013244:720:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_signal_demoquery_20260114_013244:722:                    timing_suggested = None
+./app/server.py.bak_signal_demoquery_20260114_013244:767:                "timing_suggested": timing_suggested,
+./app/server.py.bak_unify_pendingtrade_20260114_013435:575:            # Locate server state path if present; fallback to v70_app_data/state.json
+./app/server.py.bak_unify_pendingtrade_20260114_013435:736:            timing_suggested = None
+./app/server.py.bak_unify_pendingtrade_20260114_013435:744:                    timing_suggested = round(timing_per_unit * units, 2)
+./app/server.py.bak_unify_pendingtrade_20260114_013435:746:                    timing_suggested = None
+
+=== STATE FILE QUICK CHECK (common locations) ===
+
+=== DONE ===

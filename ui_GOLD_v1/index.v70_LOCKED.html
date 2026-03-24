@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>V70 Host - Signal Monitor</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 16px; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 14px; max-width: 720px; }
+    .row { margin: 6px 0; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+    .label { display: inline-block; min-width: 120px; color: #555; }
+    .value { font-weight: 600; }
+    .status { font-weight: 900; font-size: 30px; margin: 8px 0 10px; }
+    .muted { color: #666; }
+    .ok { color: #0a7; }
+    .warn { color: #c80; }
+    .bad { color: #c22; }
+    code { background: #f6f6f6; padding: 2px 6px; border-radius: 6px; }
+    button { padding: 10px 14px; border-radius: 10px; border: 1px solid #ccc; background: #fff; }
+    .pill { display:inline-block; padding: 2px 10px; border-radius: 999px; font-weight: 800; font-size: 12px; border: 1px solid #ddd; }
+    .pill.ok { border-color:#0a7; }
+    .pill.bad { border-color:#c22; }
+    .metaBox { background:#fafafa; border:1px solid #eee; border-radius:12px; padding:10px; margin-top:10px; }
+  </style>
+</head>
+<body>
+  <h2>V70 Host — Signal Monitor</h2>
+
+  <div class="card">
+    <div class="row muted">API: <code id="api">http://127.0.0.1:8080</code></div>
+
+    <div class="status" id="status">Loading…</div>
+
+    <div class="row">
+      <span class="label">Server</span>
+      <span class="pill" id="serverPill">CHECKING…</span>
+    </div>
+
+    <div class="row muted">
+      <span class="label">State path</span>
+      <code id="statePath">—</code>
+    </div>
+
+    <hr style="border:none;border-top:1px solid #eee;margin:12px 0;">
+
+    <div class="row"><span class="label">Action</span> <span class="value" id="action">—</span></div>
+    <div class="row"><span class="label">Reason</span> <span class="value" id="reason">—</span></div>
+    <div class="row"><span class="label">Symbol</span> <span class="value" id="symbol">—</span></div>
+    <div class="row"><span class="label">Price</span> <span class="value" id="price">—</span></div>
+    <div class="row"><span class="label">Timestamp</span> <span class="value" id="ts">—</span></div>
+
+    <div class="metaBox">
+      <div class="row muted" id="meta">Polling…</div>
+      <div style="margin-top:10px;">
+        <button id="refreshBtn">Refresh now</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const API = "http://127.0.0.1:8080";
+      const POLL_MS = 5000;
+
+      const $ = (id) => document.getElementById(id);
+
+      function setPill(ok) {
+        const pill = $("serverPill");
+        if (ok) {
+          pill.textContent = "ONLINE";
+          pill.className = "pill ok";
+        } else {
+          pill.textContent = "OFFLINE";
+          pill.className = "pill bad";
+        }
+      }
+
+      function fmtPrice(v) {
+        if (v === null || v === undefined) return "—";
+        const n = Number(v);
+        if (!Number.isFinite(n)) return String(v);
+        return n.toLocaleString(undefined, { maximumFractionDigits: 2 });
+      }
+
+      async function fetchJson(path) {
+        const res = await fetch(API + path, { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return await res.json();
+      }
+
+      async function refresh() {
+        const started = Date.now();
+        $("meta").textContent = "Polling…";
+        $("api").textContent = API;
+
+        try {
+          const health = await fetchJson("/health");
+          setPill(!!health.ok);
+          $("statePath").textContent = health.state_path || "—";
+
+          const data = await fetchJson("/signal");
+          const sig = data.signal || {};
+
+          const action = (sig.action || "—").toUpperCase();
+          const reason = sig.reason || "—";
+          const symbol = sig.symbol || "—";
+          const price = fmtPrice(sig.price);
+          const ts = sig.ts || "—";
+
+          $("action").textContent = action;
+          $("reason").textContent = reason;
+          $("symbol").textContent = symbol;
+          $("price").textContent = price;
+          $("ts").textContent = ts;
+
+          if (action === "BUY") {
+            $("status").textContent = "BUY";
+            $("status").className = "status ok";
+          } else if (action === "SELL") {
+            $("status").textContent = "SELL";
+            $("status").className = "status bad";
+          } else {
+            $("status").textContent = action;
+            $("status").className = "status warn";
+          }
+
+          const ms = Date.now() - started;
+          const now = new Date();
+          $("meta").textContent =
+            `Last update: ${now.toLocaleString()} (Auto-refresh: ON, ${Math.round(POLL_MS/1000)}s) • ${ms} ms`;
+        } catch (e) {
+          setPill(false);
+          $("status").textContent = "OFFLINE";
+          $("status").className = "status bad";
+          $("meta").textContent = "Error: " + (e?.message || e);
+        }
+      }
+
+      $("refreshBtn").addEventListener("click", refresh);
+
+      refresh();
+      setInterval(refresh, POLL_MS);
+    })();
+  </script>
+</body>
+</html>
